@@ -15,14 +15,18 @@ namespace Othell
             {
                 if(Session["Tablero"] == null)
                 {
-                    Button[,] bot = new Button[50,50];
-                    for(int i = 0; i < 50; i++)
+                    Button[,] bot = new Button[8,8];
+                    for(int i = 0; i < 8; i++)
                     {
-                        for (int j = 0; j < 50; j++)
+                        for (int j = 0; j < 8; j++)
                         {
                             Button b = new Button();
-                            b.ID = (char)(65 + j) + (i + 1).ToString();
+                            char a = (char) (65 + j);
+                            int b1 = i + 1;
+                            string tem = a.ToString() + b1.ToString(); 
+                            b.ID = tem;
                             b.Text = "";
+
                             b.Attributes.Add("class", "but");
                             bot[i, j] = b;
                         }
@@ -31,10 +35,10 @@ namespace Othell
                     TableRow f;
                     TableCell c;
 
-                    for(int k = 0; k<50; k++)
+                    for(int k = 0; k<8; k++)
                     {
                         f = new TableRow();
-                        for(int l =0; l<50; l++)
+                        for(int l =0; l<8; l++)
                         {
                             c = new TableCell();
                             c.Controls.Add(bot[k, l]);
@@ -51,10 +55,10 @@ namespace Othell
                 TableRow f;
                 TableCell c;
 
-                for (int k = 0; k < 50; k++)
+                for (int k = 0; k < 8; k++)
                 {
                     f = new TableRow();
-                    for (int l = 0; l < 50; l++)
+                    for (int l = 0; l < 8; l++)
                     {
                         c = new TableCell();
                         c.Controls.Add(bot[k, l]);
@@ -63,6 +67,11 @@ namespace Othell
                     tablero.Rows.Add(f);
                 }
             }
+        }
+
+        protected void Cbot(object sender, EventArgs e)
+        {
+
         }
     }
 }

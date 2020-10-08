@@ -28,7 +28,7 @@ namespace Othell
     public partial class Tablero : System.Web.UI.Page
     {
         public static int x = 1;  //1 para jugador 1, 2 para jugador 2 en donde x es el turno
-                                  //Blancas J2, Negras J1
+                                 //Blancas J2, Negras J1
         public static int c1 = 0;
         public static int c2 = 0;
         public static int c3 = 0;
@@ -2169,6 +2169,7 @@ namespace Othell
             const string FMT = "yyyy-MM-dd-HH-mm-ss";
             DateTime hoy = DateTime.Now;
             string nom = hoy.ToString(FMT);
+            
             using (XmlWriter a = XmlWriter.Create("C:/Users/Usuario/Desktop/T/IPC2/Proyecto/Proyecto/Othell" + nom+".xml"))
             {
                 a.WriteStartDocument();
