@@ -14,9 +14,9 @@
         position: absolute;
         height: 580px;
         right: -10px;
-        background-color: #83CC70;
+        background-color: #006B3C;
         text-align: center;
-        
+        border: 5px solid Black;
     }
 
 td, tr{
@@ -29,15 +29,17 @@ td, tr{
     border-radius: 80%;
     width: 60px;
     height: 60px;
-    border-color:#83CC70;
-    background-color:#83CC70;
+    border-color:#006B3C;
+    background-color:#006B3C;
 }
+
+
 </style>
     <title></title>
 </head>
 <body>
     <form id="form1" runat="server">
-        <asp:Table ID="tablero" runat="server" CssClass ="tab">
+        <asp:Table ID="tablero" runat="server" Border CssClass ="tab">
         </asp:Table>
     </form>
 </body>

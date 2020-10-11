@@ -34,23 +34,67 @@ namespace Othell
                             b.Text = "";
                             b.Click += new EventHandler(this.Evento);
                             b.Attributes.Add("class", "but");
+                            if(j == 3 && i == 3)
+                            {
+                                b.BackColor = Color.White;
+                            }
+                            if (j == 3 && i == 4)
+                            {
+                                b.BackColor = Color.Black;
+                            }
+
+                            if (j == 4 && i == 4)
+                            {
+                                 b.BackColor = Color.White;
+                            }
+                            if (j == 4 && i == 3)
+                            {
+                                b.BackColor = Color.Black;
+                            }
                             bot[i, j] = b;
-                        }
+                          }
                     }
                     ver = 1;
                     Session["Tablero"] = bot;
                     TableRow f;
                     TableCell c;
 
-                    for(int k = 0; k<8; k++)
+                    for(int k = 0; k<9; k++)
                     {
                         f = new TableRow();
-                        for(int l =0; l<8; l++)
+                        f.BorderColor = Color.Black;
+                        if(k < 8)
                         {
+                            for (int l = 0; l < 8; l++)
+                            {
+                                c = new TableCell();
+                                c.BorderColor = Color.Black;
+                                c.Controls.Add(bot[k, l]);
+                                f.Cells.Add(c);
+                            }
                             c = new TableCell();
-                            c.Controls.Add(bot[k, l]);
+                            c.BorderColor = Color.Black;
+                            c.Text = (k + 1).ToString();
+                            c.ForeColor = Color.White;
+                            c.BackColor = Color.Black;
                             f.Cells.Add(c);
                         }
+                        if (k == 8)
+                        {
+                            for (int l = 0; l < 8; l++)
+                            {
+                            c = new TableCell();
+                            c.BorderColor = Color.Black;
+                            char a = (char)(65 + l);
+                            c.Text = a.ToString();
+                            c.ForeColor = Color.White;
+                            c.BackColor = Color.Black;
+                            f.Cells.Add(c);
+                            }
+                        }
+                        
+                            
+
                         tablero.Rows.Add(f);
                     }
                 }
