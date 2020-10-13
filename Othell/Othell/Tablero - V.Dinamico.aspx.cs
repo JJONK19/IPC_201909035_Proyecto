@@ -32,6 +32,7 @@ namespace Othell
         int TB = 1; //Indica si el turno anterior de las blancas no existe
         int conn = 0; //Contador de fichas negras
         int conb = 0; //Contador de fichas blancas
+     
 
 
         protected void Page_Load(object sender, EventArgs e)
@@ -122,7 +123,7 @@ namespace Othell
 
             if (Page.IsPostBack)
             {
-                bot = (Button[,])Session["Tablero"];
+               
                
             }
 
@@ -165,7 +166,15 @@ namespace Othell
             {
                 TN = 0;
                 TB = 0;
-                MessageBox.Show(this.Page, "Final del Juego");
+                String gan = "";
+                if (conn > conb)
+                {
+                    gan = "Jugador 1 (Negras).";
+                }else{
+                    gan = "Jugador 2 (Blancas).";
+                }
+                MessageBox.Show(this.Page, "Final del Juego. Gana "+ gan);
+               
             }
             else
             {
@@ -634,7 +643,16 @@ namespace Othell
                             TN = 0; //Cambiar esto dependiendo del color
                             if(TN == 0 && TB == 0)
                             {
-                                MessageBox.Show(this.Page, "Fin del Juego.");
+                                String gan = "";
+                                if (conn > conb)
+                                {
+                                    gan = "Jugador 1 (Negras).";
+                                }
+                                else
+                                {
+                                    gan = "Jugador 2 (Blancas).";
+                                }
+                                MessageBox.Show(this.Page, "Final del Juego. Gana " + gan);
                             }
                             else
                             {
@@ -1226,7 +1244,17 @@ namespace Othell
                             TB = 0; //Cambiar esto dependiendo del color
                             if (TN == 0 && TB == 0)
                             {
-                                MessageBox.Show(this.Page, "Fin del Juego.");
+                                String gan = "";
+                                if (conn > conb)
+                                {
+                                    gan = "Jugador 1 (Negras).";
+                                }
+                                else
+                                {
+                                    gan = "Jugador 2 (Blancas).";
+                                }
+                                MessageBox.Show(this.Page, "Final del Juego. Gana " + gan);
+
                             }
                             else
                             {
@@ -1379,6 +1407,11 @@ namespace Othell
 
         protected void Button1_Click1(object sender, EventArgs e)
         {
+        }
+        //Salir
+        protected void Button3_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Menu.aspx");
         }
     }
 }
