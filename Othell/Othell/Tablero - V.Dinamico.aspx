@@ -57,14 +57,89 @@ td, tr{
         width: 280px;
         bottom: 81px;
 }
-    .auto-style88 {
-        z-index: 1;
-        left: 86px;
-        top: 590px;
-        position: absolute;
-        height: 29px;
+    
+    .auto-style89 {
         width: 280px;
-        bottom: 81px;
+        height: 22px;
+        position: absolute;
+        left: 69px;
+        top: 440px;
+        right: 56px;
+    }
+    .auto-style90 {
+        width: 150px;
+        height: 22px;
+        position: absolute;
+        left: 218px;
+        top: 137px;
+        text-align: center;
+        
+    }
+    
+    .auto-style92 {
+        width: 402px;
+        height: 22px;
+        position: absolute;
+        left: 1px;
+        top: 401px;
+        text-align: center;
+    }
+    .auto-style93 {
+        width: 150px;
+        height: 22px;
+        position: absolute;
+        left: 36px;
+        top: 306px;
+        text-align:center;
+    }
+    .auto-style94 {
+        width: 150px;
+        height: 22px;
+        position: absolute;
+        left: 36px;
+        top: 255px;
+        text-align:center;
+    }
+    .auto-style95 {
+        width: 150px;
+        height: 22px;
+        position: absolute;
+        left: 38px;
+        top: 123px;
+        text-align:center;
+    }
+    .auto-style96 {
+        width: 403px;
+        height: 37px;
+        position: absolute;
+        left: -1px;
+        top: 56px;
+        text-align:center;
+    }
+    .auto-style97 {
+        width: 405px;
+        height: 22px;
+        position: absolute;
+        left: 1px;
+        top: 200px;
+        text-align:center;
+        text-decoration:underline;
+    }
+    .auto-style98 {
+        width: 150px;
+        height: 22px;
+        position: absolute;
+        left: 218px;
+        top: 266px;
+        text-align: center;
+    }
+    .auto-style99 {
+        width: 150px;
+        height: 22px;
+        position: absolute;
+        left: 218px;
+        top: 319px;
+        text-align: center;
     }
 </style>
     <title></title>
@@ -74,33 +149,41 @@ td, tr{
         <asp:Table ID="tablero" runat="server" Border CssClass ="tab">
         </asp:Table>
         <asp:Panel ID="Panel2" runat="server" Height="636px" style="font-style: italic; font-family: 'Arial Narrow'; font-weight: 700; background-color: #006B3C" CssClass="auto-style86">
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RESUMEN DE PARTIDA<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <br />
+            <br />
+            <br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <h1 class="auto-style96">RESUMEN DE PARTIDA</h1><br />
                 <asp:Button ID="Button2" runat="server" BackColor="Black" BorderColor="Black" Font-Italic="True" ForeColor="White" Text="Guardar Partida" CssClass="auto-style83" OnClick="Button2_Click" />
                 <asp:Button ID="Button1" runat="server" BackColor="Black" BorderColor="Black" Font-Italic="True" ForeColor="White" Text="Cargar Partida" OnClick="Button1_Click1" CssClass="auto-style82" />
-                
+                <asp:FileUpload ID="Subir" runat="server" BackColor="Black" BorderColor="Black" CssClass="auto-style89" style="font-style: italic; font-family: 'Arial Narrow'; font-weight: 700; background-color: #006B3C" />
+
                 <br />
                 <br />
                 <br />
                 <br />
                 <br />
+                <asp:TextBox ID="Turno" runat="server" CssClass="auto-style90" ReadOnly="True" style="font-style: italic; font-family: 'Arial Narrow'; font-weight: 700; background-color: #006B3C"></asp:TextBox>
                 <br />
                 <br />
                 <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Direccion Archivo:<asp:TextBox ID="TextBox1" runat="server" CssClass="auto-style84" style="width: 280px; height: 22px; font-style: italic; font-family: 'Arial Narrow'; font-weight: 700; position: absolute; top: 438px; left: 65px; background-color: #006B3C"></asp:TextBox>
-                
-            </asp:Panel>
-        <asp:Button ID="Button3" runat="server" CssClass="auto-style88" Text="Salir" BackColor="Black" BorderColor="Black" ForeColor="White" Font-Italic="True" OnClick="Button3_Click" />
+                <asp:TextBox ID="Negras" runat="server" CssClass="auto-style99" ReadOnly="True" style="font-style: italic; font-family: 'Arial Narrow'; font-weight: 700; background-color: #006B3C"></asp:TextBox>
+                <h3 class="auto-style95">Turno</h3>
+            <br />
+            <br />
+            <h2 class="auto-style97">Fichas</h2>
+            <br />
+            <br />
+            <asp:TextBox ID="Blancas" runat="server" CssClass="auto-style98"  ReadOnly="True" style="font-style: italic; font-family: 'Arial Narrow'; font-weight: 700; background-color: #006B3C"></asp:TextBox>
+            <br />
+            <br />
+            <br />
+            <br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<h3 class="auto-style93">NEGRAS</h3>
+            <h3 class="auto-style94">BLANCAS</h3>
+            <h3 class="auto-style92">Seleccionar Archivo</h3>
+        </asp:Panel>
+        <asp:Button ID="Button3" runat="server" CssClass="auto-style88" Text="Salir" BackColor="Black" BorderColor="Black" ForeColor="White" Font-Italic="True" OnClick="Button3_Click" style="width: 280px; height: 26px; position: absolute; left: 87px; top: 589px" />
     </form>
 </body>
 </html>

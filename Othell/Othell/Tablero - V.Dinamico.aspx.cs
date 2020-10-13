@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Drawing;
+using System.IO;
+using System.Xml;
 
 namespace Othell
 {
@@ -32,6 +34,7 @@ namespace Othell
         int TB = 1; //Indica si el turno anterior de las blancas no existe
         int conn = 0; //Contador de fichas negras
         int conb = 0; //Contador de fichas blancas
+        int turn = 1;
      
 
 
@@ -77,7 +80,9 @@ namespace Othell
                     Session["Tablero"] = bot;
                     TableRow f;
                     TableCell c;
-
+                    Turno.Text = "Negras";
+                    Blancas.Text = "2";
+                    Negras.Text = "2";
                     for(int k = 0; k<9; k++)
                     {
                         f = new TableRow();
@@ -123,7 +128,8 @@ namespace Othell
 
             if (Page.IsPostBack)
             {
-               
+                
+                
                
             }
 
@@ -142,10 +148,10 @@ namespace Othell
             List<int> posff = new List<int>(); ; //Array de posiciones finales Fila
             List<int> posfc = new List<int>(); ; //Array de posiciones finales Columna
             List<string> dir = new List<string>(); ; //Array de direccion
-            
 
-            //Determinar si la casilla esta vacia
-            for(int i = 0; i < 8; i++)
+            
+            //Contar
+            for (int i = 0; i < 8; i++)
             {
                 for (int j = 0; j < 8; j++)
                 {
@@ -659,10 +665,7 @@ namespace Othell
                                 x = 2;
                                 MessageBox.Show(this.Page, "Las fichas negras no tienen movimientos disponibles.");
                             }
-                           
-
-                       
-                            
+                
                         }
                         else
                         {
@@ -687,9 +690,12 @@ namespace Othell
                             if (d == 0)
                             {
                                 MessageBox.Show(this.Page, "El movimiento que desea ejecutar no es valido. Intentelo de nuevo.");
+                                Turno.Text = "Negras";
                             }
                             else
                             {
+                                
+                                Turno.Text = "Blancas";
                                 //Colorear
                                 for (int i = 0; i < d; i++)
                                 {
@@ -1287,9 +1293,11 @@ namespace Othell
                             if (d == 0)
                             {
                                 MessageBox.Show(this.Page, "El movimiento que desea ejecutar no es valido. Intentelo de nuevo.");
+                                Turno.Text = "Blancas";
                             }
                             else
                             {
+                                Turno.Text = "Negras";
                                 //Colorear
                                 for (int i = 0; i < d; i++)
                                 {
@@ -1382,6 +1390,7 @@ namespace Othell
                                 }
 
                             }
+                           
 
 
 
@@ -1396,22 +1405,97 @@ namespace Othell
 
                 }
             }
+            conn = 0;
+            conb = 0;
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < 8; j++)
+                {
+                    if (bot[i, j].BackColor == Color.Black)
+                    {
+                        conn += 1;
+                    }
 
-            
+                    if (bot[i, j].BackColor == Color.White)
+                    {
+                        conb += 1;
+                    }
+                }
+            }
+            Blancas.Text = conb.ToString();
+            Negras.Text = conn.ToString();
+
 
         }
 
         protected void Button2_Click(object sender, EventArgs e)
         {
         }
-
+        //Cargar https://www.kyocode.com/2018/12/cargar-archivo-con-fileupload-asp-net-c/
         protected void Button1_Click1(object sender, EventArgs e)
         {
+            Byte[] Archivo = null;
+           
+            if (Subir.HasFile == true)
+            {
+                using (BinaryReader reader = new BinaryReader(Subir.PostedFile.InputStream))
+                {
+                    Archivo = reader.ReadBytes(Subir.PostedFile.ContentLength);
+                }
+                
+            }
+            MemoryStream m = new MemoryStream(Archivo);
+            XmlDataDocument xml = new XmlDataDocument();
+            XmlNodeList node;
+            XmlNodeList node1;
+            xml.Load(m);
+            node = xml.GetElementsByTagName("ficha");
+            node1 = xml.GetElementsByTagName("siguienteTiro");
+
+            //Almacenar Tiro
+            String Tiro = null;
+            node1[0].ChildNodes.Item(0).InnerText.Trim();
+            Tiro = node1[0].ChildNodes.Item(0).InnerText.Trim();
+
+            //Almacenar Posiciones y colores
+            int i = 0;
+            var pos = new List<String>();
+            var col = new List<String>(); ;
+            for (i = 0; i <= node.Count - 1; i++)
+            {
+                node[i].ChildNodes.Item(0).InnerText.Trim();
+                pos.Add(node[i].ChildNodes.Item(1).InnerText.Trim() + node[i].ChildNodes.Item(2).InnerText.Trim());
+                col.Add(node[i].ChildNodes.Item(0).InnerText.Trim());
+            }
+
+            //Settear todos al color original
+            Color co = ColorTranslator.FromHtml("#006B3C");
+            for (int p = 0; p < 8; p++)
+            {
+                for (int q = 0; q < 8; q++)
+                {
+                    bot[p, q].BackColor = co;
+                }
+            }
+
+            //Cargar Datos
+            if (Tiro == "negro")
+            {
+                x = 1;
+            }
+            else
+            {
+                x = 2;
+            }
         }
+
+
         //Salir
         protected void Button3_Click(object sender, EventArgs e)
         {
             Response.Redirect("~/Menu.aspx");
         }
+
+        
     }
 }
