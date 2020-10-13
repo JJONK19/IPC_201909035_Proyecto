@@ -33,7 +33,29 @@ td, tr{
     background-color:#006B3C;
 }
 
-
+.auto-style86 {
+        position: absolute;
+        left: 17px;
+        top: 16px;
+        width: 405px;
+    }
+.auto-style82 {
+        z-index: 1;
+        left: 60px;
+        top: 530px;
+        position: absolute;
+        height: 29px;
+        width: 280px;
+ }
+.auto-style83 {
+        z-index: 1;
+        left: 61px;
+        top: 577px;
+        position: absolute;
+        height: 29px;
+        width: 280px;
+        bottom: 30px;
+}
 </style>
     <title></title>
 </head>
@@ -41,6 +63,35 @@ td, tr{
     <form id="form1" runat="server">
         <asp:Table ID="tablero" runat="server" Border CssClass ="tab">
         </asp:Table>
+        <asp:Panel ID="Panel2" runat="server" Height="636px" style="font-style: italic; font-family: 'Arial Narrow'; font-weight: 700; background-color: #83CC70" CssClass="auto-style86">
+            &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RESUMEN DE PARTIDA<br />
+                <asp:Button ID="Button2" runat="server" BackColor="Black" BorderColor="Black" Font-Italic="True" ForeColor="White" Text="Guardar Partida" CssClass="auto-style83" OnClick="Button2_Click" />
+                <asp:Button ID="Button1" runat="server" BackColor="Black" BorderColor="Black" Font-Italic="True" ForeColor="White" Text="Cargar Partida" OnClick="Button1_Click1" CssClass="auto-style82" />
+                
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Direccion Archivo:<asp:TextBox ID="TextBox1" runat="server" CssClass="auto-style84" style="width: 280px; height: 22px; font-style: italic; font-family: 'Arial Narrow'; font-weight: 700; position: absolute; top: 474px; left: 58px; background-color: #83CC70"></asp:TextBox>
+                
+            </asp:Panel>
     </form>
 </body>
 </html>

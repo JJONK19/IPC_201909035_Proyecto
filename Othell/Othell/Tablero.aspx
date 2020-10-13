@@ -740,7 +740,7 @@
     
     .auto-style86 {
         position: absolute;
-        left: 10px;
+        left: 17px;
         top: 16px;
     }
     
