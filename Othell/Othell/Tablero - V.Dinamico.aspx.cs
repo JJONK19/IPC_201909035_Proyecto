@@ -30,19 +30,24 @@ namespace Othell
         public static int x = 1;  //1 para jugador 1, 2 para jugador 2 en donde x es el turno
                                   //Blancas J2, Negras J1
         Button[,] bot = null;
-        int TN = 1; //Indica si el turno anterior de las negras no existe
-        int TB = 1; //Indica si el turno anterior de las blancas no existe
+        public static int TN = 1; //Indica si el turno anterior de las negras no existe
+        public static int TB = 1; //Indica si el turno anterior de las blancas no existe
         int conn = 0; //Contador de fichas negras
         int conb = 0; //Contador de fichas blancas
         int turn = 1;
-     
+        String Jug; //Indica el color del usuario
 
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+                
+                Jug = (string)Session["Color"];
+                if(!Page.IsPostBack){
+                    x = 1;
+                }
                 if (ver == 0)
                 {
+                    
                     bot = new Button[8, 8];
                     for (int i = 0; i < 8; i++)
                     {
@@ -128,9 +133,10 @@ namespace Othell
 
             if (Page.IsPostBack)
             {
-                
-                
+
+                Jug = (string)Session["Color"];
                
+
             }
 
            
@@ -173,13 +179,23 @@ namespace Othell
                 TN = 0;
                 TB = 0;
                 String gan = "";
-                if (conn > conb)
+                if(conn == conb)
                 {
-                    gan = "Jugador 1 (Negras).";
-                }else{
-                    gan = "Jugador 2 (Blancas).";
+                    MessageBox.Show(this.Page, "Final del Juego. Empatados. ");
                 }
-                MessageBox.Show(this.Page, "Final del Juego. Gana "+ gan);
+                else
+                {
+                    if (conn > conb)
+                    {
+                        gan = "Jugador 1 (Negras).";
+                    }
+                    else
+                    {
+                        gan = "Jugador 2 (Blancas).";
+                    }
+                    MessageBox.Show(this.Page, "Final del Juego. Gana " + gan);
+                }
+                
                
             }
             else
@@ -194,6 +210,8 @@ namespace Othell
                 {
                     if (x == 1)
                     {
+                        mov = 0;
+                       
                         //Verificar posible movimientos
                         for (int i = 0; i < 8; i++)
                         {
@@ -650,19 +668,26 @@ namespace Othell
                             if(TN == 0 && TB == 0)
                             {
                                 String gan = "";
-                                if (conn > conb)
+                                if (conn == conb)
                                 {
-                                    gan = "Jugador 1 (Negras).";
+                                    MessageBox.Show(this.Page, "Final del Juego. Empatados. ");
                                 }
                                 else
                                 {
-                                    gan = "Jugador 2 (Blancas).";
+                                    if (conn > conb)
+                                    {
+                                        gan = "Jugador 1 (Negras).";
+                                    }
+                                    else
+                                    {
+                                        gan = "Jugador 2 (Blancas).";
+                                    }
+                                    MessageBox.Show(this.Page, "Final del Juego. Gana " + gan);
                                 }
-                                MessageBox.Show(this.Page, "Final del Juego. Gana " + gan);
                             }
                             else
                             {
-                               
+                                TN = 0;
                                 MessageBox.Show(this.Page, "Las fichas negras no tienen movimientos disponibles.");
                                 x = 2;
                             }
@@ -796,6 +821,8 @@ namespace Othell
                     }
                     else
                     {
+                        mov = 0;
+                        TB = 0;
                         //Verificar posible movimientos
                         for (int i = 0; i < 8; i++)
                         {
@@ -1252,15 +1279,22 @@ namespace Othell
                             if (TN == 0 && TB == 0)
                             {
                                 String gan = "";
-                                if (conn > conb)
+                                if (conn == conb)
                                 {
-                                    gan = "Jugador 1 (Negras).";
+                                    MessageBox.Show(this.Page, "Final del Juego. Empatados. ");
                                 }
                                 else
                                 {
-                                    gan = "Jugador 2 (Blancas).";
+                                    if (conn > conb)
+                                    {
+                                        gan = "Jugador 1 (Negras).";
+                                    }
+                                    else
+                                    {
+                                        gan = "Jugador 2 (Blancas).";
+                                    }
+                                    MessageBox.Show(this.Page, "Final del Juego. Gana " + gan);
                                 }
-                                MessageBox.Show(this.Page, "Final del Juego. Gana " + gan);
 
                             }
                             else
@@ -1531,11 +1565,15 @@ namespace Othell
                 {
                     x = 1;
                     Turno.Text = "Negras";
+                    Session["Color"] = "B";
+                    Jug = (string)Session["Color"];
                 }
                 else
                 {
                     x = 2;
                     Turno.Text = "Blancas";
+                    Session["Color"] = "B";
+                    Jug = (string)Session["Color"];
                 }
                 conn = 0;
                 conb = 0;

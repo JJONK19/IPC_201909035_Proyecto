@@ -68,6 +68,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Inicio.aspx" />
+    <Content Include="Intermedio - M.aspx" />
+    <Content Include="Intermedio.aspx" />
     <Content Include="Menu.aspx" />
     <Content Include="Registro.aspx" />
     <Content Include="Tablero - M.Dinamico.aspx" />
@@ -82,6 +84,20 @@
     </Compile>
     <Compile Include="Inicio.aspx.designer.cs">
       <DependentUpon>Inicio.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Intermedio - M.aspx.cs">
+      <DependentUpon>Intermedio - M.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Intermedio - M.aspx.designer.cs">
+      <DependentUpon>Intermedio - M.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Intermedio.aspx.cs">
+      <DependentUpon>Intermedio.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Intermedio.aspx.designer.cs">
+      <DependentUpon>Intermedio.aspx</DependentUpon>
     </Compile>
     <Compile Include="Menu.aspx.cs">
       <DependentUpon>Menu.aspx</DependentUpon>

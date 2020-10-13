@@ -30,19 +30,25 @@ namespace Othell
         public static int x = 1;  //1 para jugador 1, 2 para jugador 2 en donde x es el turno
                                   //Blancas J2, Negras J1
         Button[,] bot = null;
-        int TN = 1; //Indica si el turno anterior de las negras no existe
-        int TB = 1; //Indica si el turno anterior de las blancas no existe
+        public static int TN = 1; //Indica si el turno anterior de las negras no existe
+        public static int TB = 1; //Indica si el turno anterior de las blancas no existe
         int conn = 0; //Contador de fichas negras
         int conb = 0; //Contador de fichas blancas
-        int turn = 1;
+        String Jug; //Indica el color que usa el usuario
 
 
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            
+            Jug = (string)Session["Color"];
+            if (!Page.IsPostBack)
+            {
+                x = 1;
+            }
             if (ver == 0)
             {
+                
                 bot = new Button[8, 8];
                 for (int i = 0; i < 8; i++)
                 {
@@ -129,12 +135,14 @@ namespace Othell
             if (Page.IsPostBack)
             {
 
-
+                Jug = (string)Session["Color"];
 
             }
 
 
         }
+
+
 
         public void Evento(object sender, System.EventArgs e)
         {
@@ -173,15 +181,22 @@ namespace Othell
                 TN = 0;
                 TB = 0;
                 String gan = "";
-                if (conn > conb)
+                if (conn == conb)
                 {
-                    gan = "Jugador 1 (Negras).";
+                    MessageBox.Show(this.Page, "Final del Juego. Empatados. ");
                 }
                 else
                 {
-                    gan = "Jugador 2 (Blancas).";
+                    if (conn > conb)
+                    {
+                        gan = "Jugador 1 (Negras).";
+                    }
+                    else
+                    {
+                        gan = "Jugador 2 (Blancas).";
+                    }
+                    MessageBox.Show(this.Page, "Final del Juego. Gana " + gan);
                 }
-                MessageBox.Show(this.Page, "Final del Juego. Gana " + gan);
 
             }
             else
@@ -196,6 +211,8 @@ namespace Othell
                 {
                     if (x == 1)
                     {
+                        mov = 0;
+                        TN = 0;
                         //Verificar posible movimientos
                         for (int i = 0; i < 8; i++)
                         {
@@ -652,15 +669,22 @@ namespace Othell
                             if (TN == 0 && TB == 0)
                             {
                                 String gan = "";
-                                if (conn > conb)
+                                if (conn == conb)
                                 {
-                                    gan = "Jugador 1 (Negras).";
+                                    MessageBox.Show(this.Page, "Final del Juego. Empatados. ");
                                 }
                                 else
                                 {
-                                    gan = "Jugador 2 (Blancas).";
+                                    if (conn > conb)
+                                    {
+                                        gan = "Jugador 1 (Negras).";
+                                    }
+                                    else
+                                    {
+                                        gan = "Jugador 2 (Blancas).";
+                                    }
+                                    MessageBox.Show(this.Page, "Final del Juego. Gana " + gan);
                                 }
-                                MessageBox.Show(this.Page, "Final del Juego. Gana " + gan);
                             }
                             else
                             {
@@ -676,9 +700,26 @@ namespace Othell
                             TN = 1;
                             int c = posif.Count;
                             //Encontrar posicion en el tablero
-                            String Pos = temp.ID;
-                            int Fila = (int)Char.GetNumericValue(Pos[1]) - 1;
-                            int Columna = (int)(Pos[0]) - 65;
+                            int Fila;
+                            int Columna;
+                            if (Jug == "N")
+                            {
+                                //Usuario
+                                String Pos = temp.ID;
+                                Fila = (int)Char.GetNumericValue(Pos[1]) - 1;
+                                Columna = (int)(Pos[0]) - 65;
+                            }
+                            else
+                            {
+                                //Maquina
+                                Random r = new Random();
+                                int p1 = r.Next(0, posif.Count);
+                                Fila = posif[p1];
+                                Columna = posic[p1];
+                            }
+
+
+
                             List<int> posicion = new List<int>();
                             for (int i = 0; i < c; i++)
                             {
@@ -798,6 +839,8 @@ namespace Othell
                     }
                     else
                     {
+                        mov = 0;
+                        TB = 0;
                         //Verificar posible movimientos
                         for (int i = 0; i < 8; i++)
                         {
@@ -1254,15 +1297,22 @@ namespace Othell
                             if (TN == 0 && TB == 0)
                             {
                                 String gan = "";
-                                if (conn > conb)
+                                if (conn == conb)
                                 {
-                                    gan = "Jugador 1 (Negras).";
+                                    MessageBox.Show(this.Page, "Final del Juego. Empatados. ");
                                 }
                                 else
                                 {
-                                    gan = "Jugador 2 (Blancas).";
+                                    if (conn > conb)
+                                    {
+                                        gan = "Jugador 1 (Negras).";
+                                    }
+                                    else
+                                    {
+                                        gan = "Jugador 2 (Blancas).";
+                                    }
+                                    MessageBox.Show(this.Page, "Final del Juego. Gana " + gan);
                                 }
-                                MessageBox.Show(this.Page, "Final del Juego. Gana " + gan);
 
                             }
                             else
@@ -1279,11 +1329,24 @@ namespace Othell
 
                             TB = 1;
                             int c = posif.Count;
-                            //Encontrar posicion en el tablero
-                            Random r = new Random();
-                            int p1 = r.Next(0, posif.Count);
-                            int Fila = posif[p1];
-                            int Columna = posic[p1];
+                            //Encontrar posicion en el tablero - Blancas
+                            int Fila;
+                            int Columna;
+                            if(Jug == "B")
+                            {
+                                //Usuario
+                                String Pos = temp.ID;
+                                Fila = (int)Char.GetNumericValue(Pos[1]) - 1;
+                                Columna = (int)(Pos[0]) - 65;
+                            }
+                            else
+                            {
+                                //Maquina
+                                Random r = new Random();
+                                int p1 = r.Next(0, posif.Count);
+                                Fila = posif[p1];
+                                Columna = posic[p1];
+                            }
                             List<int> posicion = new List<int>();
                             for (int i = 0; i < c; i++)
                             {
@@ -1534,11 +1597,15 @@ namespace Othell
                 {
                     x = 1;
                     Turno.Text = "Negras";
+                    Session["Color"] = "N";
+                    Jug = (string)Session["Color"];
                 }
                 else
                 {
                     x = 2;
                     Turno.Text = "Blancas";
+                    Session["Color"] = "B";
+                    Jug = (string)Session["Color"];
                 }
                 conn = 0;
                 conb = 0;
@@ -1571,6 +1638,7 @@ namespace Othell
                 }
                 Blancas.Text = conb.ToString();
                 Negras.Text = conn.ToString();
+
                 MessageBox.Show(this.Page, "Partida Cargada.");
             }
             else

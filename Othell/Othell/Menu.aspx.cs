@@ -16,13 +16,13 @@ namespace Othell
 
         protected void Button1_Click(object sender, EventArgs e)
         {
-            Response.Redirect("~/Tablero - M.Dinamico.aspx");
+            Response.Redirect("~/Intermedio - M.aspx");
         }
 
         protected void Button2_Click(object sender, EventArgs e)
         {
             
-            Response.Redirect("~/Tablero - V.Dinamico.aspx");
+            Response.Redirect("~/Intermedio.aspx");
         }
     }
 }
