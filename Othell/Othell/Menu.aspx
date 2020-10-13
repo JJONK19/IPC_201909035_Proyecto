@@ -13,8 +13,15 @@
         .auto-style2 {
             height: 26px;
             position: absolute;
-            left: 376px;
-            top: 168px;
+            left: 390px;
+            top: 157px;
+            background-color: #99FF33;
+        }
+        .auto-style3 {
+            height: 26px;
+            position: absolute;
+            left: 393px;
+            top: 216px;
             background-color: #99FF33;
         }
     </style>
@@ -23,7 +30,10 @@
     <form id="form1" runat="server">
         <p class="auto-style1">
             MENÚ</p>
-        <asp:Button ID="Button1" runat="server" CssClass="auto-style2" OnClick="Button1_Click" Text="Partida  vs.  Maquina" Width="279px" />
+        <asp:Button ID="Button1" runat="server" CssClass="auto-style3" OnClick="Button1_Click" Text="Partida  vs.  Maquina" Width="279px" />
+        <p>
+        <asp:Button ID="Button2" runat="server" CssClass="auto-style2" OnClick="Button2_Click" Text="Partida  vs.  Jugador" Width="279px" />
+        </p>
     </form>
 </body>
 </html>

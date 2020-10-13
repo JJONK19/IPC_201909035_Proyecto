@@ -70,6 +70,7 @@
     <Content Include="Inicio.aspx" />
     <Content Include="Menu.aspx" />
     <Content Include="Registro.aspx" />
+    <Content Include="Tablero - M.Dinamico.aspx" />
     <Content Include="Tablero - V.Dinamico.aspx" />
     <Content Include="Tablero.aspx" />
     <Content Include="Web.config" />
@@ -96,6 +97,12 @@
     </Compile>
     <Compile Include="Registro.aspx.designer.cs">
       <DependentUpon>Registro.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Tablero - M.Dinamico.aspx.cs">
+      <DependentUpon>Tablero - M.Dinamico.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Tablero - M.Dinamico.aspx.designer.cs">
+      <DependentUpon>Tablero - M.Dinamico.aspx</DependentUpon>
     </Compile>
     <Compile Include="Tablero - V.Dinamico.aspx.cs">
       <DependentUpon>Tablero - V.Dinamico.aspx</DependentUpon>

@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Tablero - V.Dinamico.aspx.cs" Inherits="Othell.Tablero___V_Dinamico" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Tablero - M.Dinamico.aspx.cs" Inherits="Othell.Tablero___M_Dinamico" %>
 
 <!DOCTYPE html>
 

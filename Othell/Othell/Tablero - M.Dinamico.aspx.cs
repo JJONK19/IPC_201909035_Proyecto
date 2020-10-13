@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Drawing;
-using System.IO;
 using System.Xml;
 
 namespace Othell
 {
     //Mensajes Adaptado de: https://stackoverflow.com/questions/9720143/asp-net-web-application-message-box
-    public static class Mensaje
+    public static class mensaje
     {
         public static void Mostrar(this Page Page, String Mensaje)
         {
@@ -23,7 +23,7 @@ namespace Othell
         }
     }
 
-    public partial class Tablero___V_Dinamico : System.Web.UI.Page
+    public partial class Tablero___M_Dinamico : System.Web.UI.Page
     {
 
         int ver = 0; //Verifica si se inicia el codigo
@@ -35,78 +35,78 @@ namespace Othell
         int conn = 0; //Contador de fichas negras
         int conb = 0; //Contador de fichas blancas
         int turn = 1;
-     
+
 
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            
-                if (ver == 0)
-                {
-                    bot = new Button[8, 8];
-                    for (int i = 0; i < 8; i++)
-                    {
-                        for (int j = 0; j < 8; j++)
-                        {   
-                            Button b = new Button();
-                            char a = (char) (65 + j);
-                            int b1 = i + 1;
-                            string tem = a.ToString() + b1.ToString(); 
-                            b.ID = tem;
-                            b.Text = "";
-                            b.Click += new EventHandler(this.Evento);
-                            b.Attributes.Add("class", "but");
-                            if(j == 3 && i == 3)
-                            {
-                                b.BackColor = Color.White;
-                            }
-                            if (j == 3 && i == 4)
-                            {
-                                b.BackColor = Color.Black;
-                            }
 
-                            if (j == 4 && i == 4)
-                            {
-                                 b.BackColor = Color.White;
-                            }
-                            if (j == 4 && i == 3)
-                            {
-                                b.BackColor = Color.Black;
-                            }
-                            bot[i, j] = b;
-                          }
-                    }
-                    ver = 1;
-                    Session["Tablero"] = bot;
-                    TableRow f;
-                    TableCell c;
-                    Turno.Text = "Negras";
-                    Blancas.Text = "2";
-                    Negras.Text = "2";
-                    for(int k = 0; k<9; k++)
+            if (ver == 0)
+            {
+                bot = new Button[8, 8];
+                for (int i = 0; i < 8; i++)
+                {
+                    for (int j = 0; j < 8; j++)
                     {
-                        f = new TableRow();
-                        f.BorderColor = Color.Black;
-                        if(k < 8)
+                        Button b = new Button();
+                        char a = (char)(65 + j);
+                        int b1 = i + 1;
+                        string tem = a.ToString() + b1.ToString();
+                        b.ID = tem;
+                        b.Text = "";
+                        b.Click += new EventHandler(this.Evento);
+                        b.Attributes.Add("class", "but");
+                        if (j == 3 && i == 3)
                         {
-                            for (int l = 0; l < 8; l++)
-                            {
-                                c = new TableCell();
-                                c.BorderColor = Color.Black;
-                                c.Controls.Add(bot[k, l]);
-                                f.Cells.Add(c);
-                            }
+                            b.BackColor = Color.White;
+                        }
+                        if (j == 3 && i == 4)
+                        {
+                            b.BackColor = Color.Black;
+                        }
+
+                        if (j == 4 && i == 4)
+                        {
+                            b.BackColor = Color.White;
+                        }
+                        if (j == 4 && i == 3)
+                        {
+                            b.BackColor = Color.Black;
+                        }
+                        bot[i, j] = b;
+                    }
+                }
+                ver = 1;
+                Session["Tablero"] = bot;
+                TableRow f;
+                TableCell c;
+                Turno.Text = "Negras";
+                Blancas.Text = "2";
+                Negras.Text = "2";
+                for (int k = 0; k < 9; k++)
+                {
+                    f = new TableRow();
+                    f.BorderColor = Color.Black;
+                    if (k < 8)
+                    {
+                        for (int l = 0; l < 8; l++)
+                        {
                             c = new TableCell();
                             c.BorderColor = Color.Black;
-                            c.Text = (k + 1).ToString();
-                            c.ForeColor = Color.White;
-                            c.BackColor = Color.Black;
+                            c.Controls.Add(bot[k, l]);
                             f.Cells.Add(c);
                         }
-                        if (k == 8)
+                        c = new TableCell();
+                        c.BorderColor = Color.Black;
+                        c.Text = (k + 1).ToString();
+                        c.ForeColor = Color.White;
+                        c.BackColor = Color.Black;
+                        f.Cells.Add(c);
+                    }
+                    if (k == 8)
+                    {
+                        for (int l = 0; l < 8; l++)
                         {
-                            for (int l = 0; l < 8; l++)
-                            {
                             c = new TableCell();
                             c.BorderColor = Color.Black;
                             char a = (char)(65 + l);
@@ -114,26 +114,26 @@ namespace Othell
                             c.ForeColor = Color.White;
                             c.BackColor = Color.Black;
                             f.Cells.Add(c);
-                            }
                         }
-                        
-                            
-
-                        tablero.Rows.Add(f);
                     }
-                }
 
-            
-            
+
+
+                    tablero.Rows.Add(f);
+                }
+            }
+
+
+
 
             if (Page.IsPostBack)
             {
-                
-                
-               
+
+
+
             }
 
-           
+
         }
 
         public void Evento(object sender, System.EventArgs e)
@@ -144,18 +144,18 @@ namespace Othell
             conn = 0; //Contador de fichas negras
             conb = 0; //Contador de fichas blancas
             List<int> posif = new List<int>();  //Array de posiciones iniciales Fila
-            List<int> posic  = new List<int>(); ; //Array de posiciones iniciales Columna
+            List<int> posic = new List<int>(); ; //Array de posiciones iniciales Columna
             List<int> posff = new List<int>(); ; //Array de posiciones finales Fila
             List<int> posfc = new List<int>(); ; //Array de posiciones finales Columna
             List<string> dir = new List<string>(); ; //Array de direccion
 
-            
+
             //Contar
             for (int i = 0; i < 8; i++)
             {
                 for (int j = 0; j < 8; j++)
                 {
-                    if (bot[i,j].BackColor == Color.Black)
+                    if (bot[i, j].BackColor == Color.Black)
                     {
                         conn += 1;
                     }
@@ -168,7 +168,7 @@ namespace Othell
             }
 
             int tot = conn + conb;
-            if(tot == 64)
+            if (tot == 64)
             {
                 TN = 0;
                 TB = 0;
@@ -176,11 +176,13 @@ namespace Othell
                 if (conn > conb)
                 {
                     gan = "Jugador 1 (Negras).";
-                }else{
+                }
+                else
+                {
                     gan = "Jugador 2 (Blancas).";
                 }
-                MessageBox.Show(this.Page, "Final del Juego. Gana "+ gan);
-               
+                MessageBox.Show(this.Page, "Final del Juego. Gana " + gan);
+
             }
             else
             {
@@ -647,7 +649,7 @@ namespace Othell
                         if (mov == 0)
                         {
                             TN = 0; //Cambiar esto dependiendo del color
-                            if(TN == 0 && TB == 0)
+                            if (TN == 0 && TB == 0)
                             {
                                 String gan = "";
                                 if (conn > conb)
@@ -662,11 +664,11 @@ namespace Othell
                             }
                             else
                             {
-                               
+
                                 MessageBox.Show(this.Page, "Las fichas negras no tienen movimientos disponibles.");
                                 x = 2;
                             }
-                
+
                         }
                         else
                         {
@@ -695,7 +697,7 @@ namespace Othell
                             }
                             else
                             {
-                                
+
                                 Turno.Text = "Blancas";
                                 //Colorear
                                 for (int i = 0; i < d; i++)
@@ -1265,7 +1267,7 @@ namespace Othell
                             }
                             else
                             {
-                              
+
                                 MessageBox.Show(this.Page, "Las fichas blancas no tienen movimientos disponibles.");
                                 x = 1;
                             }
@@ -1278,9 +1280,10 @@ namespace Othell
                             TB = 1;
                             int c = posif.Count;
                             //Encontrar posicion en el tablero
-                            String Pos = temp.ID;
-                            int Fila = (int)Char.GetNumericValue(Pos[1]) - 1;
-                            int Columna = (int)(Pos[0]) - 65;
+                            Random r = new Random();
+                            int p1 = r.Next(0, posif.Count);
+                            int Fila = posif[p1];
+                            int Columna = posic[p1];
                             List<int> posicion = new List<int>();
                             for (int i = 0; i < c; i++)
                             {
@@ -1392,7 +1395,7 @@ namespace Othell
                                 }
 
                             }
-                           
+
 
 
 
@@ -1435,14 +1438,14 @@ namespace Othell
                 a.WriteStartElement("tablero");
 
                 //Ingresar Fichas
-                for(int i = 0; i < 8; i++)
+                for (int i = 0; i < 8; i++)
                 {
                     for (int j = 0; j < 8; j++)
                     {
-                        if (bot[i , j].BackColor == Color.Black || bot[i,j].BackColor == Color.White)
+                        if (bot[i, j].BackColor == Color.Black || bot[i, j].BackColor == Color.White)
                         {
                             a.WriteStartElement("ficha");
-                            if (bot[i,j].BackColor == Color.Black)
+                            if (bot[i, j].BackColor == Color.Black)
                             {
                                 a.WriteElementString("color", "negro");
                             }
@@ -1450,7 +1453,7 @@ namespace Othell
                             {
                                 a.WriteElementString("color", "blanco");
                             }
-                  
+
                             char l = (char)(65 + j);
                             a.WriteElementString("columna", l.ToString());
                             a.WriteElementString("fila", i.ToString());
@@ -1458,7 +1461,7 @@ namespace Othell
                         }
                     }
                 }
-               
+
                 //Tiro
 
                 if (x == 1)
@@ -1484,7 +1487,7 @@ namespace Othell
         protected void Button1_Click1(object sender, EventArgs e)
         {
             Byte[] Archivo = null;
-           
+
             if (Subir.HasFile == true)
             {
                 using (BinaryReader reader = new BinaryReader(Subir.PostedFile.InputStream))
@@ -1574,9 +1577,9 @@ namespace Othell
             {
                 MessageBox.Show(this.Page, "Seleccione un archivo primero.");
             }
-            
 
-            
+
+
         }
 
 
@@ -1586,6 +1589,6 @@ namespace Othell
             Response.Redirect("~/Menu.aspx");
         }
 
-        
+
     }
 }
