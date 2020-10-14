@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using System.Drawing;
 using System.IO;
 using System.Xml;
+using System.Data.SqlClient;
 
 namespace Othell
 {
@@ -36,13 +37,16 @@ namespace Othell
         int conb = 0; //Contador de fichas blancas
         int turn = 1;
         String Jug; //Indica el color del usuario
+        public static int ID = 0;
+        public static int Ban = 0; //Indica si se registro partida para evitar duplicidad
 
 
         protected void Page_Load(object sender, EventArgs e)
         {
                 
                 Jug = (string)Session["Color"];
-                if(!Page.IsPostBack){
+                ID =(int)Session["ID"];
+            if (!Page.IsPostBack){
                     x = 1;
                 }
                 if (ver == 0)
@@ -135,7 +139,8 @@ namespace Othell
             {
 
                 Jug = (string)Session["Color"];
-               
+                ID = (int)Session["ID"];
+
 
             }
 
@@ -155,6 +160,7 @@ namespace Othell
             List<int> posfc = new List<int>(); ; //Array de posiciones finales Columna
             List<string> dir = new List<string>(); ; //Array de direccion
 
+            
             
             //Contar
             for (int i = 0; i < 8; i++)
@@ -179,24 +185,113 @@ namespace Othell
                 TN = 0;
                 TB = 0;
                 String gan = "";
-                if(conn == conb)
+                if (conn == conb)
                 {
-                    MessageBox.Show(this.Page, "Final del Juego. Empatados. ");
+                    if (Ban == 0)
+                    {
+                        const string FMT = "yyyy-MM-dd";
+                        DateTime hoy = DateTime.Now;
+                        string nom = hoy.ToString(FMT);
+                        SqlConnection con = new SqlConnection();
+                        con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                        con.Open();
+                        SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Empate', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
+                        con.Close();
+                        Ban = 1;
+                    }
+
+                    int f = 1;
+                    if (f == 1)
+                    {
+                        MessageBox.Show(this.Page, "Final del Juego. Empatados. ");
+                    }
+
+
                 }
                 else
                 {
                     if (conn > conb)
                     {
                         gan = "Jugador 1 (Negras).";
+                        //Agregar a Base
+                        if (Jug == "N")
+                        {
+                            if (Ban == 0)
+                            {
+                                const string FMT = "yyyy-MM-dd";
+                                DateTime hoy = DateTime.Now;
+                                string nom = hoy.ToString(FMT);
+                                SqlConnection con = new SqlConnection();
+                                con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                con.Open();
+                                SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Ganador', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                con.Close();
+                                Ban = 1;
+                            }
+                        }
+                        else
+                        {
+                            if (Ban == 0)
+                            {
+                                const string FMT = "yyyy-MM-dd";
+                                DateTime hoy = DateTime.Now;
+                                string nom = hoy.ToString(FMT);
+                                SqlConnection con = new SqlConnection();
+                                con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                con.Open();
+                                SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Perdedor', " + conb.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                con.Close();
+                                Ban = 1;
+                            }
+                        }
+
+
+
                     }
                     else
                     {
                         gan = "Jugador 2 (Blancas).";
+                        //Agregar a Base
+                        if (Jug == "B")
+                        {
+                            if (Ban == 0)
+                            {
+                                const string FMT = "yyyy-MM-dd";
+                                DateTime hoy = DateTime.Now;
+                                string nom = hoy.ToString(FMT);
+                                SqlConnection con = new SqlConnection();
+                                con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                con.Open();
+                                SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Ganador', " + conb.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                con.Close();
+                                Ban = 1;
+                            }
+                        }
+                        else
+                        {
+                            if (Ban == 0)
+                            {
+                                const string FMT = "yyyy-MM-dd";
+                                DateTime hoy = DateTime.Now;
+                                string nom = hoy.ToString(FMT);
+                                SqlConnection con = new SqlConnection();
+                                con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                con.Open();
+                                SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Perdedor', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                con.Close();
+                                Ban = 1;
+                            }
+                        }
                     }
-                    MessageBox.Show(this.Page, "Final del Juego. Gana " + gan);
+                    int f = 1;
+                    if (f == 1)
+                    {
+                        MessageBox.Show(this.Page, "Final del Juego. Gana " + gan);
+                    }
+
                 }
-                
-               
+
+
             }
             else
             {
@@ -670,19 +765,108 @@ namespace Othell
                                 String gan = "";
                                 if (conn == conb)
                                 {
-                                    MessageBox.Show(this.Page, "Final del Juego. Empatados. ");
+                                    if (Ban == 0)
+                                    {
+                                        const string FMT = "yyyy-MM-dd";
+                                        DateTime hoy = DateTime.Now;
+                                        string nom = hoy.ToString(FMT);
+                                        SqlConnection con = new SqlConnection();
+                                        con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                        con.Open();
+                                        SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Empate', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                        con.Close();
+                                        Ban = 1;
+                                    }
+
+                                    int f = 1;
+                                    if (f == 1)
+                                    {
+                                        MessageBox.Show(this.Page, "Final del Juego. Empatados. ");
+                                    }
+
+
                                 }
                                 else
                                 {
                                     if (conn > conb)
                                     {
                                         gan = "Jugador 1 (Negras).";
+                                        //Agregar a Base
+                                        if (Jug == "N")
+                                        {
+                                            if (Ban == 0)
+                                            {
+                                                const string FMT = "yyyy-MM-dd";
+                                                DateTime hoy = DateTime.Now;
+                                                string nom = hoy.ToString(FMT);
+                                                SqlConnection con = new SqlConnection();
+                                                con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                                con.Open();
+                                                SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Ganador', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                con.Close();
+                                                Ban = 1;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            if (Ban == 0)
+                                            {
+                                                const string FMT = "yyyy-MM-dd";
+                                                DateTime hoy = DateTime.Now;
+                                                string nom = hoy.ToString(FMT);
+                                                SqlConnection con = new SqlConnection();
+                                                con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                                con.Open();
+                                                SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Perdedor', " + conb.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                con.Close();
+                                                Ban = 1;
+                                            }
+                                        }
+
+
+
                                     }
                                     else
                                     {
                                         gan = "Jugador 2 (Blancas).";
+                                        //Agregar a Base
+                                        if (Jug == "B")
+                                        {
+                                            if (Ban == 0)
+                                            {
+                                                const string FMT = "yyyy-MM-dd";
+                                                DateTime hoy = DateTime.Now;
+                                                string nom = hoy.ToString(FMT);
+                                                SqlConnection con = new SqlConnection();
+                                                con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                                con.Open();
+                                                SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Ganador', " + conb.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                con.Close();
+                                                Ban = 1;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            if (Ban == 0)
+                                            {
+                                                const string FMT = "yyyy-MM-dd";
+                                                DateTime hoy = DateTime.Now;
+                                                string nom = hoy.ToString(FMT);
+                                                SqlConnection con = new SqlConnection();
+                                                con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                                con.Open();
+                                                SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Perdedor', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                con.Close();
+                                                Ban = 1;
+                                            }
+                                        }
                                     }
-                                    MessageBox.Show(this.Page, "Final del Juego. Gana " + gan);
+                                    int f = 1;
+                                    if (f == 1)
+                                    {
+                                        MessageBox.Show(this.Page, "Final del Juego. Gana " + gan);
+                                    }
+
                                 }
                             }
                             else
@@ -1281,19 +1465,108 @@ namespace Othell
                                 String gan = "";
                                 if (conn == conb)
                                 {
-                                    MessageBox.Show(this.Page, "Final del Juego. Empatados. ");
+                                    if (Ban == 0)
+                                    {
+                                        const string FMT = "yyyy-MM-dd";
+                                        DateTime hoy = DateTime.Now;
+                                        string nom = hoy.ToString(FMT);
+                                        SqlConnection con = new SqlConnection();
+                                        con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                        con.Open();
+                                        SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Empate', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                        con.Close();
+                                        Ban = 1;
+                                    }
+
+                                    int f = 1;
+                                    if (f == 1)
+                                    {
+                                        MessageBox.Show(this.Page, "Final del Juego. Empatados. ");
+                                    }
+
+
                                 }
                                 else
                                 {
                                     if (conn > conb)
                                     {
                                         gan = "Jugador 1 (Negras).";
+                                        //Agregar a Base
+                                        if (Jug == "N")
+                                        {
+                                            if (Ban == 0)
+                                            {
+                                                const string FMT = "yyyy-MM-dd";
+                                                DateTime hoy = DateTime.Now;
+                                                string nom = hoy.ToString(FMT);
+                                                SqlConnection con = new SqlConnection();
+                                                con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                                con.Open();
+                                                SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Ganador', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                con.Close();
+                                                Ban = 1;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            if (Ban == 0)
+                                            {
+                                                const string FMT = "yyyy-MM-dd";
+                                                DateTime hoy = DateTime.Now;
+                                                string nom = hoy.ToString(FMT);
+                                                SqlConnection con = new SqlConnection();
+                                                con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                                con.Open();
+                                                SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Perdedor', " + conb.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                con.Close();
+                                                Ban = 1;
+                                            }
+                                        }
+
+
+
                                     }
                                     else
                                     {
                                         gan = "Jugador 2 (Blancas).";
+                                        //Agregar a Base
+                                        if (Jug == "B")
+                                        {
+                                            if (Ban == 0)
+                                            {
+                                                const string FMT = "yyyy-MM-dd";
+                                                DateTime hoy = DateTime.Now;
+                                                string nom = hoy.ToString(FMT);
+                                                SqlConnection con = new SqlConnection();
+                                                con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                                con.Open();
+                                                SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Ganador', " + conb.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                con.Close();
+                                                Ban = 1;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            if (Ban == 0)
+                                            {
+                                                const string FMT = "yyyy-MM-dd";
+                                                DateTime hoy = DateTime.Now;
+                                                string nom = hoy.ToString(FMT);
+                                                SqlConnection con = new SqlConnection();
+                                                con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                                con.Open();
+                                                SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Perdedor', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                con.Close();
+                                                Ban = 1;
+                                            }
+                                        }
                                     }
-                                    MessageBox.Show(this.Page, "Final del Juego. Gana " + gan);
+                                    int f = 1;
+                                    if (f == 1)
+                                    {
+                                        MessageBox.Show(this.Page, "Final del Juego. Gana " + gan);
+                                    }
+
                                 }
 
                             }
