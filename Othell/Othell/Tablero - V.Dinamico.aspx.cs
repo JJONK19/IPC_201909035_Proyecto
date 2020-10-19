@@ -8,6 +8,7 @@ using System.Drawing;
 using System.IO;
 using System.Xml;
 using System.Data.SqlClient;
+using System.Diagnostics;
 
 namespace Othell
 {
@@ -39,7 +40,8 @@ namespace Othell
         String Jug; //Indica el color del usuario
         public static int ID = 0;
         public static int Ban = 0; //Indica si se registro partida para evitar duplicidad
-
+        public static Stopwatch neg; //Cronometro
+        public static Stopwatch bla; //Cronometro
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -47,8 +49,14 @@ namespace Othell
                 Jug = (string)Session["Color"];
                 ID =(int)Session["ID"];
             if (!Page.IsPostBack){
+                    Text1.Text = "00:00";
+                    Text2.Text = "00:00";
                     x = 1;
-                }
+                    neg = new Stopwatch();
+                    neg.Start();
+                    bla = new Stopwatch();
+                    
+            }
                 if (ver == 0)
                 {
                     
@@ -132,16 +140,15 @@ namespace Othell
                     }
                 }
 
-            
-            
 
+
+            
             if (Page.IsPostBack)
             {
 
                 Jug = (string)Session["Color"];
                 ID = (int)Session["ID"];
-
-
+                
             }
 
            
@@ -160,7 +167,9 @@ namespace Othell
             List<int> posfc = new List<int>(); ; //Array de posiciones finales Columna
             List<string> dir = new List<string>(); ; //Array de direccion
 
-            
+          
+           
+               
             
             //Contar
             for (int i = 0; i < 8; i++)
@@ -187,6 +196,7 @@ namespace Othell
                 String gan = "";
                 if (conn == conb)
                 {
+                    
                     if (Ban == 0)
                     {
                         const string FMT = "yyyy-MM-dd";
@@ -212,6 +222,7 @@ namespace Othell
                 {
                     if (conn > conb)
                     {
+                        
                         gan = "Jugador 1 (Negras).";
                         //Agregar a Base
                         if (Jug == "N")
@@ -231,6 +242,7 @@ namespace Othell
                         }
                         else
                         {
+
                             if (Ban == 0)
                             {
                                 const string FMT = "yyyy-MM-dd";
@@ -250,6 +262,7 @@ namespace Othell
                     }
                     else
                     {
+                        
                         gan = "Jugador 2 (Blancas).";
                         //Agregar a Base
                         if (Jug == "B")
@@ -765,6 +778,7 @@ namespace Othell
                                 String gan = "";
                                 if (conn == conb)
                                 {
+                                    
                                     if (Ban == 0)
                                     {
                                         const string FMT = "yyyy-MM-dd";
@@ -790,6 +804,8 @@ namespace Othell
                                 {
                                     if (conn > conb)
                                     {
+                                        neg.Stop();
+                                        bla.Stop();
                                         gan = "Jugador 1 (Negras).";
                                         //Agregar a Base
                                         if (Jug == "N")
@@ -809,6 +825,7 @@ namespace Othell
                                         }
                                         else
                                         {
+
                                             if (Ban == 0)
                                             {
                                                 const string FMT = "yyyy-MM-dd";
@@ -828,6 +845,7 @@ namespace Othell
                                     }
                                     else
                                     {
+                                        
                                         gan = "Jugador 2 (Blancas).";
                                         //Agregar a Base
                                         if (Jug == "B")
@@ -906,6 +924,7 @@ namespace Othell
                             {
                                 
                                 Turno.Text = "Blancas";
+                                
                                 //Colorear
                                 for (int i = 0; i < d; i++)
                                 {
@@ -996,6 +1015,7 @@ namespace Othell
                                             break;
                                     }
                                 }
+                               
 
                             }
 
@@ -1465,6 +1485,7 @@ namespace Othell
                                 String gan = "";
                                 if (conn == conb)
                                 {
+                                   
                                     if (Ban == 0)
                                     {
                                         const string FMT = "yyyy-MM-dd";
@@ -1490,6 +1511,7 @@ namespace Othell
                                 {
                                     if (conn > conb)
                                     {
+                                        
                                         gan = "Jugador 1 (Negras).";
                                         //Agregar a Base
                                         if (Jug == "N")
@@ -1528,6 +1550,7 @@ namespace Othell
                                     }
                                     else
                                     {
+                                        
                                         gan = "Jugador 2 (Blancas).";
                                         //Agregar a Base
                                         if (Jug == "B")
@@ -1607,6 +1630,7 @@ namespace Othell
                             else
                             {
                                 Turno.Text = "Negras";
+                                
                                 //Colorear
                                 for (int i = 0; i < d; i++)
                                 {
@@ -1697,6 +1721,7 @@ namespace Othell
                                             break;
                                     }
                                 }
+                                
 
                             }
                            
@@ -1895,6 +1920,96 @@ namespace Othell
         protected void Button3_Click(object sender, EventArgs e)
         {
             Response.Redirect("~/Menu.aspx");
+        }
+
+        //Cronometro Basado en https://stackoverflow.com/questions/9223884/stopwatch-timer-in-asp-net
+        //Blancas
+        protected void T(object sender, EventArgs e)
+        {
+            long s;
+            long min;
+
+            if (x == 2)
+            {
+                bla.Start();
+                neg.Stop();
+                s = bla.Elapsed.Seconds;
+                min = bla.Elapsed.Minutes;
+
+                if (min < 60)
+                {
+                    if (min < 10)
+                    {
+                        Text1.Text = "0" + min;
+
+                    }
+                    else
+                    {
+                        Text1.Text = min.ToString();
+
+                    }
+                    Text1.Text += " : ";
+
+
+                    if (s < 10)
+                    {
+                        Text1.Text += "0" + s;
+
+                    }
+
+                    else
+                    {
+                        Text1.Text += s.ToString();
+
+                    }
+                }
+                else
+                {
+                    bla.Stop();
+                    Response.Redirect("~/Menu");
+                }
+            }
+            else
+            {
+                neg.Start();
+                bla.Stop();
+                s = neg.Elapsed.Seconds;
+                min = neg.Elapsed.Minutes;
+
+                if (min < 60)
+                {
+                    if (min < 10)
+                    {
+
+                        Text2.Text = "0" + min;
+                    }
+                    else
+                    {
+
+                        Text2.Text = min.ToString();
+                    }
+
+                    Text2.Text += " : ";
+
+                    if (s < 10)
+                    {
+
+                        Text2.Text += "0" + s;
+                    }
+
+                    else
+                    {
+
+                        Text2.Text += s.ToString();
+                    }
+                }
+                else
+                {
+                    neg.Stop();
+                    Response.Redirect("~/Menu");
+                }
+            }
+            
         }
 
         

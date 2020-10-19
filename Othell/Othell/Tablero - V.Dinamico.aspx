@@ -43,7 +43,7 @@ td, tr{
 .auto-style82 {
         z-index: 1;
         left: 65px;
-        top: 483px;
+        top: 494px;
         position: absolute;
         height: 29px;
         width: 280px;
@@ -51,7 +51,7 @@ td, tr{
 .auto-style83 {
         z-index: 1;
         left: 64px;
-        top: 526px;
+        top: 537px;
         position: absolute;
         height: 29px;
         width: 280px;
@@ -63,7 +63,7 @@ td, tr{
         height: 22px;
         position: absolute;
         left: 69px;
-        top: 440px;
+        top: 451px;
         right: 56px;
     }
     .auto-style90 {
@@ -80,24 +80,25 @@ td, tr{
         width: 402px;
         height: 22px;
         position: absolute;
-        left: 1px;
-        top: 401px;
+        left: 6px;
+        top: 412px;
         text-align: center;
     }
     .auto-style93 {
         width: 150px;
         height: 22px;
         position: absolute;
-        left: 36px;
-        top: 306px;
+        left: 32px;
+        top: 333px;
         text-align:center;
+        margin-top: 0px;
     }
     .auto-style94 {
         width: 150px;
         height: 22px;
         position: absolute;
         left: 36px;
-        top: 255px;
+        top: 237px;
         text-align:center;
     }
     .auto-style95 {
@@ -121,7 +122,7 @@ td, tr{
         height: 22px;
         position: absolute;
         left: 1px;
-        top: 200px;
+        top: 187px;
         text-align:center;
         text-decoration:underline;
     }
@@ -129,19 +130,47 @@ td, tr{
         width: 150px;
         height: 22px;
         position: absolute;
-        left: 218px;
-        top: 266px;
+        left: 217px;
+        top: 245px;
         text-align: center;
     }
     .auto-style99 {
         width: 150px;
         height: 22px;
         position: absolute;
-        left: 218px;
-        top: 319px;
+        left: 215px;
+        top: 337px;
         text-align: center;
     }
-</style>
+     .auto-style101 {
+        width: 342px;
+        height: 29px;
+        position: absolute;
+        left: 57px;
+        top: 310px;
+        text-align:center;
+        Font-Size="Large";
+        font-style: italic; 
+        font-weight:500; 
+        font-family: 'Arial Narrow'; 
+        background-color: #006B3C;
+    }
+     .auto-style102 {
+        width: 342px;
+        height: 29px;
+        position: absolute;
+        left: 55px;
+        top: 395px;
+        text-align: center;
+        right: 679px;
+        Font-Size="Large";
+        font-style: italic; 
+        font-weight:500; 
+        font-family: 'Arial Narrow'; 
+        background-color: #006B3C;
+
+    }
+     </style>
     <title></title>
 </head>
 <body>
@@ -150,6 +179,7 @@ td, tr{
         </asp:Table>
         <asp:Panel ID="Panel2" runat="server" Height="636px" style="font-style: italic; font-family: 'Arial Narrow'; font-weight: 700; background-color: #006B3C" CssClass="auto-style86">
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            
             <br />
             <br />
             <br />
@@ -183,7 +213,20 @@ td, tr{
             <h3 class="auto-style94">BLANCAS</h3>
             <h3 class="auto-style92">Seleccionar Archivo</h3>
         </asp:Panel>
-        <asp:Button ID="Button3" runat="server" CssClass="auto-style88" Text="Salir" BackColor="Black" BorderColor="Black" ForeColor="White" Font-Italic="True" OnClick="Button3_Click" style="width: 280px; height: 26px; position: absolute; left: 87px; top: 589px" />
+       
+        <asp:Button ID="Button3" runat="server" CssClass="auto-style88" Text="Salir" BackColor="Black" BorderColor="Black" ForeColor="White" Font-Italic="True" OnClick="Button3_Click" style="width: 280px; height: 26px; position: absolute; left: 87px; top: 600px" />
+        <asp:scriptmanager ID="Scriptmanager1" runat="server"></asp:scriptmanager>
+        <asp:UpdatePanel ID="UpdatePanel1" runat="server" CssClass="auto-style100" UpdateMode="Always">
+                <ContentTemplate>
+                    <asp:TextBox ID="Text1" runat="server" CssClass="auto-style101" Font-Bold="True"></asp:TextBox>
+                    <asp:TextBox ID="Text2" runat="server" CssClass="auto-style102" Font-Bold="True" ></asp:TextBox>
+                    <asp:Timer ID="tm1" Interval="1000" runat="server" ontick="T" />
+                </ContentTemplate>
+                <Triggers>
+                    <asp:AsyncPostBackTrigger ControlID="tm1" />
+                </Triggers>
+         </asp:UpdatePanel>
+        
     </form>
 </body>
 </html>

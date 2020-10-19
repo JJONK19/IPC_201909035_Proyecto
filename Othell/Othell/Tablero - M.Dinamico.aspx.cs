@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -38,6 +39,8 @@ namespace Othell
         String Jug; //Indica el color que usa el usuario
         public static int ID = 0;
         public static int Ban = 0; //Indica si se registro partida
+        public static Stopwatch neg; //Cronometro
+        public static Stopwatch bla; //Cronometro
 
 
 
@@ -48,6 +51,12 @@ namespace Othell
             ID = (int)Session["ID"];
             if (!Page.IsPostBack)
             {
+                Text1.Text = "00:00";
+                Text2.Text = "00:00";
+                x = 1;
+                neg = new Stopwatch();
+                neg.Start();
+                bla = new Stopwatch();
                 x = 1;
             }
             if (ver == 0)
@@ -180,7 +189,7 @@ namespace Othell
                     }
                 }
             }
-            
+                
             int tot = conn + conb;
             if (tot == 64)
             {
@@ -1930,6 +1939,94 @@ namespace Othell
             Response.Redirect("~/Menu.aspx");
         }
 
+        //Cronometro Basado en https://stackoverflow.com/questions/9223884/stopwatch-timer-in-asp-net
+        //Blancas
+        protected void T(object sender, EventArgs e)
+        {
+            long s;
+            long min;
 
+            if (x == 2)
+            {
+                bla.Start();
+                neg.Stop();
+                s = bla.Elapsed.Seconds;
+                min = bla.Elapsed.Minutes;
+
+                if (min < 60)
+                {
+                    if (min < 10)
+                    {
+                        Text1.Text = "0" + min;
+
+                    }
+                    else
+                    {
+                        Text1.Text = min.ToString();
+
+                    }
+                    Text1.Text += " : ";
+
+
+                    if (s < 10)
+                    {
+                        Text1.Text += "0" + s;
+
+                    }
+
+                    else
+                    {
+                        Text1.Text += s.ToString();
+
+                    }
+                }
+                else
+                {
+                    bla.Stop();
+                    Response.Redirect("~/Menu");
+                }
+            }
+            else
+            {
+                neg.Start();
+                bla.Stop();
+                s = neg.Elapsed.Seconds;
+                min = neg.Elapsed.Minutes;
+
+                if (min < 60)
+                {
+                    if (min < 10)
+                    {
+
+                        Text2.Text = "0" + min;
+                    }
+                    else
+                    {
+
+                        Text2.Text = min.ToString();
+                    }
+
+                    Text2.Text += " : ";
+
+                    if (s < 10)
+                    {
+
+                        Text2.Text += "0" + s;
+                    }
+
+                    else
+                    {
+
+                        Text2.Text += s.ToString();
+                    }
+                }
+                else
+                {
+                    neg.Stop();
+                    Response.Redirect("~/Menu");
+                }
+            }
+
+        }
     }
 }
