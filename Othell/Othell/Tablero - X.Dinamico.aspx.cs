@@ -45,7 +45,10 @@ namespace Othell
         public static Stopwatch bla; //Cronometro
         public static int FI; //No de filas
         public static int CO; //No de Columnas
-        public static int RI;
+        public static int RI; //Reto Inverso
+        public static List<string> J1;  //Lista de Colores 1
+        public static List<string> J2;  //Lista de Colores 2
+        public static List<string> Turno;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -55,6 +58,8 @@ namespace Othell
             FI = (int)Session["M"];
             CO = (int)Session["N"];
             RI = (int)Session["RI"];
+            J1 = (List<string>)Session["J1"];
+            J2 = (List<string>)Session["J2"];
             if (!Page.IsPostBack)
             {
                 Text1.Text = "00:00";

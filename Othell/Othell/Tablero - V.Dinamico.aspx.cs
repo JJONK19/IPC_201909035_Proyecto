@@ -42,7 +42,8 @@ namespace Othell
         public static int Ban = 0; //Indica si se registro partida para evitar duplicidad
         public static Stopwatch neg; //Cronometro
         public static Stopwatch bla; //Cronometro
-
+        List<string> J1;  //Lista de Colores 1
+        List<string> J2;  //Lista de Colores 2
         protected void Page_Load(object sender, EventArgs e)
         {
                 
