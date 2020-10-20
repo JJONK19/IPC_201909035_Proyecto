@@ -103,7 +103,7 @@ namespace Othell
                         }
                         else
                         {
-                            J1.Add(J11.SelectedItem.Text);
+                            J1.Add(J15.SelectedItem.Text);
                         }
                         //Agregar Colores J2
                         List<string> J2 = new List<string>();  //Lista de Colores 1
@@ -208,7 +208,7 @@ namespace Othell
                                     c = c + 1;
                                 }
 
-                                if (c > 1)
+                                if (c >= 1)
                                 {
                                     ban3 = 1;
                                 }

@@ -48,7 +48,13 @@ namespace Othell
         public static int RI; //Reto Inverso
         public static List<string> J1;  //Lista de Colores 1
         public static List<string> J2;  //Lista de Colores 2
-        public static List<string> Turno;
+        public static List<string> Colores;
+        public static int apertura = 0; //Determina si ya se pusieron 
+        public static int aperturab = 0; //Determina si ya se pusieron 
+        public static int aperturaC= 0; //Determina si los espacios centrados estan coloreados
+        public static int aperturaA = 0;
+        public static int PCN = 0; //Posicion de color
+        public static int PCB = 0; //Posicion de color
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -60,6 +66,10 @@ namespace Othell
             RI = (int)Session["RI"];
             J1 = (List<string>)Session["J1"];
             J2 = (List<string>)Session["J2"];
+            
+
+
+
             if (!Page.IsPostBack)
             {
                 Text1.Text = "00:00";
@@ -86,31 +96,7 @@ namespace Othell
                         b.Text = "";
                         b.Click += new EventHandler(this.Evento);
                         b.Attributes.Add("class", "but");
-                        int P1C = (CO / 2) - 1;
-                        int P1F = (FI / 2) - 1;
-                        if (j == P1C && i == P1F )
-                        {
-                            b.BackColor = Color.White;
-                        }
-                        int P2C = (CO / 2) - 1;
-                        int P2F = FI / 2;
-                        if (j == P2C && i == P2F)
-                        {
-                            b.BackColor = Color.Black;
-                        }
-
-                        int P3C = CO / 2;
-                        int P3F = FI / 2;
-                        if (j == P3C && i == P3F)
-                        {
-                            b.BackColor = Color.White;
-                        }
-                        int P4C = CO / 2;
-                        int P4F = (FI / 2) - 1;
-                        if (j == P4C && i == P4F)
-                        {
-                            b.BackColor = Color.Black;
-                        }
+                        
                         bot[i, j] = b;
                     }
                 }
@@ -410,7 +396,7 @@ namespace Othell
             }
             else
             {
-                if (temp.BackColor == Color.Black || temp.BackColor == Color.White)
+                if (temp.BackColor == Color.Black || temp.BackColor == Color.White || temp.BackColor == Color.Red || temp.BackColor == Color.Yellow || temp.BackColor == Color.Blue || temp.BackColor == Color.Orange || temp.BackColor == Color.Green || temp.BackColor == Color.MediumPurple || temp.BackColor == Color.SkyBlue || temp.BackColor == Color.Gray)
                 {
                     b = 1; //No esta vacia
                     Mensaje.Mostrar(Page, "Seleccione una casilla vacia.");
@@ -420,458 +406,734 @@ namespace Othell
                 {
                     if (x == 1)
                     {
-                        mov = 0;
-                        int FM = FI - 1;
-                        int CM = CO - 1;
-                        //Verificar posible movimientos
-                        for (int i = 0; i < FI; i++)
+                        if (PCN == J1.Count)
                         {
-                            for (int j = 0; j < CO; j++)
-                            {
-                                Button tem = bot[i, j];
-                                Color bus = Color.Red; //Opuesto
-                                Color ori = Color.Red; //Original
+                            apertura = 1;
+                            PCN = 0;
+                        }
+                        else
+                        {
+                            apertura = 0;
+                        }
 
-                                if (tem.BackColor == Color.White)
+
+                        if (apertura == 0)
+                        {
+                            //Contar si ya esta coloreado centro
+                            int P1C = (CO / 2) - 1;
+                            int P1F = (FI / 2) - 1;
+                            int P2C = (CO / 2) - 1;
+                            int P2F = FI / 2;
+                            int P3C = CO / 2;
+                            int P3F = FI / 2;
+                            int P4C = CO / 2;
+                            int P4F = (FI / 2) - 1;
+                            int conc = 0; //Cuenta piezas de centro
+                            if (bot[P1F, P1C].BackColor == Color.Black || bot[P1F, P1C].BackColor == Color.White || bot[P1F, P1C].BackColor == Color.Red || bot[P1F, P1C].BackColor == Color.Yellow || bot[P1F, P1C].BackColor == Color.Blue || bot[P1F, P1C].BackColor == Color.Orange || bot[P1F, P1C].BackColor == Color.Green || bot[P1F, P1C].BackColor == Color.MediumPurple || bot[P1F, P1C].BackColor == Color.SkyBlue || bot[P1F, P1C].BackColor == Color.Gray)
+                            {
+                                conc = conc + 1;
+                            }
+
+                            if (bot[P2F, P2C].BackColor == Color.Black || bot[P2F, P2C].BackColor == Color.White || bot[P2F, P2C].BackColor == Color.Red || bot[P2F, P2C].BackColor == Color.Yellow || bot[P2F, P2C].BackColor == Color.Blue || bot[P2F, P2C].BackColor == Color.Orange || bot[P2F, P2C].BackColor == Color.Green || bot[P2F, P2C].BackColor == Color.MediumPurple || bot[P2F, P2C].BackColor == Color.SkyBlue || bot[P2F, P2C].BackColor == Color.Gray)
+                            {
+                                conc = conc + 1;
+                            }
+
+                            if (bot[P3F, P3C].BackColor == Color.Black || bot[P3F, P3C].BackColor == Color.White || bot[P3F, P3C].BackColor == Color.Red || bot[P3F, P3C].BackColor == Color.Yellow || bot[P3F, P3C].BackColor == Color.Blue || bot[P3F, P3C].BackColor == Color.Orange || bot[P3F, P3C].BackColor == Color.Green || bot[P3F, P3C].BackColor == Color.MediumPurple || bot[P3F, P3C].BackColor == Color.SkyBlue || bot[P3F, P3C].BackColor == Color.Gray)
+                            {
+                                conc = conc + 1;
+                            }
+
+                            if (bot[P4F, P4C].BackColor == Color.Black || bot[P4F, P4C].BackColor == Color.White || bot[P4F, P4C].BackColor == Color.Red || bot[P4F, P4C].BackColor == Color.Yellow || bot[P4F, P4C].BackColor == Color.Blue || bot[P4F, P4C].BackColor == Color.Orange || bot[P4F, P4C].BackColor == Color.Green || bot[P4F, P4C].BackColor == Color.MediumPurple || bot[P4F, P4C].BackColor == Color.SkyBlue || bot[P4F, P4C].BackColor == Color.Gray)
+                            {
+                                conc = conc + 1;
+                            }
+
+                            if (conc == 4)
+                            {
+                                aperturaC = 1;
+                            }
+                            else
+                            {
+                                aperturaC = 0;
+                            }
+
+
+                            if (aperturaC == 0)
+                            {
+                                //Encontrar posicion en el tablero
+                                String Pos = temp.ID;
+                                int Fila = (int)Char.GetNumericValue(Pos[1]) - 1;
+                                int Columna = (int)(Pos[0]) - 65;
+                                Color pin = Color.Lavender;
+                                String tempco = J1[PCN];
+                                PCN = PCN + 1;
+                                
+
+                                switch (tempco)
                                 {
-                                    ori = Color.White;
-                                    bus = Color.Black;
+                                    case "Rojo":
+                                        pin = Color.Red;
+                                        break;
+
+                                    case "Amarillo":
+                                        pin = Color.Yellow;
+                                        break;
+
+                                    case "Azul":
+                                        pin = Color.Blue;
+                                        break;
+
+                                    case "Naranja":
+                                        pin = Color.Orange;
+                                        break;
+
+                                    case "Verde":
+                                        pin = Color.Green;
+                                        break;
+
+                                    case "Violeta":
+                                        pin = Color.MediumPurple;
+                                        break;
+
+                                    case "Blanco":
+                                        pin = Color.White;
+                                        break;
+
+                                    case "Negro":
+                                        pin = Color.Black;
+                                        break;
+
+                                    case "Celeste":
+                                        pin = Color.SkyBlue;
+                                        break;
+
+                                    case "Gris":
+                                        pin = Color.Gray;
+                                        break;
 
                                 }
 
-                                if (bus == Color.Red)
+
+                                if (Fila == P1F && Columna == P1C)
                                 {
+
+                                    temp.BackColor = pin;
+                                    x = 2;
+                                    Turno.Text = "Jugador 2";
+                                }
+                                else
+                                {
+
+                                    if (Fila == P2F && Columna == P2C)
+                                    {
+                                        temp.BackColor = pin;
+                                        x = 2;
+                                        Turno.Text = "Jugador 2";
+                                    }
+                                    else
+                                    {
+
+                                        if (Fila == P3F && Columna == P3C)
+                                        {
+                                            temp.BackColor = pin;
+                                            x = 2;
+                                            Turno.Text = "Jugador 2";
+                                        }
+                                        else
+                                        {
+
+                                            if (Fila == P4F && Columna == P4C)
+                                            {
+                                                temp.BackColor = pin;
+                                                x = 2;
+                                                Turno.Text = "Jugador 2";
+                                            }
+                                            else
+                                            {
+                                                Page.ClientScript.RegisterStartupScript(
+                                                Page.GetType(),
+                                                "Mensaje",
+                                                "<script language='javascript'>alert('Movimiento no valido. Debe llenar el centro primero.');</script>");
+                                            }
+                                        }
+                                    }
+                                }
+
+                            }
+                            else
+                            {
+                                //Encontrar posicion en el tablero
+                                String Pos = temp.ID;
+                                int Fila = (int)Char.GetNumericValue(Pos[1]) - 1;
+                                int Columna = (int)(Pos[0]) - 65;
+                                Color pin = Color.Lavender;
+                                String tempco = J1[PCN];
+                                PCN = PCN + 1;
+                                
+
+                                switch (tempco)
+                                {
+                                    case "Rojo":
+                                        pin = Color.Red;
+                                        break;
+
+                                    case "Amarillo":
+                                        pin = Color.Yellow;
+                                        break;
+
+                                    case "Azul":
+                                        pin = Color.Blue;
+                                        break;
+
+                                    case "Naranja":
+                                        pin = Color.Orange;
+                                        break;
+
+                                    case "Verde":
+                                        pin = Color.Green;
+                                        break;
+
+                                    case "Violeta":
+                                        pin = Color.MediumPurple;
+                                        break;
+
+                                    case "Blanco":
+                                        pin = Color.White;
+                                        break;
+
+                                    case "Negro":
+                                        pin = Color.Black;
+                                        break;
+
+                                    case "Celeste":
+                                        pin = Color.SkyBlue;
+                                        break;
+
+                                    case "Gris":
+                                        pin = Color.Gray;
+                                        break;
+
+                                }
+
+                                int PCSF = P1F - 1; //Fila superior a cuadrado central
+                                int PCSCI = P1C - 1; //Inicio de columna
+                                int PCSCF = P3C + 1; //Inicio de columna
+
+                                int PCIF = P2F + 1; //Fila Inferior a cuadrado central
+                                int PCICI = P1C - 1; //Inicio de columna
+                                int PCICF = P3C + 1; //Inicio de columna
+
+                                int PCFII = P1F; //Fila inicial a cuadrado central
+                                int PCFFD = P2F; //Fila Final a cuadrado central
+                                int PCI = P1C-1; //columna izquierda
+
+                               
+                                int PCF = P4C + 1; //columna derecha
+
+                                if (Fila == PCIF && Columna >=PCICI && Columna <=PCICF) 
+                                {
+                                    temp.BackColor = pin;
+                                    x = 2;
+                                    Turno.Text = "Jugador 2";
 
                                 }
                                 else
                                 {
-                                    //Revision de posiciones
-                                    //Arriba Vertical (UV)
-                                    if ((i - 1) < 0)
+                                    if (Fila == PCSF && Columna >= PCSCI && Columna <= PCSCF)
+                                    {
+                                        temp.BackColor = pin;
+                                        x = 2;
+                                        Turno.Text = "Jugador 2";
+
+                                    }
+                                    else
+                                    {
+                                        if (Columna == PCI && Fila >= PCFII && Fila <= PCFFD)
+                                        {
+                                            temp.BackColor = pin;
+                                            x = 2;
+                                            Turno.Text = "Jugador 2";
+
+                                        }
+                                        else
+                                        {
+                                            if (Columna == PCF && Fila >= PCFII && Fila <= PCFFD)
+                                            {
+                                                temp.BackColor = pin;
+                                                x = 2;
+                                                Turno.Text = "Jugador 2";
+
+                                            }
+                                            else
+                                            {
+                                                Page.ClientScript.RegisterStartupScript(
+                                               Page.GetType(),
+                                               "Mensaje",
+                                               "<script language='javascript'>alert('Movimiento no valido. Debe llenar las casillas que rodean al centro hasta que tenga una ficha de cada color en el tablero.');</script>");
+                                            }
+                                        }
+                                    }
+                                }
+
+
+                            }
+                        }
+                        else
+                        {
+                            mov = 0;
+                            int FM = FI - 1;
+                            int CM = CO - 1;
+                            //Verificar posible movimientos
+                            for (int i = 0; i < FI; i++)
+                            {
+                                for (int j = 0; j < CO; j++)
+                                {
+                                    Button tem = bot[i, j];
+                                    Color bus = Color.Red; //Opuesto
+                                    Color ori = Color.Red; //Original
+
+                                    if (tem.BackColor == Color.White)
+                                    {
+                                        ori = Color.White;
+                                        bus = Color.Black;
+
+                                    }
+
+                                    if (bus == Color.Red)
                                     {
 
                                     }
                                     else
                                     {
-                                        if (bot[(i - 1), j].BackColor == Color.Black || bot[(i - 1), j].BackColor == Color.White)
+                                        //Revision de posiciones
+                                        //Arriba Vertical (UV)
+                                        if ((i - 1) < 0)
                                         {
 
                                         }
                                         else
                                         {
-                                            int ba = 0;
-                                            int fit = i;
-                                            int cot = j;
-                                            while (ba != 1)
+                                            if (bot[(i - 1), j].BackColor == Color.Black || bot[(i - 1), j].BackColor == Color.White)
                                             {
-                                                fit += 1;
-                                             
-                                                if (fit > FM)
+
+                                            }
+                                            else
+                                            {
+                                                int ba = 0;
+                                                int fit = i;
+                                                int cot = j;
+                                                while (ba != 1)
                                                 {
-                                                    ba = 1;
-                                                }
-                                                else
-                                                {
-                                                    if (bot[fit, cot].BackColor == bus)
+                                                    fit += 1;
+
+                                                    if (fit > FM)
                                                     {
-                                                        posif.Add(i - 1);
-                                                        posic.Add(j);
-                                                        posff.Add(fit);
-                                                        posfc.Add(cot);
-                                                        dir.Add("UV");
                                                         ba = 1;
-                                                        mov = 1;
                                                     }
                                                     else
                                                     {
-                                                        if (bot[fit, cot].BackColor == ori)
+                                                        if (bot[fit, cot].BackColor == bus)
                                                         {
-
+                                                            posif.Add(i - 1);
+                                                            posic.Add(j);
+                                                            posff.Add(fit);
+                                                            posfc.Add(cot);
+                                                            dir.Add("UV");
+                                                            ba = 1;
+                                                            mov = 1;
                                                         }
                                                         else
                                                         {
-                                                            ba = 1;
+                                                            if (bot[fit, cot].BackColor == ori)
+                                                            {
+
+                                                            }
+                                                            else
+                                                            {
+                                                                ba = 1;
+                                                            }
                                                         }
                                                     }
                                                 }
                                             }
                                         }
-                                    }
 
-                                    //Revision de posiciones
-                                    //Abajo Vertical (DV)
-                                    
-                                    if ((i + 1) > FM)
-                                    {
-                                        
-                                    }
-                                    else
-                                    {
-                                        
-                                        if (bot[(i + 1), j].BackColor == Color.Black || bot[(i + 1), j].BackColor == Color.White)
+                                        //Revision de posiciones
+                                        //Abajo Vertical (DV)
+
+                                        if ((i + 1) > FM)
                                         {
 
                                         }
                                         else
                                         {
-                                            int ba = 0;
-                                            int fit = i;
-                                            int cot = j;
-                                            while (ba != 1)
+
+                                            if (bot[(i + 1), j].BackColor == Color.Black || bot[(i + 1), j].BackColor == Color.White)
                                             {
-                                                fit -= 1;
-                                                if (fit < 0)
+
+                                            }
+                                            else
+                                            {
+                                                int ba = 0;
+                                                int fit = i;
+                                                int cot = j;
+                                                while (ba != 1)
                                                 {
-                                                    ba = 1;
-                                                }
-                                                else
-                                                {
-                                                    if (bot[fit, cot].BackColor == bus)
+                                                    fit -= 1;
+                                                    if (fit < 0)
                                                     {
-                                                        posif.Add((i + 1));
-                                                        posic.Add(j);
-                                                        posff.Add(fit);
-                                                        posfc.Add(cot);
-                                                        dir.Add("DV");
                                                         ba = 1;
-                                                        mov = 1;
                                                     }
                                                     else
                                                     {
-                                                        if (bot[fit, cot].BackColor == ori)
+                                                        if (bot[fit, cot].BackColor == bus)
                                                         {
-
+                                                            posif.Add((i + 1));
+                                                            posic.Add(j);
+                                                            posff.Add(fit);
+                                                            posfc.Add(cot);
+                                                            dir.Add("DV");
+                                                            ba = 1;
+                                                            mov = 1;
                                                         }
                                                         else
                                                         {
-                                                            ba = 1;
+                                                            if (bot[fit, cot].BackColor == ori)
+                                                            {
+
+                                                            }
+                                                            else
+                                                            {
+                                                                ba = 1;
+                                                            }
                                                         }
                                                     }
                                                 }
                                             }
                                         }
-                                    }
 
 
-                                    //Revision de posiciones
-                                    //Izquierda Horizontal (HI)
-                                    if ((j - 1) < 0)
-                                    {
-
-                                    }
-                                    else
-                                    {
-                                        if (bot[i, (j - 1)].BackColor == Color.Black || bot[i, (j - 1)].BackColor == Color.White)
+                                        //Revision de posiciones
+                                        //Izquierda Horizontal (HI)
+                                        if ((j - 1) < 0)
                                         {
 
                                         }
                                         else
                                         {
-                                            int ba = 0;
-                                            int fit = i;
-                                            int cot = j;
-                                            while (ba != 1)
+                                            if (bot[i, (j - 1)].BackColor == Color.Black || bot[i, (j - 1)].BackColor == Color.White)
                                             {
 
-                                                cot += 1;
-                                                
-                                                if (cot > CM)
+                                            }
+                                            else
+                                            {
+                                                int ba = 0;
+                                                int fit = i;
+                                                int cot = j;
+                                                while (ba != 1)
                                                 {
-                                                    ba = 1;
-                                                }
-                                                else
-                                                {
-                                                    if (bot[fit, cot].BackColor == bus)
+
+                                                    cot += 1;
+
+                                                    if (cot > CM)
                                                     {
-                                                        posif.Add(i);
-                                                        posic.Add(j - 1);
-                                                        posff.Add(fit);
-                                                        posfc.Add(cot);
-                                                        dir.Add("HI");
                                                         ba = 1;
-                                                        mov = 1;
                                                     }
                                                     else
                                                     {
-                                                        if (bot[fit, cot].BackColor == ori)
+                                                        if (bot[fit, cot].BackColor == bus)
                                                         {
-
+                                                            posif.Add(i);
+                                                            posic.Add(j - 1);
+                                                            posff.Add(fit);
+                                                            posfc.Add(cot);
+                                                            dir.Add("HI");
+                                                            ba = 1;
+                                                            mov = 1;
                                                         }
                                                         else
                                                         {
-                                                            ba = 1;
+                                                            if (bot[fit, cot].BackColor == ori)
+                                                            {
+
+                                                            }
+                                                            else
+                                                            {
+                                                                ba = 1;
+                                                            }
                                                         }
                                                     }
                                                 }
                                             }
                                         }
-                                    }
 
-                                    //Revision de posiciones
-                                    //Derecha Horizontal (HD)
-                                    
-                                    if ((j + 1) > CM)
-                                    {
+                                        //Revision de posiciones
+                                        //Derecha Horizontal (HD)
 
-                                    }
-                                    else
-                                    {
-                                        if (bot[i, (j + 1)].BackColor == Color.Black || bot[i, (j + 1)].BackColor == Color.White)
+                                        if ((j + 1) > CM)
                                         {
 
                                         }
                                         else
                                         {
-                                            int ba = 0;
-                                            int fit = i;
-                                            int cot = j;
-                                            while (ba != 1)
+                                            if (bot[i, (j + 1)].BackColor == Color.Black || bot[i, (j + 1)].BackColor == Color.White)
                                             {
 
-                                                cot -= 1;
-                                                if (cot < 0)
+                                            }
+                                            else
+                                            {
+                                                int ba = 0;
+                                                int fit = i;
+                                                int cot = j;
+                                                while (ba != 1)
                                                 {
-                                                    ba = 1;
-                                                }
-                                                else
-                                                {
-                                                    if (bot[fit, cot].BackColor == bus)
+
+                                                    cot -= 1;
+                                                    if (cot < 0)
                                                     {
-                                                        posif.Add((i));
-                                                        posic.Add(j + 1);
-                                                        posff.Add(fit);
-                                                        posfc.Add(cot);
-                                                        dir.Add("HD");
                                                         ba = 1;
-                                                        mov = 1;
                                                     }
                                                     else
                                                     {
-                                                        if (bot[fit, cot].BackColor == ori)
+                                                        if (bot[fit, cot].BackColor == bus)
                                                         {
-
+                                                            posif.Add((i));
+                                                            posic.Add(j + 1);
+                                                            posff.Add(fit);
+                                                            posfc.Add(cot);
+                                                            dir.Add("HD");
+                                                            ba = 1;
+                                                            mov = 1;
                                                         }
                                                         else
                                                         {
-                                                            ba = 1;
+                                                            if (bot[fit, cot].BackColor == ori)
+                                                            {
+
+                                                            }
+                                                            else
+                                                            {
+                                                                ba = 1;
+                                                            }
                                                         }
                                                     }
                                                 }
                                             }
                                         }
-                                    }
 
-                                    //Revision de posiciones
-                                    //Diagonal Izquierda Superior (DIS)
-                                    if ((i - 1) < 0 || (j - 1) < 0)
-                                    {
-
-                                    }
-                                    else
-                                    {
-                                        if (bot[(i - 1), (j - 1)].BackColor == Color.Black || bot[(i - 1), (j - 1)].BackColor == Color.White)
+                                        //Revision de posiciones
+                                        //Diagonal Izquierda Superior (DIS)
+                                        if ((i - 1) < 0 || (j - 1) < 0)
                                         {
 
                                         }
                                         else
                                         {
-                                            int ba = 0;
-                                            int fit = i;
-                                            int cot = j;
-                                            while (ba != 1)
+                                            if (bot[(i - 1), (j - 1)].BackColor == Color.Black || bot[(i - 1), (j - 1)].BackColor == Color.White)
                                             {
-                                                fit += 1;
-                                                cot += 1;
-                                                
-                                                if (fit > FM || cot > CM)
+
+                                            }
+                                            else
+                                            {
+                                                int ba = 0;
+                                                int fit = i;
+                                                int cot = j;
+                                                while (ba != 1)
                                                 {
-                                                    ba = 1;
-                                                }
-                                                else
-                                                {
-                                                    if (bot[fit, cot].BackColor == bus)
+                                                    fit += 1;
+                                                    cot += 1;
+
+                                                    if (fit > FM || cot > CM)
                                                     {
-                                                        posif.Add(i - 1);
-                                                        posic.Add(j - 1);
-                                                        posff.Add(fit);
-                                                        posfc.Add(cot);
-                                                        dir.Add("DIS");
                                                         ba = 1;
-                                                        mov = 1;
                                                     }
                                                     else
                                                     {
-                                                        if (bot[fit, cot].BackColor == ori)
+                                                        if (bot[fit, cot].BackColor == bus)
                                                         {
-
+                                                            posif.Add(i - 1);
+                                                            posic.Add(j - 1);
+                                                            posff.Add(fit);
+                                                            posfc.Add(cot);
+                                                            dir.Add("DIS");
+                                                            ba = 1;
+                                                            mov = 1;
                                                         }
                                                         else
                                                         {
-                                                            ba = 1;
+                                                            if (bot[fit, cot].BackColor == ori)
+                                                            {
+
+                                                            }
+                                                            else
+                                                            {
+                                                                ba = 1;
+                                                            }
                                                         }
                                                     }
                                                 }
                                             }
                                         }
-                                    }
 
-                                    //Revision de posiciones
-                                    //Diagonal Izquierda Inferior (DII) //pen
-                                    
-                                    if ((i + 1) > FM || (j - 1) < 0)
-                                    {
+                                        //Revision de posiciones
+                                        //Diagonal Izquierda Inferior (DII) //pen
 
-                                    }
-                                    else
-                                    {
-                                        if (bot[(i + 1), (j - 1)].BackColor == Color.Black || bot[(i + 1), (j - 1)].BackColor == Color.White)
+                                        if ((i + 1) > FM || (j - 1) < 0)
                                         {
 
                                         }
                                         else
                                         {
-                                            int ba = 0;
-                                            int fit = i;
-                                            int cot = j;
-                                            while (ba != 1)
+                                            if (bot[(i + 1), (j - 1)].BackColor == Color.Black || bot[(i + 1), (j - 1)].BackColor == Color.White)
                                             {
-                                                fit -= 1;
-                                                cot += 1;
 
-                                                if (fit < 0 || cot > CM)
+                                            }
+                                            else
+                                            {
+                                                int ba = 0;
+                                                int fit = i;
+                                                int cot = j;
+                                                while (ba != 1)
                                                 {
-                                                    ba = 1;
-                                                }
-                                                else
-                                                {
-                                                    if (bot[fit, cot].BackColor == bus)
+                                                    fit -= 1;
+                                                    cot += 1;
+
+                                                    if (fit < 0 || cot > CM)
                                                     {
-                                                        posif.Add((i + 1));
-                                                        posic.Add(j - 1);
-                                                        posff.Add(fit);
-                                                        posfc.Add(cot);
-                                                        dir.Add("DII");
                                                         ba = 1;
-                                                        mov = 1;
                                                     }
                                                     else
                                                     {
-                                                        if (bot[fit, cot].BackColor == ori)
+                                                        if (bot[fit, cot].BackColor == bus)
                                                         {
-
+                                                            posif.Add((i + 1));
+                                                            posic.Add(j - 1);
+                                                            posff.Add(fit);
+                                                            posfc.Add(cot);
+                                                            dir.Add("DII");
+                                                            ba = 1;
+                                                            mov = 1;
                                                         }
                                                         else
                                                         {
-                                                            ba = 1;
+                                                            if (bot[fit, cot].BackColor == ori)
+                                                            {
+
+                                                            }
+                                                            else
+                                                            {
+                                                                ba = 1;
+                                                            }
                                                         }
                                                     }
                                                 }
                                             }
                                         }
-                                    }
 
-                                    //Revision de posiciones
-                                    //Diagonal Derecha Superior (DDS)
-                                    
-                                    if ((i - 1) < 0 || (j + 1) > CM)
-                                    {
+                                        //Revision de posiciones
+                                        //Diagonal Derecha Superior (DDS)
 
-                                    }
-                                    else
-                                    {
-                                        if (bot[(i - 1), (j + 1)].BackColor == Color.Black || bot[(i - 1), (j + 1)].BackColor == Color.White)
+                                        if ((i - 1) < 0 || (j + 1) > CM)
                                         {
 
                                         }
                                         else
                                         {
-                                            int ba = 0;
-                                            int fit = i;
-                                            int cot = j;
-                                            while (ba != 1)
+                                            if (bot[(i - 1), (j + 1)].BackColor == Color.Black || bot[(i - 1), (j + 1)].BackColor == Color.White)
                                             {
-                                                fit += 1;
-                                                cot -= 1;
-                                                
-                                                if (fit > FM || cot < 0)
+
+                                            }
+                                            else
+                                            {
+                                                int ba = 0;
+                                                int fit = i;
+                                                int cot = j;
+                                                while (ba != 1)
                                                 {
-                                                    ba = 1;
-                                                }
-                                                else
-                                                {
-                                                    if (bot[fit, cot].BackColor == bus)
+                                                    fit += 1;
+                                                    cot -= 1;
+
+                                                    if (fit > FM || cot < 0)
                                                     {
-                                                        posif.Add((i - 1));
-                                                        posic.Add(j + 1);
-                                                        posff.Add(fit);
-                                                        posfc.Add(cot);
-                                                        dir.Add("DDS");
                                                         ba = 1;
-                                                        mov = 1;
                                                     }
                                                     else
                                                     {
-                                                        if (bot[fit, cot].BackColor == ori)
+                                                        if (bot[fit, cot].BackColor == bus)
                                                         {
-
+                                                            posif.Add((i - 1));
+                                                            posic.Add(j + 1);
+                                                            posff.Add(fit);
+                                                            posfc.Add(cot);
+                                                            dir.Add("DDS");
+                                                            ba = 1;
+                                                            mov = 1;
                                                         }
                                                         else
                                                         {
-                                                            ba = 1;
+                                                            if (bot[fit, cot].BackColor == ori)
+                                                            {
+
+                                                            }
+                                                            else
+                                                            {
+                                                                ba = 1;
+                                                            }
                                                         }
                                                     }
                                                 }
                                             }
                                         }
-                                    }
 
-                                    //Revision de posiciones
-                                    //Diagonal Derecha Inferior (DDI) //pen
-                                   
-                                    if ((i + 1) > FM || (j + 1) > CM)
-                                    {
+                                        //Revision de posiciones
+                                        //Diagonal Derecha Inferior (DDI) //pen
 
-                                    }
-                                    else
-                                    {
-                                        if (bot[(i + 1), (j + 1)].BackColor == Color.Black || bot[(i + 1), (j + 1)].BackColor == Color.White)
+                                        if ((i + 1) > FM || (j + 1) > CM)
                                         {
 
                                         }
                                         else
                                         {
-                                            int ba = 0;
-                                            int fit = i;
-                                            int cot = j;
-                                            while (ba != 1)
+                                            if (bot[(i + 1), (j + 1)].BackColor == Color.Black || bot[(i + 1), (j + 1)].BackColor == Color.White)
                                             {
-                                                fit -= 1;
-                                                cot -= 1;
-                                                if (fit < 0 || cot < 0)
+
+                                            }
+                                            else
+                                            {
+                                                int ba = 0;
+                                                int fit = i;
+                                                int cot = j;
+                                                while (ba != 1)
                                                 {
-                                                    ba = 1;
-                                                }
-                                                else
-                                                {
-                                                    if (bot[fit, cot].BackColor == bus)
+                                                    fit -= 1;
+                                                    cot -= 1;
+                                                    if (fit < 0 || cot < 0)
                                                     {
-                                                        posif.Add((i + 1));
-                                                        posic.Add(j + 1);
-                                                        posff.Add(fit);
-                                                        posfc.Add(cot);
-                                                        dir.Add("DDI");
                                                         ba = 1;
-                                                        mov = 1;
                                                     }
                                                     else
                                                     {
-                                                        if (bot[fit, cot].BackColor == ori)
+                                                        if (bot[fit, cot].BackColor == bus)
                                                         {
-
+                                                            posif.Add((i + 1));
+                                                            posic.Add(j + 1);
+                                                            posff.Add(fit);
+                                                            posfc.Add(cot);
+                                                            dir.Add("DDI");
+                                                            ba = 1;
+                                                            mov = 1;
                                                         }
                                                         else
                                                         {
-                                                            ba = 1;
+                                                            if (bot[fit, cot].BackColor == ori)
+                                                            {
+
+                                                            }
+                                                            else
+                                                            {
+                                                                ba = 1;
+                                                            }
                                                         }
                                                     }
                                                 }
@@ -880,20 +1142,19 @@ namespace Othell
                                     }
                                 }
                             }
-                        }
 
-                        //Validar Movimiento
-                        if (mov == 0)
-                        {
-                            TN = 0; //Cambiar esto dependiendo del color
-                            if (TN == 0 && TB == 0)
+                            //Validar Movimiento
+                            if (mov == 0)
                             {
-                                String gan = "";
-                                if (conn == conb)
+                                TN = 0; //Cambiar esto dependiendo del color
+                                if (TN == 0 && TB == 0)
                                 {
+                                    String gan = "";
+                                    if (conn == conb)
+                                    {
 
-                                  
-                                    
+
+
                                         const string FMT = "yyyy-MM-dd";
                                         DateTime hoy = DateTime.Now;
                                         string nom = hoy.ToString(FMT);
@@ -902,765 +1163,1039 @@ namespace Othell
                                         con.Open();
                                         SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Empate', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
                                         con.Close();
-                                        
-                                    
-
-                                    int f = 1;
-                                    if (f == 1)
-                                    {
-                                       
-                                        MessageBox.Show(this.Page, "Final del Juego. Empatados. ");
-                                    }
 
 
-                                }
-                                else
-                                {
-                                    if (conn > conb)
-                                    {
-                                        //Reto Inverso
-                                        if (RI == 0)
+
+                                        int f = 1;
+                                        if (f == 1)
                                         {
-                                            gan = "Jugador 1 (Negras).";
-                                            //Agregar a Base
-                                            if (Jug == "N")
-                                            {
 
-
-                                                const string FMT = "yyyy-MM-dd";
-                                                DateTime hoy = DateTime.Now;
-                                                string nom = hoy.ToString(FMT);
-                                                SqlConnection con = new SqlConnection();
-                                                con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
-                                                con.Open();
-                                                SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Ganador', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
-                                                con.Close();
-
-
-                                            }
-                                            else
-                                            {
-
-
-                                                const string FMT = "yyyy-MM-dd";
-                                                DateTime hoy = DateTime.Now;
-                                                string nom = hoy.ToString(FMT);
-                                                SqlConnection con = new SqlConnection();
-                                                con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
-                                                con.Open();
-                                                SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Perdedor', " + conb.ToString() + ", " + "'" + nom + "'" + ")", con);
-                                                con.Close();
-
-
-                                            }
+                                            MessageBox.Show(this.Page, "Final del Juego. Empatados. ");
                                         }
-                                        else
-                                        {
-                                            gan = "Jugador 2 (Blancas).";
-                                            //Agregar a Base
-                                            if (Jug == "B")
-                                            {
-
-
-                                                const string FMT = "yyyy-MM-dd";
-                                                DateTime hoy = DateTime.Now;
-                                                string nom = hoy.ToString(FMT);
-                                                SqlConnection con = new SqlConnection();
-                                                con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
-                                                con.Open();
-                                                SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Ganador', " + conb.ToString() + ", " + "'" + nom + "'" + ")", con);
-                                                con.Close();
-
-
-                                            }
-                                            else
-                                            {
-
-
-                                                const string FMT = "yyyy-MM-dd";
-                                                DateTime hoy = DateTime.Now;
-                                                string nom = hoy.ToString(FMT);
-                                                SqlConnection con = new SqlConnection();
-                                                con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
-                                                con.Open();
-                                                SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Perdedor', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
-                                                con.Close();
-
-
-                                            }
-                                        }
-
-
-
 
 
                                     }
                                     else
                                     {
-                                        //Reto Inverso
-                                        if (RI == 1)
+                                        if (conn > conb)
                                         {
-                                            gan = "Jugador 1 (Negras).";
-                                            //Agregar a Base
-                                            if (Jug == "N")
+                                            //Reto Inverso
+                                            if (RI == 0)
                                             {
+                                                gan = "Jugador 1 (Negras).";
+                                                //Agregar a Base
+                                                if (Jug == "N")
+                                                {
 
 
-                                                const string FMT = "yyyy-MM-dd";
-                                                DateTime hoy = DateTime.Now;
-                                                string nom = hoy.ToString(FMT);
-                                                SqlConnection con = new SqlConnection();
-                                                con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
-                                                con.Open();
-                                                SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Ganador', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
-                                                con.Close();
+                                                    const string FMT = "yyyy-MM-dd";
+                                                    DateTime hoy = DateTime.Now;
+                                                    string nom = hoy.ToString(FMT);
+                                                    SqlConnection con = new SqlConnection();
+                                                    con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                                    con.Open();
+                                                    SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Ganador', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                    con.Close();
 
 
+                                                }
+                                                else
+                                                {
+
+
+                                                    const string FMT = "yyyy-MM-dd";
+                                                    DateTime hoy = DateTime.Now;
+                                                    string nom = hoy.ToString(FMT);
+                                                    SqlConnection con = new SqlConnection();
+                                                    con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                                    con.Open();
+                                                    SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Perdedor', " + conb.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                    con.Close();
+
+
+                                                }
                                             }
                                             else
                                             {
+                                                gan = "Jugador 2 (Blancas).";
+                                                //Agregar a Base
+                                                if (Jug == "B")
+                                                {
 
 
-                                                const string FMT = "yyyy-MM-dd";
-                                                DateTime hoy = DateTime.Now;
-                                                string nom = hoy.ToString(FMT);
-                                                SqlConnection con = new SqlConnection();
-                                                con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
-                                                con.Open();
-                                                SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Perdedor', " + conb.ToString() + ", " + "'" + nom + "'" + ")", con);
-                                                con.Close();
+                                                    const string FMT = "yyyy-MM-dd";
+                                                    DateTime hoy = DateTime.Now;
+                                                    string nom = hoy.ToString(FMT);
+                                                    SqlConnection con = new SqlConnection();
+                                                    con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                                    con.Open();
+                                                    SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Ganador', " + conb.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                    con.Close();
 
 
+                                                }
+                                                else
+                                                {
+
+
+                                                    const string FMT = "yyyy-MM-dd";
+                                                    DateTime hoy = DateTime.Now;
+                                                    string nom = hoy.ToString(FMT);
+                                                    SqlConnection con = new SqlConnection();
+                                                    con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                                    con.Open();
+                                                    SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Perdedor', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                    con.Close();
+
+
+                                                }
                                             }
+
+
+
+
+
                                         }
                                         else
                                         {
-                                            gan = "Jugador 2 (Blancas).";
-                                            //Agregar a Base
-                                            if (Jug == "B")
+                                            //Reto Inverso
+                                            if (RI == 1)
                                             {
+                                                gan = "Jugador 1 (Negras).";
+                                                //Agregar a Base
+                                                if (Jug == "N")
+                                                {
 
 
-                                                const string FMT = "yyyy-MM-dd";
-                                                DateTime hoy = DateTime.Now;
-                                                string nom = hoy.ToString(FMT);
-                                                SqlConnection con = new SqlConnection();
-                                                con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
-                                                con.Open();
-                                                SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Ganador', " + conb.ToString() + ", " + "'" + nom + "'" + ")", con);
-                                                con.Close();
+                                                    const string FMT = "yyyy-MM-dd";
+                                                    DateTime hoy = DateTime.Now;
+                                                    string nom = hoy.ToString(FMT);
+                                                    SqlConnection con = new SqlConnection();
+                                                    con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                                    con.Open();
+                                                    SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Ganador', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                    con.Close();
 
 
+                                                }
+                                                else
+                                                {
+
+
+                                                    const string FMT = "yyyy-MM-dd";
+                                                    DateTime hoy = DateTime.Now;
+                                                    string nom = hoy.ToString(FMT);
+                                                    SqlConnection con = new SqlConnection();
+                                                    con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                                    con.Open();
+                                                    SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Perdedor', " + conb.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                    con.Close();
+
+
+                                                }
                                             }
                                             else
                                             {
+                                                gan = "Jugador 2 (Blancas).";
+                                                //Agregar a Base
+                                                if (Jug == "B")
+                                                {
 
 
-                                                const string FMT = "yyyy-MM-dd";
-                                                DateTime hoy = DateTime.Now;
-                                                string nom = hoy.ToString(FMT);
-                                                SqlConnection con = new SqlConnection();
-                                                con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
-                                                con.Open();
-                                                SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Perdedor', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
-                                                con.Close();
+                                                    const string FMT = "yyyy-MM-dd";
+                                                    DateTime hoy = DateTime.Now;
+                                                    string nom = hoy.ToString(FMT);
+                                                    SqlConnection con = new SqlConnection();
+                                                    con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                                    con.Open();
+                                                    SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Ganador', " + conb.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                    con.Close();
 
 
+                                                }
+                                                else
+                                                {
+
+
+                                                    const string FMT = "yyyy-MM-dd";
+                                                    DateTime hoy = DateTime.Now;
+                                                    string nom = hoy.ToString(FMT);
+                                                    SqlConnection con = new SqlConnection();
+                                                    con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                                    con.Open();
+                                                    SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Perdedor', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                    con.Close();
+
+
+                                                }
                                             }
+
+
+                                        }
+                                        int f = 1;
+                                        if (f == 1)
+                                        {
+
+                                            MessageBox.Show(this.Page, "Final del Juego. Gana " + gan);
                                         }
 
-
                                     }
-                                    int f = 1;
-                                    if (f == 1)
-                                    {
-                                       
-                                        MessageBox.Show(this.Page, "Final del Juego. Gana " + gan);
-                                    }
-
                                 }
-                            }
-                            else
-                            {
-                                TN = 0;
-                                MessageBox.Show(this.Page, "Las fichas negras no tienen movimientos disponibles.");
-                                x = 2;
-                            }
-
-                        }
-                        else
-                        {
-
-                            TN = 1;
-                            int c = posif.Count;
-                            //Encontrar posicion en el tablero
-                            String Pos = temp.ID;
-                            int Fila = (int)Char.GetNumericValue(Pos[1]) - 1;
-                            int Columna = (int)(Pos[0]) - 65;
-                            List<int> posicion = new List<int>();
-                            for (int i = 0; i < c; i++)
-                            {
-                                if (posif[i] == Fila && posic[i] == Columna)
+                                else
                                 {
-                                    posicion.Add(i);
+                                    TN = 0;
+                                    MessageBox.Show(this.Page, "Las fichas negras no tienen movimientos disponibles.");
+                                    x = 2;
                                 }
-                            }
 
-                            //Validar Movimiento
-                            int d = posicion.Count;
-                            if (d == 0)
-                            {
-                                MessageBox.Show(this.Page, "El movimiento que desea ejecutar no es valido. Intentelo de nuevo.");
-                                Turno.Text = "Negras";
                             }
                             else
                             {
 
-                                Turno.Text = "Blancas";
-
-                                //Colorear
-                                for (int i = 0; i < d; i++)
+                                TN = 1;
+                                int c = posif.Count;
+                                //Encontrar posicion en el tablero
+                                String Pos = temp.ID;
+                                int Fila = (int)Char.GetNumericValue(Pos[1]) - 1;
+                                int Columna = (int)(Pos[0]) - 65;
+                                List<int> posicion = new List<int>();
+                                for (int i = 0; i < c; i++)
                                 {
-                                    int temfi = posif[posicion[i]];
-                                    int temci = posic[posicion[i]];
-                                    int temff = posff[posicion[i]];
-                                    int temcf = posfc[posicion[i]];
-                                    string dirt = dir[posicion[i]];
-
-                                    switch (dirt)
+                                    if (posif[i] == Fila && posic[i] == Columna)
                                     {
-                                        case "UV":
-                                            for (int o = temfi; o < temff; o++)
-                                            {
-                                                bot[o, temci].BackColor = Color.Black; //Cambiar dependiendo del color
-                                                x = 2;
-                                            }
-                                            break;
-
-                                        case "DV":
-                                            for (int o = temff; o < (temfi + 1); o++)
-                                            {
-                                                bot[o, temci].BackColor = Color.Black; //Cambiar dependiendo del color
-                                                x = 2;
-                                            }
-                                            break;
-
-                                        case "HI":
-                                            for (int o = temci; o < temcf; o++)
-                                            {
-                                                bot[temfi, o].BackColor = Color.Black; //Cambiar dependiendo del color
-                                                x = 2;
-                                            }
-                                            break;
-
-                                        case "HD":
-                                            for (int o = temcf; o < (temci + 1); o++)
-                                            {
-                                                bot[temfi, o].BackColor = Color.Black; //Cambiar dependiendo del color
-                                                x = 2;
-                                            }
-                                            break;
-
-                                        case "DIS":
-                                            int a = temff - temfi;
-
-                                            for (int g = 0; g < a; g++)
-                                            {
-
-                                                bot[temfi + g, temci + g].BackColor = Color.Black; //Cambiar dependiendo del color
-                                                x = 2;
-
-                                            }
-                                            break;
-
-                                        case "DII":
-                                            int a1 = temfi - temff;
-                                            for (int g = 0; g < (a1); g++)
-                                            {
-
-                                                bot[temfi - g, temci + g].BackColor = Color.Black; //Cambiar dependiendo del color
-                                                x = 2;
-
-                                            }
-                                            break;
-
-                                        case "DDS":
-                                            int a2 = temff - temfi;
-                                            for (int g = 0; g < a2; g++)
-                                            {
-
-                                                bot[temfi + g, temci - g].BackColor = Color.Black; //Cambiar dependiendo del color
-                                                x = 2;
-
-                                            }
-                                            break;
-
-                                        case "DDI":
-                                            int a3 = temfi - temff;
-
-                                            for (int g = 0; g < a3; g++)
-                                            {
-
-                                                bot[temfi - g, temci - g].BackColor = Color.Black; //Cambiar dependiendo del color
-                                                x = 2;
-
-                                            }
-                                            break;
+                                        posicion.Add(i);
                                     }
                                 }
 
+                                //Validar Movimiento
+                                int d = posicion.Count;
+                                if (d == 0)
+                                {
+                                    MessageBox.Show(this.Page, "El movimiento que desea ejecutar no es valido. Intentelo de nuevo.");
+                                    Turno.Text = "Jugador 1";
+                                }
+                                else
+                                {
+
+                                    Turno.Text = "Jugador 2";
+
+                                    //Colorear
+                                    for (int i = 0; i < d; i++)
+                                    {
+                                        int temfi = posif[posicion[i]];
+                                        int temci = posic[posicion[i]];
+                                        int temff = posff[posicion[i]];
+                                        int temcf = posfc[posicion[i]];
+                                        string dirt = dir[posicion[i]];
+
+                                        switch (dirt)
+                                        {
+                                            case "UV":
+                                                for (int o = temfi; o < temff; o++)
+                                                {
+                                                    bot[o, temci].BackColor = Color.Black; //Cambiar dependiendo del color
+                                                    x = 2;
+                                                }
+                                                break;
+
+                                            case "DV":
+                                                for (int o = temff; o < (temfi + 1); o++)
+                                                {
+                                                    bot[o, temci].BackColor = Color.Black; //Cambiar dependiendo del color
+                                                    x = 2;
+                                                }
+                                                break;
+
+                                            case "HI":
+                                                for (int o = temci; o < temcf; o++)
+                                                {
+                                                    bot[temfi, o].BackColor = Color.Black; //Cambiar dependiendo del color
+                                                    x = 2;
+                                                }
+                                                break;
+
+                                            case "HD":
+                                                for (int o = temcf; o < (temci + 1); o++)
+                                                {
+                                                    bot[temfi, o].BackColor = Color.Black; //Cambiar dependiendo del color
+                                                    x = 2;
+                                                }
+                                                break;
+
+                                            case "DIS":
+                                                int a = temff - temfi;
+
+                                                for (int g = 0; g < a; g++)
+                                                {
+
+                                                    bot[temfi + g, temci + g].BackColor = Color.Black; //Cambiar dependiendo del color
+                                                    x = 2;
+
+                                                }
+                                                break;
+
+                                            case "DII":
+                                                int a1 = temfi - temff;
+                                                for (int g = 0; g < (a1); g++)
+                                                {
+
+                                                    bot[temfi - g, temci + g].BackColor = Color.Black; //Cambiar dependiendo del color
+                                                    x = 2;
+
+                                                }
+                                                break;
+
+                                            case "DDS":
+                                                int a2 = temff - temfi;
+                                                for (int g = 0; g < a2; g++)
+                                                {
+
+                                                    bot[temfi + g, temci - g].BackColor = Color.Black; //Cambiar dependiendo del color
+                                                    x = 2;
+
+                                                }
+                                                break;
+
+                                            case "DDI":
+                                                int a3 = temfi - temff;
+
+                                                for (int g = 0; g < a3; g++)
+                                                {
+
+                                                    bot[temfi - g, temci - g].BackColor = Color.Black; //Cambiar dependiendo del color
+                                                    x = 2;
+
+                                                }
+                                                break;
+                                        }
+                                    }
+
+
+                                }
+
+
 
                             }
-
-
-
                         }
+                        
                     }
                     else
                     {
-                        mov = 0;
-                        TB = 0;
-                        int FM = FI - 1;
-                        int CM = CO - 1;
-                        //Verificar posible movimientos
-                        for (int i = 0; i < FI; i++)
+                        if (PCB == J2.Count)
                         {
-                            for (int j = 0; j < CO; j++)
+                            aperturab = 1;
+                            PCB = 0;
+                        }
+                        else
+                        {
+                            aperturab = 0;
+                        }
+                        if (aperturab == 0)
+                        {
+                            //Contar si ya esta coloreado centro
+                            int P1C = (CO / 2) - 1;
+                            int P1F = (FI / 2) - 1;
+                            int P2C = (CO / 2) - 1;
+                            int P2F = FI / 2;
+                            int P3C = CO / 2;
+                            int P3F = FI / 2;
+                            int P4C = CO / 2;
+                            int P4F = (FI / 2) - 1;
+                            int conc = 0; //Cuenta piezas de centro
+                            if (bot[P1F, P1C].BackColor == Color.Black || bot[P1F, P1C].BackColor == Color.White || bot[P1F, P1C].BackColor == Color.Red || bot[P1F, P1C].BackColor == Color.Yellow || bot[P1F, P1C].BackColor == Color.Blue || bot[P1F, P1C].BackColor == Color.Orange || bot[P1F, P1C].BackColor == Color.Green || bot[P1F, P1C].BackColor == Color.MediumPurple || bot[P1F, P1C].BackColor == Color.SkyBlue || bot[P1F, P1C].BackColor == Color.Gray)
                             {
-                                Button tem = bot[i, j];
-                                Color bus = Color.Red; //Opuesto
-                                Color ori = Color.Red; //Original
+                                conc = conc + 1;
+                            }
 
-                                if (tem.BackColor == Color.Black)
+                            if (bot[P2F, P2C].BackColor == Color.Black || bot[P2F, P2C].BackColor == Color.White || bot[P2F, P2C].BackColor == Color.Red || bot[P2F, P2C].BackColor == Color.Yellow || bot[P2F, P2C].BackColor == Color.Blue || bot[P2F, P2C].BackColor == Color.Orange || bot[P2F, P2C].BackColor == Color.Green || bot[P2F, P2C].BackColor == Color.MediumPurple || bot[P2F, P2C].BackColor == Color.SkyBlue || bot[P2F, P2C].BackColor == Color.Gray)
+                            {
+                                conc = conc + 1;
+                            }
+
+                            if (bot[P3F, P3C].BackColor == Color.Black || bot[P3F, P3C].BackColor == Color.White || bot[P3F, P3C].BackColor == Color.Red || bot[P3F, P3C].BackColor == Color.Yellow || bot[P3F, P3C].BackColor == Color.Blue || bot[P3F, P3C].BackColor == Color.Orange || bot[P3F, P3C].BackColor == Color.Green || bot[P3F, P3C].BackColor == Color.MediumPurple || bot[P3F, P3C].BackColor == Color.SkyBlue || bot[P3F, P3C].BackColor == Color.Gray)
+                            {
+                                conc = conc + 1;
+                            }
+
+                            if (bot[P4F, P4C].BackColor == Color.Black || bot[P4F, P4C].BackColor == Color.White || bot[P4F, P4C].BackColor == Color.Red || bot[P4F, P4C].BackColor == Color.Yellow || bot[P4F, P4C].BackColor == Color.Blue || bot[P4F, P4C].BackColor == Color.Orange || bot[P4F, P4C].BackColor == Color.Green || bot[P4F, P4C].BackColor == Color.MediumPurple || bot[P4F, P4C].BackColor == Color.SkyBlue || bot[P4F, P4C].BackColor == Color.Gray)
+                            {
+                                conc = conc + 1;
+                            }
+
+                            if (conc == 4)
+                            {
+                                aperturaC = 1;
+                            }
+                            else
+                            {
+                                aperturaC = 0;
+                            }
+
+
+                            if (aperturaC == 0)
+                            {
+                                //Encontrar posicion en el tablero
+                                String Pos = temp.ID;
+                                int Fila = (int)Char.GetNumericValue(Pos[1]) - 1;
+                                int Columna = (int)(Pos[0]) - 65;
+                                Color pin = Color.Lavender;
+                                String tempco = J2[PCB];
+                                PCB = PCB + 1;
+                                
+
+                                switch (tempco)
                                 {
-                                    bus = Color.White;
-                                    ori = Color.Black;
+                                    case "Rojo":
+                                        pin = Color.Red;
+                                        break;
+
+                                    case "Amarillo":
+                                        pin = Color.Yellow;
+                                        break;
+
+                                    case "Azul":
+                                        pin = Color.Blue;
+                                        break;
+
+                                    case "Naranja":
+                                        pin = Color.Orange;
+                                        break;
+
+                                    case "Verde":
+                                        pin = Color.Green;
+                                        break;
+
+                                    case "Violeta":
+                                        pin = Color.MediumPurple;
+                                        break;
+
+                                    case "Blanco":
+                                        pin = Color.White;
+                                        break;
+
+                                    case "Negro":
+                                        pin = Color.Black;
+                                        break;
+
+                                    case "Celeste":
+                                        pin = Color.SkyBlue;
+                                        break;
+
+                                    case "Gris":
+                                        pin = Color.Gray;
+                                        break;
 
                                 }
 
-                                if (bus == Color.Red)
+
+                                if (Fila == P1F && Columna == P1C)
                                 {
+
+                                    temp.BackColor = pin;
+                                    x = 1;
+                                    Turno.Text = "Jugador 1";
+                                }
+                                else
+                                {
+
+                                    if (Fila == P2F && Columna == P2C)
+                                    {
+                                        temp.BackColor = pin;
+                                        x = 1;
+                                        Turno.Text = "Jugador 1";
+                                    }
+                                    else
+                                    {
+
+                                        if (Fila == P3F && Columna == P3C)
+                                        {
+                                            temp.BackColor = pin;
+                                            x = 1;
+                                            Turno.Text = "Jugador 1";
+                                        }
+                                        else
+                                        {
+
+                                            if (Fila == P4F && Columna == P4C)
+                                            {
+                                                temp.BackColor = pin;
+                                                x = 1;
+                                                Turno.Text = "Jugador 1";
+                                            }
+                                            else
+                                            {
+                                                Page.ClientScript.RegisterStartupScript(
+                                                Page.GetType(),
+                                                "Mensaje",
+                                                "<script language='javascript'>alert('Movimiento no valido. Debe llenar el centro primero.');</script>");
+                                            }
+                                        }
+                                    }
+                                }
+
+                            }
+                            else
+                            {
+                                //Encontrar posicion en el tablero
+                                String Pos = temp.ID;
+                                int Fila = (int)Char.GetNumericValue(Pos[1]) - 1;
+                                int Columna = (int)(Pos[0]) - 65;
+                                Color pin = Color.Lavender;
+                                String tempco = J2[PCB];
+                                PCB = PCB + 1;
+                                
+
+                                switch (tempco)
+                                {
+                                    case "Rojo":
+                                        pin = Color.Red;
+                                        break;
+
+                                    case "Amarillo":
+                                        pin = Color.Yellow;
+                                        break;
+
+                                    case "Azul":
+                                        pin = Color.Blue;
+                                        break;
+
+                                    case "Naranja":
+                                        pin = Color.Orange;
+                                        break;
+
+                                    case "Verde":
+                                        pin = Color.Green;
+                                        break;
+
+                                    case "Violeta":
+                                        pin = Color.MediumPurple;
+                                        break;
+
+                                    case "Blanco":
+                                        pin = Color.White;
+                                        break;
+
+                                    case "Negro":
+                                        pin = Color.Black;
+                                        break;
+
+                                    case "Celeste":
+                                        pin = Color.SkyBlue;
+                                        break;
+
+                                    case "Gris":
+                                        pin = Color.Gray;
+                                        break;
+
+                                }
+
+                                int PCSF = P1F - 1; //Fila superior a cuadrado central
+                                int PCSCI = P1C - 1; //Inicio de columna
+                                int PCSCF = P3C + 1; //Inicio de columna
+
+                                int PCIF = P2F + 1; //Fila Inferior a cuadrado central
+                                int PCICI = P1C - 1; //Inicio de columna
+                                int PCICF = P3C + 1; //Inicio de columna
+
+                                int PCFII = P1F; //Fila inicial a cuadrado central
+                                int PCFFD = P2F; //Fila Final a cuadrado central
+                                int PCI = P1C - 1; //columna izquierda
+
+
+                                int PCF = P4C + 1; //columna derecha
+
+                                if (Fila == PCIF && Columna >= PCICI && Columna <= PCICF)
+                                {
+                                    temp.BackColor = pin;
+                                    x = 1;
+                                    Turno.Text = "Jugador 1";
 
                                 }
                                 else
                                 {
-                                    //Revision de posiciones
-                                    //Arriba Vertical (UV)
-                                    if ((i - 1) < 0)
+                                    if (Fila == PCSF && Columna >= PCSCI && Columna <= PCSCF)
+                                    {
+                                        temp.BackColor = pin;
+                                        x = 1;
+                                        Turno.Text = "Jugador 1";
+
+                                    }
+                                    else
+                                    {
+                                        if (Columna == PCI && Fila >= PCFII && Fila <= PCFFD)
+                                        {
+                                            temp.BackColor = pin;
+                                            x = 1;
+                                            Turno.Text = "Jugador 1";
+
+                                        }
+                                        else
+                                        {
+                                            if (Columna == PCF && Fila >= PCFII && Fila <= PCFFD)
+                                            {
+                                                temp.BackColor = pin;
+                                                x = 1;
+                                                Turno.Text = "Jugador 1";
+
+                                            }
+                                            else
+                                            {
+                                                Page.ClientScript.RegisterStartupScript(
+                                               Page.GetType(),
+                                               "Mensaje",
+                                               "<script language='javascript'>alert('Movimiento no valido. Debe llenar las casillas que rodean al centro hasta que tenga una ficha de cada color en el tablero.');</script>");
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            mov = 0;
+                            TB = 0;
+                            int FM = FI - 1;
+                            int CM = CO - 1;
+                            //Verificar posible movimientos
+                            for (int i = 0; i < FI; i++)
+                            {
+                                for (int j = 0; j < CO; j++)
+                                {
+                                    Button tem = bot[i, j];
+                                    Color bus = Color.Red; //Opuesto
+                                    Color ori = Color.Red; //Original
+
+                                    if (tem.BackColor == Color.Black)
+                                    {
+                                        bus = Color.White;
+                                        ori = Color.Black;
+
+                                    }
+
+                                    if (bus == Color.Red)
                                     {
 
                                     }
                                     else
                                     {
-                                        if (bot[(i - 1), j].BackColor == Color.Black || bot[(i - 1), j].BackColor == Color.White)
+                                        //Revision de posiciones
+                                        //Arriba Vertical (UV)
+                                        if ((i - 1) < 0)
                                         {
 
                                         }
                                         else
                                         {
-                                            int ba = 0;
-                                            int fit = i;
-                                            int cot = j;
-                                            while (ba != 1)
+                                            if (bot[(i - 1), j].BackColor == Color.Black || bot[(i - 1), j].BackColor == Color.White)
                                             {
-                                                fit += 1;
 
-                                                if (fit > FM)
+                                            }
+                                            else
+                                            {
+                                                int ba = 0;
+                                                int fit = i;
+                                                int cot = j;
+                                                while (ba != 1)
                                                 {
-                                                    ba = 1;
-                                                }
-                                                else
-                                                {
-                                                    if (bot[fit, cot].BackColor == bus)
+                                                    fit += 1;
+
+                                                    if (fit > FM)
                                                     {
-                                                        posif.Add(i - 1);
-                                                        posic.Add(j);
-                                                        posff.Add(fit);
-                                                        posfc.Add(cot);
-                                                        dir.Add("UV");
                                                         ba = 1;
-                                                        mov = 1;
                                                     }
                                                     else
                                                     {
-                                                        if (bot[fit, cot].BackColor == ori)
+                                                        if (bot[fit, cot].BackColor == bus)
                                                         {
-
+                                                            posif.Add(i - 1);
+                                                            posic.Add(j);
+                                                            posff.Add(fit);
+                                                            posfc.Add(cot);
+                                                            dir.Add("UV");
+                                                            ba = 1;
+                                                            mov = 1;
                                                         }
                                                         else
                                                         {
-                                                            ba = 1;
+                                                            if (bot[fit, cot].BackColor == ori)
+                                                            {
+
+                                                            }
+                                                            else
+                                                            {
+                                                                ba = 1;
+                                                            }
                                                         }
                                                     }
                                                 }
                                             }
                                         }
-                                    }
 
-                                    //Revision de posiciones
-                                    //Abajo Vertical (DV)
-                                    if ((i + 1) > FM)
-                                    {
-
-                                    }
-                                    else
-                                    {
-                                        if (bot[(i + 1), j].BackColor == Color.Black || bot[(i + 1), j].BackColor == Color.White)
+                                        //Revision de posiciones
+                                        //Abajo Vertical (DV)
+                                        if ((i + 1) > FM)
                                         {
 
                                         }
                                         else
                                         {
-                                            int ba = 0;
-                                            int fit = i;
-                                            int cot = j;
-                                            while (ba != 1)
+                                            if (bot[(i + 1), j].BackColor == Color.Black || bot[(i + 1), j].BackColor == Color.White)
                                             {
-                                                fit -= 1;
-                                                if (fit < 0)
+
+                                            }
+                                            else
+                                            {
+                                                int ba = 0;
+                                                int fit = i;
+                                                int cot = j;
+                                                while (ba != 1)
                                                 {
-                                                    ba = 1;
-                                                }
-                                                else
-                                                {
-                                                    if (bot[fit, cot].BackColor == bus)
+                                                    fit -= 1;
+                                                    if (fit < 0)
                                                     {
-                                                        posif.Add((i + 1));
-                                                        posic.Add(j);
-                                                        posff.Add(fit);
-                                                        posfc.Add(cot);
-                                                        dir.Add("DV");
                                                         ba = 1;
-                                                        mov = 1;
                                                     }
                                                     else
                                                     {
-                                                        if (bot[fit, cot].BackColor == ori)
+                                                        if (bot[fit, cot].BackColor == bus)
                                                         {
-
+                                                            posif.Add((i + 1));
+                                                            posic.Add(j);
+                                                            posff.Add(fit);
+                                                            posfc.Add(cot);
+                                                            dir.Add("DV");
+                                                            ba = 1;
+                                                            mov = 1;
                                                         }
                                                         else
                                                         {
-                                                            ba = 1;
+                                                            if (bot[fit, cot].BackColor == ori)
+                                                            {
+
+                                                            }
+                                                            else
+                                                            {
+                                                                ba = 1;
+                                                            }
                                                         }
                                                     }
                                                 }
                                             }
                                         }
-                                    }
 
 
-                                    //Revision de posiciones
-                                    //Izquierda Horizontal (HI)
-                                    if ((j - 1) < 0)
-                                    {
-
-                                    }
-                                    else
-                                    {
-                                        if (bot[i, (j - 1)].BackColor == Color.Black || bot[i, (j - 1)].BackColor == Color.White)
+                                        //Revision de posiciones
+                                        //Izquierda Horizontal (HI)
+                                        if ((j - 1) < 0)
                                         {
 
                                         }
                                         else
                                         {
-                                            int ba = 0;
-                                            int fit = i;
-                                            int cot = j;
-                                            while (ba != 1)
+                                            if (bot[i, (j - 1)].BackColor == Color.Black || bot[i, (j - 1)].BackColor == Color.White)
                                             {
 
-                                                cot += 1;
-                                                if (cot > CM)
+                                            }
+                                            else
+                                            {
+                                                int ba = 0;
+                                                int fit = i;
+                                                int cot = j;
+                                                while (ba != 1)
                                                 {
-                                                    ba = 1;
-                                                }
-                                                else
-                                                {
-                                                    if (bot[fit, cot].BackColor == bus)
+
+                                                    cot += 1;
+                                                    if (cot > CM)
                                                     {
-                                                        posif.Add(i);
-                                                        posic.Add(j - 1);
-                                                        posff.Add(fit);
-                                                        posfc.Add(cot);
-                                                        dir.Add("HI");
                                                         ba = 1;
-                                                        mov = 1;
                                                     }
                                                     else
                                                     {
-                                                        if (bot[fit, cot].BackColor == ori)
+                                                        if (bot[fit, cot].BackColor == bus)
                                                         {
-
+                                                            posif.Add(i);
+                                                            posic.Add(j - 1);
+                                                            posff.Add(fit);
+                                                            posfc.Add(cot);
+                                                            dir.Add("HI");
+                                                            ba = 1;
+                                                            mov = 1;
                                                         }
                                                         else
                                                         {
-                                                            ba = 1;
+                                                            if (bot[fit, cot].BackColor == ori)
+                                                            {
+
+                                                            }
+                                                            else
+                                                            {
+                                                                ba = 1;
+                                                            }
                                                         }
                                                     }
                                                 }
                                             }
                                         }
-                                    }
 
-                                    //Revision de posiciones
-                                    //Derecha Horizontal (HD)
-                                    if ((j + 1) > CM)
-                                    {
-
-                                    }
-                                    else
-                                    {
-                                        if (bot[i, (j + 1)].BackColor == Color.Black || bot[i, (j + 1)].BackColor == Color.White)
+                                        //Revision de posiciones
+                                        //Derecha Horizontal (HD)
+                                        if ((j + 1) > CM)
                                         {
 
                                         }
                                         else
                                         {
-                                            int ba = 0;
-                                            int fit = i;
-                                            int cot = j;
-                                            while (ba != 1)
+                                            if (bot[i, (j + 1)].BackColor == Color.Black || bot[i, (j + 1)].BackColor == Color.White)
                                             {
 
-                                                cot -= 1;
-                                                if (cot < 0)
+                                            }
+                                            else
+                                            {
+                                                int ba = 0;
+                                                int fit = i;
+                                                int cot = j;
+                                                while (ba != 1)
                                                 {
-                                                    ba = 1;
-                                                }
-                                                else
-                                                {
-                                                    if (bot[fit, cot].BackColor == bus)
+
+                                                    cot -= 1;
+                                                    if (cot < 0)
                                                     {
-                                                        posif.Add((i));
-                                                        posic.Add(j + 1);
-                                                        posff.Add(fit);
-                                                        posfc.Add(cot);
-                                                        dir.Add("HD");
                                                         ba = 1;
-                                                        mov = 1;
                                                     }
                                                     else
                                                     {
-                                                        if (bot[fit, cot].BackColor == ori)
+                                                        if (bot[fit, cot].BackColor == bus)
                                                         {
-
+                                                            posif.Add((i));
+                                                            posic.Add(j + 1);
+                                                            posff.Add(fit);
+                                                            posfc.Add(cot);
+                                                            dir.Add("HD");
+                                                            ba = 1;
+                                                            mov = 1;
                                                         }
                                                         else
                                                         {
-                                                            ba = 1;
+                                                            if (bot[fit, cot].BackColor == ori)
+                                                            {
+
+                                                            }
+                                                            else
+                                                            {
+                                                                ba = 1;
+                                                            }
                                                         }
                                                     }
                                                 }
                                             }
                                         }
-                                    }
 
-                                    //Revision de posiciones
-                                    //Diagonal Izquierda Superior (DIS)
-                                    if ((i - 1) < 0 || (j - 1) < 0)
-                                    {
-
-                                    }
-                                    else
-                                    {
-                                        if (bot[(i - 1), (j - 1)].BackColor == Color.Black || bot[(i - 1), (j - 1)].BackColor == Color.White)
+                                        //Revision de posiciones
+                                        //Diagonal Izquierda Superior (DIS)
+                                        if ((i - 1) < 0 || (j - 1) < 0)
                                         {
 
                                         }
                                         else
                                         {
-                                            int ba = 0;
-                                            int fit = i;
-                                            int cot = j;
-                                            while (ba != 1)
+                                            if (bot[(i - 1), (j - 1)].BackColor == Color.Black || bot[(i - 1), (j - 1)].BackColor == Color.White)
                                             {
-                                                fit += 1;
-                                                cot += 1;
-                                                if (fit > FM || cot > CM)
+
+                                            }
+                                            else
+                                            {
+                                                int ba = 0;
+                                                int fit = i;
+                                                int cot = j;
+                                                while (ba != 1)
                                                 {
-                                                    ba = 1;
-                                                }
-                                                else
-                                                {
-                                                    if (bot[fit, cot].BackColor == bus)
+                                                    fit += 1;
+                                                    cot += 1;
+                                                    if (fit > FM || cot > CM)
                                                     {
-                                                        posif.Add(i - 1);
-                                                        posic.Add(j - 1);
-                                                        posff.Add(fit);
-                                                        posfc.Add(cot);
-                                                        dir.Add("DIS");
                                                         ba = 1;
-                                                        mov = 1;
                                                     }
                                                     else
                                                     {
-                                                        if (bot[fit, cot].BackColor == ori)
+                                                        if (bot[fit, cot].BackColor == bus)
                                                         {
-
+                                                            posif.Add(i - 1);
+                                                            posic.Add(j - 1);
+                                                            posff.Add(fit);
+                                                            posfc.Add(cot);
+                                                            dir.Add("DIS");
+                                                            ba = 1;
+                                                            mov = 1;
                                                         }
                                                         else
                                                         {
-                                                            ba = 1;
+                                                            if (bot[fit, cot].BackColor == ori)
+                                                            {
+
+                                                            }
+                                                            else
+                                                            {
+                                                                ba = 1;
+                                                            }
                                                         }
                                                     }
                                                 }
                                             }
                                         }
-                                    }
 
-                                    //Revision de posiciones
-                                    //Diagonal Izquierda Inferior (DII) //pen
-                                    if ((i + 1) > FM || (j - 1) < 0)
-                                    {
-
-                                    }
-                                    else
-                                    {
-                                        if (bot[(i + 1), (j - 1)].BackColor == Color.Black || bot[(i + 1), (j - 1)].BackColor == Color.White)
+                                        //Revision de posiciones
+                                        //Diagonal Izquierda Inferior (DII) //pen
+                                        if ((i + 1) > FM || (j - 1) < 0)
                                         {
 
                                         }
                                         else
                                         {
-                                            int ba = 0;
-                                            int fit = i;
-                                            int cot = j;
-                                            while (ba != 1)
+                                            if (bot[(i + 1), (j - 1)].BackColor == Color.Black || bot[(i + 1), (j - 1)].BackColor == Color.White)
                                             {
-                                                fit -= 1;
-                                                cot += 1;
-                                                if (fit < 0 || cot > CM)
+
+                                            }
+                                            else
+                                            {
+                                                int ba = 0;
+                                                int fit = i;
+                                                int cot = j;
+                                                while (ba != 1)
                                                 {
-                                                    ba = 1;
-                                                }
-                                                else
-                                                {
-                                                    if (bot[fit, cot].BackColor == bus)
+                                                    fit -= 1;
+                                                    cot += 1;
+                                                    if (fit < 0 || cot > CM)
                                                     {
-                                                        posif.Add((i + 1));
-                                                        posic.Add(j - 1);
-                                                        posff.Add(fit);
-                                                        posfc.Add(cot);
-                                                        dir.Add("DII");
                                                         ba = 1;
-                                                        mov = 1;
                                                     }
                                                     else
                                                     {
-                                                        if (bot[fit, cot].BackColor == ori)
+                                                        if (bot[fit, cot].BackColor == bus)
                                                         {
-
+                                                            posif.Add((i + 1));
+                                                            posic.Add(j - 1);
+                                                            posff.Add(fit);
+                                                            posfc.Add(cot);
+                                                            dir.Add("DII");
+                                                            ba = 1;
+                                                            mov = 1;
                                                         }
                                                         else
                                                         {
-                                                            ba = 1;
+                                                            if (bot[fit, cot].BackColor == ori)
+                                                            {
+
+                                                            }
+                                                            else
+                                                            {
+                                                                ba = 1;
+                                                            }
                                                         }
                                                     }
                                                 }
                                             }
                                         }
-                                    }
 
-                                    //Revision de posiciones
-                                    //Diagonal Derecha Superior (DDS)
-                                    if ((i - 1) < 0 || (j + 1) > CM)
-                                    {
-
-                                    }
-                                    else
-                                    {
-                                        if (bot[(i - 1), (j + 1)].BackColor == Color.Black || bot[(i - 1), (j + 1)].BackColor == Color.White)
+                                        //Revision de posiciones
+                                        //Diagonal Derecha Superior (DDS)
+                                        if ((i - 1) < 0 || (j + 1) > CM)
                                         {
 
                                         }
                                         else
                                         {
-                                            int ba = 0;
-                                            int fit = i;
-                                            int cot = j;
-                                            while (ba != 1)
+                                            if (bot[(i - 1), (j + 1)].BackColor == Color.Black || bot[(i - 1), (j + 1)].BackColor == Color.White)
                                             {
-                                                fit += 1;
-                                                cot -= 1;
-                                                if (fit > FM || cot < 0)
+
+                                            }
+                                            else
+                                            {
+                                                int ba = 0;
+                                                int fit = i;
+                                                int cot = j;
+                                                while (ba != 1)
                                                 {
-                                                    ba = 1;
-                                                }
-                                                else
-                                                {
-                                                    if (bot[fit, cot].BackColor == bus)
+                                                    fit += 1;
+                                                    cot -= 1;
+                                                    if (fit > FM || cot < 0)
                                                     {
-                                                        posif.Add((i - 1));
-                                                        posic.Add(j + 1);
-                                                        posff.Add(fit);
-                                                        posfc.Add(cot);
-                                                        dir.Add("DDS");
                                                         ba = 1;
-                                                        mov = 1;
                                                     }
                                                     else
                                                     {
-                                                        if (bot[fit, cot].BackColor == ori)
+                                                        if (bot[fit, cot].BackColor == bus)
                                                         {
-
+                                                            posif.Add((i - 1));
+                                                            posic.Add(j + 1);
+                                                            posff.Add(fit);
+                                                            posfc.Add(cot);
+                                                            dir.Add("DDS");
+                                                            ba = 1;
+                                                            mov = 1;
                                                         }
                                                         else
                                                         {
-                                                            ba = 1;
+                                                            if (bot[fit, cot].BackColor == ori)
+                                                            {
+
+                                                            }
+                                                            else
+                                                            {
+                                                                ba = 1;
+                                                            }
                                                         }
                                                     }
                                                 }
                                             }
                                         }
-                                    }
 
-                                    //Revision de posiciones
-                                    //Diagonal Derecha Inferior (DDI) //pen
-                                    if ((i + 1) > FM || (j + 1) > CM)
-                                    {
-
-                                    }
-                                    else
-                                    {
-                                        if (bot[(i + 1), (j + 1)].BackColor == Color.Black || bot[(i + 1), (j + 1)].BackColor == Color.White)
+                                        //Revision de posiciones
+                                        //Diagonal Derecha Inferior (DDI) //pen
+                                        if ((i + 1) > FM || (j + 1) > CM)
                                         {
 
                                         }
                                         else
                                         {
-                                            int ba = 0;
-                                            int fit = i;
-                                            int cot = j;
-                                            while (ba != 1)
+                                            if (bot[(i + 1), (j + 1)].BackColor == Color.Black || bot[(i + 1), (j + 1)].BackColor == Color.White)
                                             {
-                                                fit -= 1;
-                                                cot -= 1;
-                                                if (fit < 0 || cot < 0)
+
+                                            }
+                                            else
+                                            {
+                                                int ba = 0;
+                                                int fit = i;
+                                                int cot = j;
+                                                while (ba != 1)
                                                 {
-                                                    ba = 1;
-                                                }
-                                                else
-                                                {
-                                                    if (bot[fit, cot].BackColor == bus)
+                                                    fit -= 1;
+                                                    cot -= 1;
+                                                    if (fit < 0 || cot < 0)
                                                     {
-                                                        posif.Add((i + 1));
-                                                        posic.Add(j + 1);
-                                                        posff.Add(fit);
-                                                        posfc.Add(cot);
-                                                        dir.Add("DDI");
                                                         ba = 1;
-                                                        mov = 1;
                                                     }
                                                     else
                                                     {
-                                                        if (bot[fit, cot].BackColor == ori)
+                                                        if (bot[fit, cot].BackColor == bus)
                                                         {
-
+                                                            posif.Add((i + 1));
+                                                            posic.Add(j + 1);
+                                                            posff.Add(fit);
+                                                            posfc.Add(cot);
+                                                            dir.Add("DDI");
+                                                            ba = 1;
+                                                            mov = 1;
                                                         }
                                                         else
                                                         {
-                                                            ba = 1;
+                                                            if (bot[fit, cot].BackColor == ori)
+                                                            {
+
+                                                            }
+                                                            else
+                                                            {
+                                                                ba = 1;
+                                                            }
                                                         }
                                                     }
                                                 }
@@ -1669,20 +2204,19 @@ namespace Othell
                                     }
                                 }
                             }
-                        }
 
-                        //Validar Movimiento
-                        if (mov == 0)
-                        {
-                            TB = 0; //Cambiar esto dependiendo del color
-                            if (TN == 0 && TB == 0)
+                            //Validar Movimiento
+                            if (mov == 0)
                             {
-                                String gan = "";
-                                if (conn == conb)
+                                TB = 0; //Cambiar esto dependiendo del color
+                                if (TN == 0 && TB == 0)
                                 {
+                                    String gan = "";
+                                    if (conn == conb)
+                                    {
 
-                                    
-                                    
+
+
                                         const string FMT = "yyyy-MM-dd";
                                         DateTime hoy = DateTime.Now;
                                         string nom = hoy.ToString(FMT);
@@ -1691,318 +2225,320 @@ namespace Othell
                                         con.Open();
                                         SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Empate', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
                                         con.Close();
-                                      
-                                    
-
-                                    int f = 1;
-                                    if (f == 1)
-                                    {
-                                        neg.Stop();
-                                        bla.Stop();
-                                        MessageBox.Show(this.Page, "Final del Juego. Empatados. ");
-                                    }
 
 
-                                }
-                                else
-                                {
-                                    if (conn > conb)
-                                    {
-                                        //Reto Inverso
-                                        if (RI == 0)
+
+                                        int f = 1;
+                                        if (f == 1)
                                         {
-                                            gan = "Jugador 1 (Negras).";
-                                            //Agregar a Base
-                                            if (Jug == "N")
-                                            {
-
-
-                                                const string FMT = "yyyy-MM-dd";
-                                                DateTime hoy = DateTime.Now;
-                                                string nom = hoy.ToString(FMT);
-                                                SqlConnection con = new SqlConnection();
-                                                con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
-                                                con.Open();
-                                                SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Ganador', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
-                                                con.Close();
-
-
-                                            }
-                                            else
-                                            {
-
-
-                                                const string FMT = "yyyy-MM-dd";
-                                                DateTime hoy = DateTime.Now;
-                                                string nom = hoy.ToString(FMT);
-                                                SqlConnection con = new SqlConnection();
-                                                con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
-                                                con.Open();
-                                                SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Perdedor', " + conb.ToString() + ", " + "'" + nom + "'" + ")", con);
-                                                con.Close();
-
-
-                                            }
+                                            neg.Stop();
+                                            bla.Stop();
+                                            MessageBox.Show(this.Page, "Final del Juego. Empatados. ");
                                         }
-                                        else
-                                        {
-                                            gan = "Jugador 2 (Blancas).";
-                                            //Agregar a Base
-                                            if (Jug == "B")
-                                            {
 
-
-                                                const string FMT = "yyyy-MM-dd";
-                                                DateTime hoy = DateTime.Now;
-                                                string nom = hoy.ToString(FMT);
-                                                SqlConnection con = new SqlConnection();
-                                                con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
-                                                con.Open();
-                                                SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Ganador', " + conb.ToString() + ", " + "'" + nom + "'" + ")", con);
-                                                con.Close();
-
-
-                                            }
-                                            else
-                                            {
-
-
-                                                const string FMT = "yyyy-MM-dd";
-                                                DateTime hoy = DateTime.Now;
-                                                string nom = hoy.ToString(FMT);
-                                                SqlConnection con = new SqlConnection();
-                                                con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
-                                                con.Open();
-                                                SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Perdedor', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
-                                                con.Close();
-
-
-                                            }
-                                        }
 
                                     }
                                     else
                                     {
-                                        //Reto Inverso
-                                        if (RI == 1)
+                                        if (conn > conb)
                                         {
-                                            gan = "Jugador 1 (Negras).";
-                                            //Agregar a Base
-                                            if (Jug == "N")
+                                            //Reto Inverso
+                                            if (RI == 0)
                                             {
+                                                gan = "Jugador 1 (Negras).";
+                                                //Agregar a Base
+                                                if (Jug == "N")
+                                                {
 
 
-                                                const string FMT = "yyyy-MM-dd";
-                                                DateTime hoy = DateTime.Now;
-                                                string nom = hoy.ToString(FMT);
-                                                SqlConnection con = new SqlConnection();
-                                                con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
-                                                con.Open();
-                                                SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Ganador', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
-                                                con.Close();
+                                                    const string FMT = "yyyy-MM-dd";
+                                                    DateTime hoy = DateTime.Now;
+                                                    string nom = hoy.ToString(FMT);
+                                                    SqlConnection con = new SqlConnection();
+                                                    con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                                    con.Open();
+                                                    SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Ganador', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                    con.Close();
 
 
+                                                }
+                                                else
+                                                {
+
+
+                                                    const string FMT = "yyyy-MM-dd";
+                                                    DateTime hoy = DateTime.Now;
+                                                    string nom = hoy.ToString(FMT);
+                                                    SqlConnection con = new SqlConnection();
+                                                    con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                                    con.Open();
+                                                    SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Perdedor', " + conb.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                    con.Close();
+
+
+                                                }
                                             }
                                             else
                                             {
+                                                gan = "Jugador 2 (Blancas).";
+                                                //Agregar a Base
+                                                if (Jug == "B")
+                                                {
 
 
-                                                const string FMT = "yyyy-MM-dd";
-                                                DateTime hoy = DateTime.Now;
-                                                string nom = hoy.ToString(FMT);
-                                                SqlConnection con = new SqlConnection();
-                                                con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
-                                                con.Open();
-                                                SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Perdedor', " + conb.ToString() + ", " + "'" + nom + "'" + ")", con);
-                                                con.Close();
+                                                    const string FMT = "yyyy-MM-dd";
+                                                    DateTime hoy = DateTime.Now;
+                                                    string nom = hoy.ToString(FMT);
+                                                    SqlConnection con = new SqlConnection();
+                                                    con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                                    con.Open();
+                                                    SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Ganador', " + conb.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                    con.Close();
 
 
+                                                }
+                                                else
+                                                {
+
+
+                                                    const string FMT = "yyyy-MM-dd";
+                                                    DateTime hoy = DateTime.Now;
+                                                    string nom = hoy.ToString(FMT);
+                                                    SqlConnection con = new SqlConnection();
+                                                    con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                                    con.Open();
+                                                    SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Perdedor', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                    con.Close();
+
+
+                                                }
                                             }
+
                                         }
                                         else
                                         {
-                                            gan = "Jugador 2 (Blancas).";
-                                            //Agregar a Base
-                                            if (Jug == "B")
+                                            //Reto Inverso
+                                            if (RI == 1)
                                             {
+                                                gan = "Jugador 1 (Negras).";
+                                                //Agregar a Base
+                                                if (Jug == "N")
+                                                {
 
 
-                                                const string FMT = "yyyy-MM-dd";
-                                                DateTime hoy = DateTime.Now;
-                                                string nom = hoy.ToString(FMT);
-                                                SqlConnection con = new SqlConnection();
-                                                con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
-                                                con.Open();
-                                                SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Ganador', " + conb.ToString() + ", " + "'" + nom + "'" + ")", con);
-                                                con.Close();
+                                                    const string FMT = "yyyy-MM-dd";
+                                                    DateTime hoy = DateTime.Now;
+                                                    string nom = hoy.ToString(FMT);
+                                                    SqlConnection con = new SqlConnection();
+                                                    con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                                    con.Open();
+                                                    SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Ganador', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                    con.Close();
 
 
+                                                }
+                                                else
+                                                {
+
+
+                                                    const string FMT = "yyyy-MM-dd";
+                                                    DateTime hoy = DateTime.Now;
+                                                    string nom = hoy.ToString(FMT);
+                                                    SqlConnection con = new SqlConnection();
+                                                    con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                                    con.Open();
+                                                    SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Perdedor', " + conb.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                    con.Close();
+
+
+                                                }
                                             }
                                             else
                                             {
+                                                gan = "Jugador 2 (Blancas).";
+                                                //Agregar a Base
+                                                if (Jug == "B")
+                                                {
 
 
-                                                const string FMT = "yyyy-MM-dd";
-                                                DateTime hoy = DateTime.Now;
-                                                string nom = hoy.ToString(FMT);
-                                                SqlConnection con = new SqlConnection();
-                                                con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
-                                                con.Open();
-                                                SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Perdedor', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
-                                                con.Close();
+                                                    const string FMT = "yyyy-MM-dd";
+                                                    DateTime hoy = DateTime.Now;
+                                                    string nom = hoy.ToString(FMT);
+                                                    SqlConnection con = new SqlConnection();
+                                                    con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                                    con.Open();
+                                                    SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Ganador', " + conb.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                    con.Close();
 
 
+                                                }
+                                                else
+                                                {
+
+
+                                                    const string FMT = "yyyy-MM-dd";
+                                                    DateTime hoy = DateTime.Now;
+                                                    string nom = hoy.ToString(FMT);
+                                                    SqlConnection con = new SqlConnection();
+                                                    con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                                    con.Open();
+                                                    SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Perdedor', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                    con.Close();
+
+
+                                                }
                                             }
+
+                                        }
+                                        int f = 1;
+                                        if (f == 1)
+                                        {
+                                            neg.Stop();
+                                            bla.Stop();
+                                            MessageBox.Show(this.Page, "Final del Juego. Gana " + gan);
                                         }
 
                                     }
-                                    int f = 1;
-                                    if (f == 1)
-                                    {
-                                        neg.Stop();
-                                        bla.Stop();
-                                        MessageBox.Show(this.Page, "Final del Juego. Gana " + gan);
-                                    }
 
                                 }
+                                else
+                                {
 
+                                    MessageBox.Show(this.Page, "Las fichas blancas no tienen movimientos disponibles.");
+                                    x = 1;
+                                }
+
+                                //Meter aca el fin del juego
                             }
                             else
                             {
 
-                                MessageBox.Show(this.Page, "Las fichas blancas no tienen movimientos disponibles.");
-                                x = 1;
-                            }
-
-                            //Meter aca el fin del juego
-                        }
-                        else
-                        {
-
-                            TB = 1;
-                            int c = posif.Count;
-                            //Encontrar posicion en el tablero
-                            String Pos = temp.ID;
-                            int Fila = (int)Char.GetNumericValue(Pos[1]) - 1;
-                            int Columna = (int)(Pos[0]) - 65;
-                            List<int> posicion = new List<int>();
-                            for (int i = 0; i < c; i++)
-                            {
-                                if (posif[i] == Fila && posic[i] == Columna)
+                                TB = 1;
+                                int c = posif.Count;
+                                //Encontrar posicion en el tablero
+                                String Pos = temp.ID;
+                                int Fila = (int)Char.GetNumericValue(Pos[1]) - 1;
+                                int Columna = (int)(Pos[0]) - 65;
+                                List<int> posicion = new List<int>();
+                                for (int i = 0; i < c; i++)
                                 {
-                                    posicion.Add(i);
-                                }
-                            }
-
-                            //Validar Movimiento
-                            int d = posicion.Count;
-                            if (d == 0)
-                            {
-                                MessageBox.Show(this.Page, "El movimiento que desea ejecutar no es valido. Intentelo de nuevo.");
-                                Turno.Text = "Blancas";
-                            }
-                            else
-                            {
-                                Turno.Text = "Negras";
-
-                                //Colorear
-                                for (int i = 0; i < d; i++)
-                                {
-                                    int temfi = posif[posicion[i]];
-                                    int temci = posic[posicion[i]];
-                                    int temff = posff[posicion[i]];
-                                    int temcf = posfc[posicion[i]];
-                                    string dirt = dir[posicion[i]];
-
-                                    switch (dirt)
+                                    if (posif[i] == Fila && posic[i] == Columna)
                                     {
-                                        case "UV":
-                                            for (int o = temfi; o < temff; o++)
-                                            {
-                                                bot[o, temci].BackColor = Color.White; //Cambiar dependiendo del color
-                                                x = 1;
-                                            }
-                                            break;
-
-                                        case "DV":
-                                            for (int o = temff; o < (temfi + 1); o++)
-                                            {
-                                                bot[o, temci].BackColor = Color.White; //Cambiar dependiendo del color
-                                                x = 1;
-                                            }
-                                            break;
-
-                                        case "HI":
-                                            for (int o = temci; o < temcf; o++)
-                                            {
-                                                bot[temfi, o].BackColor = Color.White; //Cambiar dependiendo del color
-                                                x = 1;
-                                            }
-                                            break;
-
-                                        case "HD":
-                                            for (int o = temcf; o < (temci + 1); o++)
-                                            {
-                                                bot[temfi, o].BackColor = Color.White; //Cambiar dependiendo del color
-                                                x = 1;
-                                            }
-                                            break;
-
-                                        case "DIS":
-                                            int a = temff - temfi;
-
-                                            for (int g = 0; g < a; g++)
-                                            {
-
-                                                bot[temfi + g, temci + g].BackColor = Color.White; //Cambiar dependiendo del color
-                                                x = 1;
-
-                                            }
-                                            break;
-
-                                        case "DII":
-                                            int a1 = temfi - temff;
-                                            for (int g = 0; g < (a1); g++)
-                                            {
-
-                                                bot[temfi - g, temci + g].BackColor = Color.White; //Cambiar dependiendo del color
-                                                x = 1;
-
-                                            }
-                                            break;
-
-                                        case "DDS":
-                                            int a2 = temff - temfi;
-                                            for (int g = 0; g < a2; g++)
-                                            {
-
-                                                bot[temfi + g, temci - g].BackColor = Color.White; //Cambiar dependiendo del color
-                                                x = 1;
-
-                                            }
-                                            break;
-
-                                        case "DDI":
-                                            int a3 = temfi - temff;
-
-                                            for (int g = 0; g < a3; g++)
-                                            {
-
-                                                bot[temfi - g, temci - g].BackColor = Color.White; //Cambiar dependiendo del color
-                                                x = 1;
-
-                                            }
-                                            break;
+                                        posicion.Add(i);
                                     }
                                 }
 
+                                //Validar Movimiento
+                                int d = posicion.Count;
+                                if (d == 0)
+                                {
+                                    MessageBox.Show(this.Page, "El movimiento que desea ejecutar no es valido. Intentelo de nuevo.");
+                                    Turno.Text = "Jugador 2";
+                                }
+                                else
+                                {
+                                    Turno.Text = "Jugador 1";
+
+                                    //Colorear
+                                    for (int i = 0; i < d; i++)
+                                    {
+                                        int temfi = posif[posicion[i]];
+                                        int temci = posic[posicion[i]];
+                                        int temff = posff[posicion[i]];
+                                        int temcf = posfc[posicion[i]];
+                                        string dirt = dir[posicion[i]];
+
+                                        switch (dirt)
+                                        {
+                                            case "UV":
+                                                for (int o = temfi; o < temff; o++)
+                                                {
+                                                    bot[o, temci].BackColor = Color.White; //Cambiar dependiendo del color
+                                                    x = 1;
+                                                }
+                                                break;
+
+                                            case "DV":
+                                                for (int o = temff; o < (temfi + 1); o++)
+                                                {
+                                                    bot[o, temci].BackColor = Color.White; //Cambiar dependiendo del color
+                                                    x = 1;
+                                                }
+                                                break;
+
+                                            case "HI":
+                                                for (int o = temci; o < temcf; o++)
+                                                {
+                                                    bot[temfi, o].BackColor = Color.White; //Cambiar dependiendo del color
+                                                    x = 1;
+                                                }
+                                                break;
+
+                                            case "HD":
+                                                for (int o = temcf; o < (temci + 1); o++)
+                                                {
+                                                    bot[temfi, o].BackColor = Color.White; //Cambiar dependiendo del color
+                                                    x = 1;
+                                                }
+                                                break;
+
+                                            case "DIS":
+                                                int a = temff - temfi;
+
+                                                for (int g = 0; g < a; g++)
+                                                {
+
+                                                    bot[temfi + g, temci + g].BackColor = Color.White; //Cambiar dependiendo del color
+                                                    x = 1;
+
+                                                }
+                                                break;
+
+                                            case "DII":
+                                                int a1 = temfi - temff;
+                                                for (int g = 0; g < (a1); g++)
+                                                {
+
+                                                    bot[temfi - g, temci + g].BackColor = Color.White; //Cambiar dependiendo del color
+                                                    x = 1;
+
+                                                }
+                                                break;
+
+                                            case "DDS":
+                                                int a2 = temff - temfi;
+                                                for (int g = 0; g < a2; g++)
+                                                {
+
+                                                    bot[temfi + g, temci - g].BackColor = Color.White; //Cambiar dependiendo del color
+                                                    x = 1;
+
+                                                }
+                                                break;
+
+                                            case "DDI":
+                                                int a3 = temfi - temff;
+
+                                                for (int g = 0; g < a3; g++)
+                                                {
+
+                                                    bot[temfi - g, temci - g].BackColor = Color.White; //Cambiar dependiendo del color
+                                                    x = 1;
+
+                                                }
+                                                break;
+                                        }
+                                    }
+
+
+                                }
+
+
+
 
                             }
-
-
-
-
                         }
+                        
                     }
                 }
             }
