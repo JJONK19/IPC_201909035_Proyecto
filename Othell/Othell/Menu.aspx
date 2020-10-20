@@ -24,6 +24,14 @@
             top: 216px;
             background-color: #99FF33;
         }
+         .auto-style4 {
+            height: 26px;
+            position: absolute;
+            left: 393px;
+            top: 275px;
+            background-color: #99FF33;
+            right: 406px;
+        }
     </style>
 </head>
 <body>
@@ -33,6 +41,7 @@
         <asp:Button ID="Button1" runat="server" CssClass="auto-style3" OnClick="Button1_Click" Text="Partida  vs.  Maquina" Width="279px" />
         <p>
         <asp:Button ID="Button2" runat="server" CssClass="auto-style2" OnClick="Button2_Click" Text="Partida  vs.  Jugador" Width="279px" />
+        <asp:Button ID="Button3" runat="server" CssClass="auto-style4" OnClick="Button3_Click" Text="Modo Xtreme" Width="279px" />
         </p>
     </form>
 </body>

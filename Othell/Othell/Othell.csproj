@@ -69,11 +69,13 @@
   <ItemGroup>
     <Content Include="Inicio.aspx" />
     <Content Include="Intermedio - M.aspx" />
+    <Content Include="Intermedio - X.aspx" />
     <Content Include="Intermedio.aspx" />
     <Content Include="Menu.aspx" />
     <Content Include="Registro.aspx" />
     <Content Include="Tablero - M.Dinamico.aspx" />
     <Content Include="Tablero - V.Dinamico.aspx" />
+    <Content Include="Tablero - X.Dinamico.aspx" />
     <Content Include="Tablero.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -91,6 +93,13 @@
     </Compile>
     <Compile Include="Intermedio - M.aspx.designer.cs">
       <DependentUpon>Intermedio - M.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Intermedio - X.aspx.cs">
+      <DependentUpon>Intermedio - X.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Intermedio - X.aspx.designer.cs">
+      <DependentUpon>Intermedio - X.aspx</DependentUpon>
     </Compile>
     <Compile Include="Intermedio.aspx.cs">
       <DependentUpon>Intermedio.aspx</DependentUpon>
@@ -122,10 +131,15 @@
     </Compile>
     <Compile Include="Tablero - V.Dinamico.aspx.cs">
       <DependentUpon>Tablero - V.Dinamico.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Tablero - V.Dinamico.aspx.designer.cs">
       <DependentUpon>Tablero - V.Dinamico.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Tablero - X.Dinamico.aspx.cs">
+      <DependentUpon>Tablero - X.Dinamico.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Tablero - X.Dinamico.aspx.designer.cs">
+      <DependentUpon>Tablero - X.Dinamico.aspx</DependentUpon>
     </Compile>
     <Compile Include="Tablero.aspx.cs">
       <DependentUpon>Tablero.aspx</DependentUpon>

@@ -13,7 +13,7 @@ using System.Diagnostics;
 namespace Othell
 {
     //Mensajes Adaptado de: https://stackoverflow.com/questions/9720143/asp-net-web-application-message-box
-    public static class Mensaje
+    public static class Mensajes
     {
         public static void Mostrar(this Page Page, String Mensaje)
         {
@@ -25,9 +25,10 @@ namespace Othell
         }
     }
 
-    public partial class Tablero___V_Dinamico : System.Web.UI.Page
+    public partial class Tablero___X : System.Web.UI.Page
     {
 
+      
         int ver = 0; //Verifica si se inicia el codigo
         public static int x = 1;  //1 para jugador 1, 2 para jugador 2 en donde x es el turno
                                   //Blancas J2, Negras J1
@@ -39,91 +40,107 @@ namespace Othell
         int turn = 1;
         String Jug; //Indica el color del usuario
         public static int ID = 0;
-        public static int Ban = 0; //Indica si se registro partida para evitar duplicidad
+        
         public static Stopwatch neg; //Cronometro
         public static Stopwatch bla; //Cronometro
+        public static int FI; //No de filas
+        public static int CO; //No de Columnas
+        public static int RI;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-                
-                Jug = (string)Session["Color"];
-                ID =(int)Session["ID"];
-            if (!Page.IsPostBack){
-                    Text1.Text = "00:00";
-                    Text2.Text = "00:00";
-                    x = 1;
-                    neg = new Stopwatch();
-                    neg.Start();
-                    bla = new Stopwatch();
-                    
-            }
-                if (ver == 0)
-                {
-                    
-                    bot = new Button[8, 8];
-                    for (int i = 0; i < 8; i++)
-                    {
-                        for (int j = 0; j < 8; j++)
-                        {   
-                            Button b = new Button();
-                            char a = (char) (65 + j);
-                            int b1 = i + 1;
-                            string tem = a.ToString() + b1.ToString(); 
-                            b.ID = tem;
-                            b.Text = "";
-                            b.Click += new EventHandler(this.Evento);
-                            b.Attributes.Add("class", "but");
-                            if(j == 3 && i == 3)
-                            {
-                                b.BackColor = Color.White;
-                            }
-                            if (j == 3 && i == 4)
-                            {
-                                b.BackColor = Color.Black;
-                            }
 
-                            if (j == 4 && i == 4)
-                            {
-                                 b.BackColor = Color.White;
-                            }
-                            if (j == 4 && i == 3)
-                            {
-                                b.BackColor = Color.Black;
-                            }
-                            bot[i, j] = b;
-                          }
-                    }
-                    ver = 1;
-                    Session["Tablero"] = bot;
-                    TableRow f;
-                    TableCell c;
-                    Turno.Text = "Negras";
-                    Blancas.Text = "2";
-                    Negras.Text = "2";
-                    for(int k = 0; k<9; k++)
+            Jug = "N";
+            ID = (int)Session["ID"];
+            FI = (int)Session["M"];
+            CO = (int)Session["N"];
+            RI = (int)Session["RI"];
+            if (!Page.IsPostBack)
+            {
+                Text1.Text = "00:00";
+                Text2.Text = "00:00";
+                x = 1;
+                neg = new Stopwatch();
+                neg.Start();
+                bla = new Stopwatch();
+
+            }
+            if (ver == 0)
+            {
+
+                bot = new Button[FI, CO];
+                for (int i = 0; i < FI; i++)
+                {
+                    for (int j = 0; j < CO; j++)
                     {
-                        f = new TableRow();
-                        f.BorderColor = Color.Black;
-                        if(k < 8)
+                        Button b = new Button();
+                        char a = (char)(65 + j);
+                        int b1 = i + 1;
+                        string tem = a.ToString() + b1.ToString();
+                        b.ID = tem;
+                        b.Text = "";
+                        b.Click += new EventHandler(this.Evento);
+                        b.Attributes.Add("class", "but");
+                        int P1C = (CO / 2) - 1;
+                        int P1F = (FI / 2) - 1;
+                        if (j == P1C && i == P1F )
                         {
-                            for (int l = 0; l < 8; l++)
-                            {
-                                c = new TableCell();
-                                c.BorderColor = Color.Black;
-                                c.Controls.Add(bot[k, l]);
-                                f.Cells.Add(c);
-                            }
+                            b.BackColor = Color.White;
+                        }
+                        int P2C = (CO / 2) - 1;
+                        int P2F = FI / 2;
+                        if (j == P2C && i == P2F)
+                        {
+                            b.BackColor = Color.Black;
+                        }
+
+                        int P3C = CO / 2;
+                        int P3F = FI / 2;
+                        if (j == P3C && i == P3F)
+                        {
+                            b.BackColor = Color.White;
+                        }
+                        int P4C = CO / 2;
+                        int P4F = (FI / 2) - 1;
+                        if (j == P4C && i == P4F)
+                        {
+                            b.BackColor = Color.Black;
+                        }
+                        bot[i, j] = b;
+                    }
+                }
+                ver = 1;
+                Session["Tablero"] = bot;
+                TableRow f;
+                TableCell c;
+                Turno.Text = "Jugador 1";
+                Blancas.Text = "0";
+                Negras.Text = "0";
+                int a1 = FI + 1;
+                for (int k = 0; k < a1; k++)
+                {
+                    f = new TableRow();
+                    f.BorderColor = Color.Black;
+                    if (k < FI)
+                    {
+                        for (int l = 0; l < CO; l++)
+                        {
                             c = new TableCell();
                             c.BorderColor = Color.Black;
-                            c.Text = (k + 1).ToString();
-                            c.ForeColor = Color.White;
-                            c.BackColor = Color.Black;
+                            c.Controls.Add(bot[k, l]);
                             f.Cells.Add(c);
                         }
-                        if (k == 8)
+                        c = new TableCell();
+                        c.BorderColor = Color.Black;
+                        c.Text = (k + 1).ToString();
+                        c.ForeColor = Color.White;
+                        c.BackColor = Color.Black;
+                        f.Cells.Add(c);
+                    }
+                    if (k == FI)
+                    {
+                        for (int l = 0; l < CO; l++)
                         {
-                            for (int l = 0; l < 8; l++)
-                            {
                             c = new TableCell();
                             c.BorderColor = Color.Black;
                             char a = (char)(65 + l);
@@ -131,27 +148,30 @@ namespace Othell
                             c.ForeColor = Color.White;
                             c.BackColor = Color.Black;
                             f.Cells.Add(c);
-                            }
                         }
-                        
-                            
-
-                        tablero.Rows.Add(f);
                     }
+
+
+
+                    tablero.Rows.Add(f);
                 }
+            }
 
 
 
-            
+
             if (Page.IsPostBack)
             {
 
-                Jug = (string)Session["Color"];
+                Jug = "N";
                 ID = (int)Session["ID"];
-                
+                FI = (int)Session["M"];
+                CO = (int)Session["N"];
+                RI = (int)Session["RI"];
+
             }
 
-           
+
         }
 
         public void Evento(object sender, System.EventArgs e)
@@ -162,21 +182,21 @@ namespace Othell
             conn = 0; //Contador de fichas negras
             conb = 0; //Contador de fichas blancas
             List<int> posif = new List<int>();  //Array de posiciones iniciales Fila
-            List<int> posic  = new List<int>(); ; //Array de posiciones iniciales Columna
+            List<int> posic = new List<int>(); ; //Array de posiciones iniciales Columna
             List<int> posff = new List<int>(); ; //Array de posiciones finales Fila
             List<int> posfc = new List<int>(); ; //Array de posiciones finales Columna
             List<string> dir = new List<string>(); ; //Array de direccion
 
-          
-           
-               
-            
+
+
+
+
             //Contar
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < FI; i++)
             {
-                for (int j = 0; j < 8; j++)
+                for (int j = 0; j < CO; j++)
                 {
-                    if (bot[i,j].BackColor == Color.Black)
+                    if (bot[i, j].BackColor == Color.Black)
                     {
                         conn += 1;
                     }
@@ -189,16 +209,16 @@ namespace Othell
             }
 
             int tot = conn + conb;
-            if(tot == 64)
+            if (tot == (FI*CO))
             {
                 TN = 0;
                 TB = 0;
                 String gan = "";
                 if (conn == conb)
                 {
+
                     
-                    if (Ban == 0)
-                    {
+                    
                         const string FMT = "yyyy-MM-dd";
                         DateTime hoy = DateTime.Now;
                         string nom = hoy.ToString(FMT);
@@ -207,12 +227,13 @@ namespace Othell
                         con.Open();
                         SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Empate', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
                         con.Close();
-                        Ban = 1;
-                    }
+                       
+                    
 
                     int f = 1;
                     if (f == 1)
                     {
+                        
                         MessageBox.Show(this.Page, "Final del Juego. Empatados. ");
                     }
 
@@ -222,13 +243,15 @@ namespace Othell
                 {
                     if (conn > conb)
                     {
-                        
-                        gan = "Jugador 1 (Negras).";
-                        //Agregar a Base
-                        if (Jug == "N")
+                        //Reto Inverso
+                        if (RI == 0)
                         {
-                            if (Ban == 0)
+                            gan = "Jugador 1 (Negras).";
+                            //Agregar a Base
+                            if (Jug == "N")
                             {
+
+
                                 const string FMT = "yyyy-MM-dd";
                                 DateTime hoy = DateTime.Now;
                                 string nom = hoy.ToString(FMT);
@@ -237,14 +260,13 @@ namespace Othell
                                 con.Open();
                                 SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Ganador', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
                                 con.Close();
-                                Ban = 1;
-                            }
-                        }
-                        else
-                        {
 
-                            if (Ban == 0)
+
+                            }
+                            else
                             {
+
+
                                 const string FMT = "yyyy-MM-dd";
                                 DateTime hoy = DateTime.Now;
                                 string nom = hoy.ToString(FMT);
@@ -253,22 +275,18 @@ namespace Othell
                                 con.Open();
                                 SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Perdedor', " + conb.ToString() + ", " + "'" + nom + "'" + ")", con);
                                 con.Close();
-                                Ban = 1;
+
+
                             }
                         }
-
-
-
-                    }
-                    else
-                    {
-                        
-                        gan = "Jugador 2 (Blancas).";
-                        //Agregar a Base
-                        if (Jug == "B")
+                        else
                         {
-                            if (Ban == 0)
+                            gan = "Jugador 2 (Blancas).";
+                            //Agregar a Base
+                            if (Jug == "B")
                             {
+
+
                                 const string FMT = "yyyy-MM-dd";
                                 DateTime hoy = DateTime.Now;
                                 string nom = hoy.ToString(FMT);
@@ -277,13 +295,13 @@ namespace Othell
                                 con.Open();
                                 SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Ganador', " + conb.ToString() + ", " + "'" + nom + "'" + ")", con);
                                 con.Close();
-                                Ban = 1;
+
+
                             }
-                        }
-                        else
-                        {
-                            if (Ban == 0)
+                            else
                             {
+
+
                                 const string FMT = "yyyy-MM-dd";
                                 DateTime hoy = DateTime.Now;
                                 string nom = hoy.ToString(FMT);
@@ -292,13 +310,92 @@ namespace Othell
                                 con.Open();
                                 SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Perdedor', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
                                 con.Close();
-                                Ban = 1;
+
+
                             }
                         }
+
+                    }
+                    else
+                    {
+                        //Reto Inverso
+                        if (RI == 1)
+                        {
+                            gan = "Jugador 1 (Negras).";
+                            //Agregar a Base
+                            if (Jug == "N")
+                            {
+
+
+                                const string FMT = "yyyy-MM-dd";
+                                DateTime hoy = DateTime.Now;
+                                string nom = hoy.ToString(FMT);
+                                SqlConnection con = new SqlConnection();
+                                con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                con.Open();
+                                SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Ganador', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                con.Close();
+
+
+                            }
+                            else
+                            {
+
+
+                                const string FMT = "yyyy-MM-dd";
+                                DateTime hoy = DateTime.Now;
+                                string nom = hoy.ToString(FMT);
+                                SqlConnection con = new SqlConnection();
+                                con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                con.Open();
+                                SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Perdedor', " + conb.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                con.Close();
+
+
+                            }
+                        }
+                        else
+                        {
+                            gan = "Jugador 2 (Blancas).";
+                            //Agregar a Base
+                            if (Jug == "B")
+                            {
+
+
+                                const string FMT = "yyyy-MM-dd";
+                                DateTime hoy = DateTime.Now;
+                                string nom = hoy.ToString(FMT);
+                                SqlConnection con = new SqlConnection();
+                                con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                con.Open();
+                                SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Ganador', " + conb.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                con.Close();
+
+
+                            }
+                            else
+                            {
+
+
+                                const string FMT = "yyyy-MM-dd";
+                                DateTime hoy = DateTime.Now;
+                                string nom = hoy.ToString(FMT);
+                                SqlConnection con = new SqlConnection();
+                                con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                con.Open();
+                                SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Perdedor', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                con.Close();
+
+
+                            }
+                        }
+
+
                     }
                     int f = 1;
                     if (f == 1)
                     {
+                       
                         MessageBox.Show(this.Page, "Final del Juego. Gana " + gan);
                     }
 
@@ -319,11 +416,12 @@ namespace Othell
                     if (x == 1)
                     {
                         mov = 0;
-                       
+                        int FM = FI - 1;
+                        int CM = CO - 1;
                         //Verificar posible movimientos
-                        for (int i = 0; i < 8; i++)
+                        for (int i = 0; i < FI; i++)
                         {
-                            for (int j = 0; j < 8; j++)
+                            for (int j = 0; j < CO; j++)
                             {
                                 Button tem = bot[i, j];
                                 Color bus = Color.Red; //Opuesto
@@ -362,8 +460,8 @@ namespace Othell
                                             while (ba != 1)
                                             {
                                                 fit += 1;
-
-                                                if (fit > 7)
+                                             
+                                                if (fit > FM)
                                                 {
                                                     ba = 1;
                                                 }
@@ -397,12 +495,14 @@ namespace Othell
 
                                     //Revision de posiciones
                                     //Abajo Vertical (DV)
-                                    if ((i + 1) > 7)
+                                    
+                                    if ((i + 1) > FM)
                                     {
-
+                                        
                                     }
                                     else
                                     {
+                                        
                                         if (bot[(i + 1), j].BackColor == Color.Black || bot[(i + 1), j].BackColor == Color.White)
                                         {
 
@@ -469,7 +569,8 @@ namespace Othell
                                             {
 
                                                 cot += 1;
-                                                if (cot > 7)
+                                                
+                                                if (cot > CM)
                                                 {
                                                     ba = 1;
                                                 }
@@ -503,7 +604,8 @@ namespace Othell
 
                                     //Revision de posiciones
                                     //Derecha Horizontal (HD)
-                                    if ((j + 1) > 7)
+                                    
+                                    if ((j + 1) > CM)
                                     {
 
                                     }
@@ -575,7 +677,8 @@ namespace Othell
                                             {
                                                 fit += 1;
                                                 cot += 1;
-                                                if (fit > 7 || cot > 7)
+                                                
+                                                if (fit > FM || cot > CM)
                                                 {
                                                     ba = 1;
                                                 }
@@ -609,7 +712,8 @@ namespace Othell
 
                                     //Revision de posiciones
                                     //Diagonal Izquierda Inferior (DII) //pen
-                                    if ((i + 1) > 7 || (j - 1) < 0)
+                                    
+                                    if ((i + 1) > FM || (j - 1) < 0)
                                     {
 
                                     }
@@ -628,7 +732,8 @@ namespace Othell
                                             {
                                                 fit -= 1;
                                                 cot += 1;
-                                                if (fit < 0 || cot > 7)
+
+                                                if (fit < 0 || cot > CM)
                                                 {
                                                     ba = 1;
                                                 }
@@ -662,7 +767,8 @@ namespace Othell
 
                                     //Revision de posiciones
                                     //Diagonal Derecha Superior (DDS)
-                                    if ((i - 1) < 0 || (j + 1) > 7)
+                                    
+                                    if ((i - 1) < 0 || (j + 1) > CM)
                                     {
 
                                     }
@@ -681,7 +787,8 @@ namespace Othell
                                             {
                                                 fit += 1;
                                                 cot -= 1;
-                                                if (fit > 7 || cot < 0)
+                                                
+                                                if (fit > FM || cot < 0)
                                                 {
                                                     ba = 1;
                                                 }
@@ -715,7 +822,8 @@ namespace Othell
 
                                     //Revision de posiciones
                                     //Diagonal Derecha Inferior (DDI) //pen
-                                    if ((i + 1) > 7 || (j + 1) > 7)
+                                   
+                                    if ((i + 1) > FM || (j + 1) > CM)
                                     {
 
                                     }
@@ -773,14 +881,14 @@ namespace Othell
                         if (mov == 0)
                         {
                             TN = 0; //Cambiar esto dependiendo del color
-                            if(TN == 0 && TB == 0)
+                            if (TN == 0 && TB == 0)
                             {
                                 String gan = "";
                                 if (conn == conb)
                                 {
+
+                                  
                                     
-                                    if (Ban == 0)
-                                    {
                                         const string FMT = "yyyy-MM-dd";
                                         DateTime hoy = DateTime.Now;
                                         string nom = hoy.ToString(FMT);
@@ -789,12 +897,13 @@ namespace Othell
                                         con.Open();
                                         SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Empate', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
                                         con.Close();
-                                        Ban = 1;
-                                    }
+                                        
+                                    
 
                                     int f = 1;
                                     if (f == 1)
                                     {
+                                       
                                         MessageBox.Show(this.Page, "Final del Juego. Empatados. ");
                                     }
 
@@ -804,14 +913,15 @@ namespace Othell
                                 {
                                     if (conn > conb)
                                     {
-                                        neg.Stop();
-                                        bla.Stop();
-                                        gan = "Jugador 1 (Negras).";
-                                        //Agregar a Base
-                                        if (Jug == "N")
+                                        //Reto Inverso
+                                        if (RI == 0)
                                         {
-                                            if (Ban == 0)
+                                            gan = "Jugador 1 (Negras).";
+                                            //Agregar a Base
+                                            if (Jug == "N")
                                             {
+
+
                                                 const string FMT = "yyyy-MM-dd";
                                                 DateTime hoy = DateTime.Now;
                                                 string nom = hoy.ToString(FMT);
@@ -820,14 +930,13 @@ namespace Othell
                                                 con.Open();
                                                 SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Ganador', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
                                                 con.Close();
-                                                Ban = 1;
-                                            }
-                                        }
-                                        else
-                                        {
 
-                                            if (Ban == 0)
+
+                                            }
+                                            else
                                             {
+
+
                                                 const string FMT = "yyyy-MM-dd";
                                                 DateTime hoy = DateTime.Now;
                                                 string nom = hoy.ToString(FMT);
@@ -836,22 +945,18 @@ namespace Othell
                                                 con.Open();
                                                 SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Perdedor', " + conb.ToString() + ", " + "'" + nom + "'" + ")", con);
                                                 con.Close();
-                                                Ban = 1;
+
+
                                             }
                                         }
-
-
-
-                                    }
-                                    else
-                                    {
-                                        
-                                        gan = "Jugador 2 (Blancas).";
-                                        //Agregar a Base
-                                        if (Jug == "B")
+                                        else
                                         {
-                                            if (Ban == 0)
+                                            gan = "Jugador 2 (Blancas).";
+                                            //Agregar a Base
+                                            if (Jug == "B")
                                             {
+
+
                                                 const string FMT = "yyyy-MM-dd";
                                                 DateTime hoy = DateTime.Now;
                                                 string nom = hoy.ToString(FMT);
@@ -860,13 +965,13 @@ namespace Othell
                                                 con.Open();
                                                 SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Ganador', " + conb.ToString() + ", " + "'" + nom + "'" + ")", con);
                                                 con.Close();
-                                                Ban = 1;
+
+
                                             }
-                                        }
-                                        else
-                                        {
-                                            if (Ban == 0)
+                                            else
                                             {
+
+
                                                 const string FMT = "yyyy-MM-dd";
                                                 DateTime hoy = DateTime.Now;
                                                 string nom = hoy.ToString(FMT);
@@ -875,13 +980,96 @@ namespace Othell
                                                 con.Open();
                                                 SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Perdedor', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
                                                 con.Close();
-                                                Ban = 1;
+
+
                                             }
                                         }
+
+
+
+
+
+                                    }
+                                    else
+                                    {
+                                        //Reto Inverso
+                                        if (RI == 1)
+                                        {
+                                            gan = "Jugador 1 (Negras).";
+                                            //Agregar a Base
+                                            if (Jug == "N")
+                                            {
+
+
+                                                const string FMT = "yyyy-MM-dd";
+                                                DateTime hoy = DateTime.Now;
+                                                string nom = hoy.ToString(FMT);
+                                                SqlConnection con = new SqlConnection();
+                                                con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                                con.Open();
+                                                SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Ganador', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                con.Close();
+
+
+                                            }
+                                            else
+                                            {
+
+
+                                                const string FMT = "yyyy-MM-dd";
+                                                DateTime hoy = DateTime.Now;
+                                                string nom = hoy.ToString(FMT);
+                                                SqlConnection con = new SqlConnection();
+                                                con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                                con.Open();
+                                                SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Perdedor', " + conb.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                con.Close();
+
+
+                                            }
+                                        }
+                                        else
+                                        {
+                                            gan = "Jugador 2 (Blancas).";
+                                            //Agregar a Base
+                                            if (Jug == "B")
+                                            {
+
+
+                                                const string FMT = "yyyy-MM-dd";
+                                                DateTime hoy = DateTime.Now;
+                                                string nom = hoy.ToString(FMT);
+                                                SqlConnection con = new SqlConnection();
+                                                con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                                con.Open();
+                                                SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Ganador', " + conb.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                con.Close();
+
+
+                                            }
+                                            else
+                                            {
+
+
+                                                const string FMT = "yyyy-MM-dd";
+                                                DateTime hoy = DateTime.Now;
+                                                string nom = hoy.ToString(FMT);
+                                                SqlConnection con = new SqlConnection();
+                                                con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                                con.Open();
+                                                SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Perdedor', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                con.Close();
+
+
+                                            }
+                                        }
+
+
                                     }
                                     int f = 1;
                                     if (f == 1)
                                     {
+                                       
                                         MessageBox.Show(this.Page, "Final del Juego. Gana " + gan);
                                     }
 
@@ -893,7 +1081,7 @@ namespace Othell
                                 MessageBox.Show(this.Page, "Las fichas negras no tienen movimientos disponibles.");
                                 x = 2;
                             }
-                
+
                         }
                         else
                         {
@@ -922,9 +1110,9 @@ namespace Othell
                             }
                             else
                             {
-                                
+
                                 Turno.Text = "Blancas";
-                                
+
                                 //Colorear
                                 for (int i = 0; i < d; i++)
                                 {
@@ -1015,7 +1203,7 @@ namespace Othell
                                             break;
                                     }
                                 }
-                               
+
 
                             }
 
@@ -1027,10 +1215,12 @@ namespace Othell
                     {
                         mov = 0;
                         TB = 0;
+                        int FM = FI - 1;
+                        int CM = CO - 1;
                         //Verificar posible movimientos
-                        for (int i = 0; i < 8; i++)
+                        for (int i = 0; i < FI; i++)
                         {
-                            for (int j = 0; j < 8; j++)
+                            for (int j = 0; j < CO; j++)
                             {
                                 Button tem = bot[i, j];
                                 Color bus = Color.Red; //Opuesto
@@ -1070,7 +1260,7 @@ namespace Othell
                                             {
                                                 fit += 1;
 
-                                                if (fit > 7)
+                                                if (fit > FM)
                                                 {
                                                     ba = 1;
                                                 }
@@ -1104,7 +1294,7 @@ namespace Othell
 
                                     //Revision de posiciones
                                     //Abajo Vertical (DV)
-                                    if ((i + 1) > 7)
+                                    if ((i + 1) > FM)
                                     {
 
                                     }
@@ -1176,7 +1366,7 @@ namespace Othell
                                             {
 
                                                 cot += 1;
-                                                if (cot > 7)
+                                                if (cot > CM)
                                                 {
                                                     ba = 1;
                                                 }
@@ -1210,7 +1400,7 @@ namespace Othell
 
                                     //Revision de posiciones
                                     //Derecha Horizontal (HD)
-                                    if ((j + 1) > 7)
+                                    if ((j + 1) > CM)
                                     {
 
                                     }
@@ -1282,7 +1472,7 @@ namespace Othell
                                             {
                                                 fit += 1;
                                                 cot += 1;
-                                                if (fit > 7 || cot > 7)
+                                                if (fit > FM || cot > CM)
                                                 {
                                                     ba = 1;
                                                 }
@@ -1316,7 +1506,7 @@ namespace Othell
 
                                     //Revision de posiciones
                                     //Diagonal Izquierda Inferior (DII) //pen
-                                    if ((i + 1) > 7 || (j - 1) < 0)
+                                    if ((i + 1) > FM || (j - 1) < 0)
                                     {
 
                                     }
@@ -1335,7 +1525,7 @@ namespace Othell
                                             {
                                                 fit -= 1;
                                                 cot += 1;
-                                                if (fit < 0 || cot > 7)
+                                                if (fit < 0 || cot > CM)
                                                 {
                                                     ba = 1;
                                                 }
@@ -1369,7 +1559,7 @@ namespace Othell
 
                                     //Revision de posiciones
                                     //Diagonal Derecha Superior (DDS)
-                                    if ((i - 1) < 0 || (j + 1) > 7)
+                                    if ((i - 1) < 0 || (j + 1) > CM)
                                     {
 
                                     }
@@ -1388,7 +1578,7 @@ namespace Othell
                                             {
                                                 fit += 1;
                                                 cot -= 1;
-                                                if (fit > 7 || cot < 0)
+                                                if (fit > FM || cot < 0)
                                                 {
                                                     ba = 1;
                                                 }
@@ -1422,7 +1612,7 @@ namespace Othell
 
                                     //Revision de posiciones
                                     //Diagonal Derecha Inferior (DDI) //pen
-                                    if ((i + 1) > 7 || (j + 1) > 7)
+                                    if ((i + 1) > FM || (j + 1) > CM)
                                     {
 
                                     }
@@ -1485,9 +1675,9 @@ namespace Othell
                                 String gan = "";
                                 if (conn == conb)
                                 {
-                                   
-                                    if (Ban == 0)
-                                    {
+
+                                    
+                                    
                                         const string FMT = "yyyy-MM-dd";
                                         DateTime hoy = DateTime.Now;
                                         string nom = hoy.ToString(FMT);
@@ -1496,12 +1686,14 @@ namespace Othell
                                         con.Open();
                                         SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Empate', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
                                         con.Close();
-                                        Ban = 1;
-                                    }
+                                      
+                                    
 
                                     int f = 1;
                                     if (f == 1)
                                     {
+                                        neg.Stop();
+                                        bla.Stop();
                                         MessageBox.Show(this.Page, "Final del Juego. Empatados. ");
                                     }
 
@@ -1511,13 +1703,15 @@ namespace Othell
                                 {
                                     if (conn > conb)
                                     {
-                                        
-                                        gan = "Jugador 1 (Negras).";
-                                        //Agregar a Base
-                                        if (Jug == "N")
+                                        //Reto Inverso
+                                        if (RI == 0)
                                         {
-                                            if (Ban == 0)
+                                            gan = "Jugador 1 (Negras).";
+                                            //Agregar a Base
+                                            if (Jug == "N")
                                             {
+
+
                                                 const string FMT = "yyyy-MM-dd";
                                                 DateTime hoy = DateTime.Now;
                                                 string nom = hoy.ToString(FMT);
@@ -1526,13 +1720,13 @@ namespace Othell
                                                 con.Open();
                                                 SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Ganador', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
                                                 con.Close();
-                                                Ban = 1;
+
+
                                             }
-                                        }
-                                        else
-                                        {
-                                            if (Ban == 0)
+                                            else
                                             {
+
+
                                                 const string FMT = "yyyy-MM-dd";
                                                 DateTime hoy = DateTime.Now;
                                                 string nom = hoy.ToString(FMT);
@@ -1541,22 +1735,18 @@ namespace Othell
                                                 con.Open();
                                                 SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Perdedor', " + conb.ToString() + ", " + "'" + nom + "'" + ")", con);
                                                 con.Close();
-                                                Ban = 1;
+
+
                                             }
                                         }
-
-
-
-                                    }
-                                    else
-                                    {
-                                        
-                                        gan = "Jugador 2 (Blancas).";
-                                        //Agregar a Base
-                                        if (Jug == "B")
+                                        else
                                         {
-                                            if (Ban == 0)
+                                            gan = "Jugador 2 (Blancas).";
+                                            //Agregar a Base
+                                            if (Jug == "B")
                                             {
+
+
                                                 const string FMT = "yyyy-MM-dd";
                                                 DateTime hoy = DateTime.Now;
                                                 string nom = hoy.ToString(FMT);
@@ -1565,13 +1755,13 @@ namespace Othell
                                                 con.Open();
                                                 SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Ganador', " + conb.ToString() + ", " + "'" + nom + "'" + ")", con);
                                                 con.Close();
-                                                Ban = 1;
+
+
                                             }
-                                        }
-                                        else
-                                        {
-                                            if (Ban == 0)
+                                            else
                                             {
+
+
                                                 const string FMT = "yyyy-MM-dd";
                                                 DateTime hoy = DateTime.Now;
                                                 string nom = hoy.ToString(FMT);
@@ -1580,13 +1770,92 @@ namespace Othell
                                                 con.Open();
                                                 SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Perdedor', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
                                                 con.Close();
-                                                Ban = 1;
+
+
                                             }
                                         }
+
+                                    }
+                                    else
+                                    {
+                                        //Reto Inverso
+                                        if (RI == 1)
+                                        {
+                                            gan = "Jugador 1 (Negras).";
+                                            //Agregar a Base
+                                            if (Jug == "N")
+                                            {
+
+
+                                                const string FMT = "yyyy-MM-dd";
+                                                DateTime hoy = DateTime.Now;
+                                                string nom = hoy.ToString(FMT);
+                                                SqlConnection con = new SqlConnection();
+                                                con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                                con.Open();
+                                                SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Ganador', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                con.Close();
+
+
+                                            }
+                                            else
+                                            {
+
+
+                                                const string FMT = "yyyy-MM-dd";
+                                                DateTime hoy = DateTime.Now;
+                                                string nom = hoy.ToString(FMT);
+                                                SqlConnection con = new SqlConnection();
+                                                con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                                con.Open();
+                                                SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Perdedor', " + conb.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                con.Close();
+
+
+                                            }
+                                        }
+                                        else
+                                        {
+                                            gan = "Jugador 2 (Blancas).";
+                                            //Agregar a Base
+                                            if (Jug == "B")
+                                            {
+
+
+                                                const string FMT = "yyyy-MM-dd";
+                                                DateTime hoy = DateTime.Now;
+                                                string nom = hoy.ToString(FMT);
+                                                SqlConnection con = new SqlConnection();
+                                                con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                                con.Open();
+                                                SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Ganador', " + conb.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                con.Close();
+
+
+                                            }
+                                            else
+                                            {
+
+
+                                                const string FMT = "yyyy-MM-dd";
+                                                DateTime hoy = DateTime.Now;
+                                                string nom = hoy.ToString(FMT);
+                                                SqlConnection con = new SqlConnection();
+                                                con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                                con.Open();
+                                                SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Perdedor', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                con.Close();
+
+
+                                            }
+                                        }
+
                                     }
                                     int f = 1;
                                     if (f == 1)
                                     {
+                                        neg.Stop();
+                                        bla.Stop();
                                         MessageBox.Show(this.Page, "Final del Juego. Gana " + gan);
                                     }
 
@@ -1595,7 +1864,7 @@ namespace Othell
                             }
                             else
                             {
-                              
+
                                 MessageBox.Show(this.Page, "Las fichas blancas no tienen movimientos disponibles.");
                                 x = 1;
                             }
@@ -1630,7 +1899,7 @@ namespace Othell
                             else
                             {
                                 Turno.Text = "Negras";
-                                
+
                                 //Colorear
                                 for (int i = 0; i < d; i++)
                                 {
@@ -1721,10 +1990,10 @@ namespace Othell
                                             break;
                                     }
                                 }
-                                
+
 
                             }
-                           
+
 
 
 
@@ -1734,9 +2003,9 @@ namespace Othell
             }
             conn = 0;
             conb = 0;
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < FI; i++)
             {
-                for (int j = 0; j < 8; j++)
+                for (int j = 0; j < CO; j++)
                 {
                     if (bot[i, j].BackColor == Color.Black)
                     {
@@ -1767,14 +2036,14 @@ namespace Othell
                 a.WriteStartElement("tablero");
 
                 //Ingresar Fichas
-                for(int i = 0; i < 8; i++)
+                for (int i = 0; i < FI; i++)
                 {
-                    for (int j = 0; j < 8; j++)
+                    for (int j = 0; j < CO; j++)
                     {
-                        if (bot[i , j].BackColor == Color.Black || bot[i,j].BackColor == Color.White)
+                        if (bot[i, j].BackColor == Color.Black || bot[i, j].BackColor == Color.White)
                         {
                             a.WriteStartElement("ficha");
-                            if (bot[i,j].BackColor == Color.Black)
+                            if (bot[i, j].BackColor == Color.Black)
                             {
                                 a.WriteElementString("color", "negro");
                             }
@@ -1782,7 +2051,7 @@ namespace Othell
                             {
                                 a.WriteElementString("color", "blanco");
                             }
-                  
+
                             char l = (char)(65 + j);
                             a.WriteElementString("columna", l.ToString());
                             a.WriteElementString("fila", i.ToString());
@@ -1790,7 +2059,7 @@ namespace Othell
                         }
                     }
                 }
-               
+
                 //Tiro
 
                 if (x == 1)
@@ -1816,7 +2085,7 @@ namespace Othell
         protected void Button1_Click1(object sender, EventArgs e)
         {
             Byte[] Archivo = null;
-           
+
             if (Subir.HasFile == true)
             {
                 using (BinaryReader reader = new BinaryReader(Subir.PostedFile.InputStream))
@@ -1850,14 +2119,14 @@ namespace Othell
 
                 //Settear todos al color original
                 Color co = ColorTranslator.FromHtml("#006B3C");
-                for (int p = 0; p < 8; p++)
+                for (int p = 0; p < FI; p++)
                 {
-                    for (int q = 0; q < 8; q++)
+                    for (int q = 0; q < CO; q++)
                     {
                         bot[p, q].BackColor = co;
                     }
                 }
-
+                
                 //Cargar Datos
                 if (Tiro == "negro")
                 {
@@ -1883,7 +2152,7 @@ namespace Othell
                     int Fila = (int)Char.GetNumericValue(posi[1]) - 1;
                     int Columna = (int)(posi[0]) - 65;
 
-                    if (Fila > 7 || Columna > 7 || Fila < 0 || Columna < 0)
+                    if (Fila > (FI-1) || Columna > (CO-1) || Fila < 0 || Columna < 0)
                     {
 
                     }
@@ -1892,11 +2161,13 @@ namespace Othell
                         if (colo == "blanco")
                         {
                             bot[Fila, Columna].BackColor = Color.White;
+                            
                             conb += 1;
                         }
                         else
                         {
                             bot[Fila, Columna].BackColor = Color.Black;
+                            
                             conn += 1;
                         }
                     }
@@ -1910,9 +2181,9 @@ namespace Othell
             {
                 MessageBox.Show(this.Page, "Seleccione un archivo primero.");
             }
-            
 
-            
+
+
         }
 
 
@@ -2009,9 +2280,7 @@ namespace Othell
                     Response.Redirect("~/Menu");
                 }
             }
-            
-        }
 
-        
+        }
     }
 }
