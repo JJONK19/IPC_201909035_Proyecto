@@ -46,6 +46,7 @@ namespace Othell
         public static int FI; //No de filas
         public static int CO; //No de Columnas
         public static int RI; //Reto Inverso
+        public static int AP; //Apertura Personalizado
         public static List<string> J1;  //Lista de Colores 1
         public static List<string> J2;  //Lista de Colores 2
         public static List<string> Colores;
@@ -64,6 +65,7 @@ namespace Othell
             FI = (int)Session["M"];
             CO = (int)Session["N"];
             RI = (int)Session["RI"];
+            AP = (int)Session["AP"];
             J1 = (List<string>)Session["J1"];
             J2 = (List<string>)Session["J2"];
             
@@ -405,128 +407,106 @@ namespace Othell
                 if (b == 0)
                 {
                     if (x == 1)
-                    {
-                        if (PCN == J1.Count)
+                    {    //Contar si ya esta coloreado centro
+                        int P1C = (CO / 2) - 1;
+                        int P1F = (FI / 2) - 1;
+                        int P2C = (CO / 2) - 1;
+                        int P2F = FI / 2;
+                        int P3C = CO / 2;
+                        int P3F = FI / 2;
+                        int P4C = CO / 2;
+                        int P4F = (FI / 2) - 1;
+                        int conc = 0; //Cuenta piezas de centro
+                        if (bot[P1F, P1C].BackColor == Color.Black || bot[P1F, P1C].BackColor == Color.White || bot[P1F, P1C].BackColor == Color.Red || bot[P1F, P1C].BackColor == Color.Yellow || bot[P1F, P1C].BackColor == Color.Blue || bot[P1F, P1C].BackColor == Color.Orange || bot[P1F, P1C].BackColor == Color.Green || bot[P1F, P1C].BackColor == Color.MediumPurple || bot[P1F, P1C].BackColor == Color.SkyBlue || bot[P1F, P1C].BackColor == Color.Gray)
                         {
-                            apertura = 1;
-                            PCN = 0;
+                            conc = conc + 1;
                         }
-                        else
+
+                        if (bot[P2F, P2C].BackColor == Color.Black || bot[P2F, P2C].BackColor == Color.White || bot[P2F, P2C].BackColor == Color.Red || bot[P2F, P2C].BackColor == Color.Yellow || bot[P2F, P2C].BackColor == Color.Blue || bot[P2F, P2C].BackColor == Color.Orange || bot[P2F, P2C].BackColor == Color.Green || bot[P2F, P2C].BackColor == Color.MediumPurple || bot[P2F, P2C].BackColor == Color.SkyBlue || bot[P2F, P2C].BackColor == Color.Gray)
                         {
-                            apertura = 0;
+                            conc = conc + 1;
                         }
 
-
-                        if (apertura == 0)
+                        if (bot[P3F, P3C].BackColor == Color.Black || bot[P3F, P3C].BackColor == Color.White || bot[P3F, P3C].BackColor == Color.Red || bot[P3F, P3C].BackColor == Color.Yellow || bot[P3F, P3C].BackColor == Color.Blue || bot[P3F, P3C].BackColor == Color.Orange || bot[P3F, P3C].BackColor == Color.Green || bot[P3F, P3C].BackColor == Color.MediumPurple || bot[P3F, P3C].BackColor == Color.SkyBlue || bot[P3F, P3C].BackColor == Color.Gray)
                         {
-                            //Contar si ya esta coloreado centro
-                            int P1C = (CO / 2) - 1;
-                            int P1F = (FI / 2) - 1;
-                            int P2C = (CO / 2) - 1;
-                            int P2F = FI / 2;
-                            int P3C = CO / 2;
-                            int P3F = FI / 2;
-                            int P4C = CO / 2;
-                            int P4F = (FI / 2) - 1;
-                            int conc = 0; //Cuenta piezas de centro
-                            if (bot[P1F, P1C].BackColor == Color.Black || bot[P1F, P1C].BackColor == Color.White || bot[P1F, P1C].BackColor == Color.Red || bot[P1F, P1C].BackColor == Color.Yellow || bot[P1F, P1C].BackColor == Color.Blue || bot[P1F, P1C].BackColor == Color.Orange || bot[P1F, P1C].BackColor == Color.Green || bot[P1F, P1C].BackColor == Color.MediumPurple || bot[P1F, P1C].BackColor == Color.SkyBlue || bot[P1F, P1C].BackColor == Color.Gray)
-                            {
-                                conc = conc + 1;
-                            }
+                            conc = conc + 1;
+                        }
 
-                            if (bot[P2F, P2C].BackColor == Color.Black || bot[P2F, P2C].BackColor == Color.White || bot[P2F, P2C].BackColor == Color.Red || bot[P2F, P2C].BackColor == Color.Yellow || bot[P2F, P2C].BackColor == Color.Blue || bot[P2F, P2C].BackColor == Color.Orange || bot[P2F, P2C].BackColor == Color.Green || bot[P2F, P2C].BackColor == Color.MediumPurple || bot[P2F, P2C].BackColor == Color.SkyBlue || bot[P2F, P2C].BackColor == Color.Gray)
-                            {
-                                conc = conc + 1;
-                            }
+                        if (bot[P4F, P4C].BackColor == Color.Black || bot[P4F, P4C].BackColor == Color.White || bot[P4F, P4C].BackColor == Color.Red || bot[P4F, P4C].BackColor == Color.Yellow || bot[P4F, P4C].BackColor == Color.Blue || bot[P4F, P4C].BackColor == Color.Orange || bot[P4F, P4C].BackColor == Color.Green || bot[P4F, P4C].BackColor == Color.MediumPurple || bot[P4F, P4C].BackColor == Color.SkyBlue || bot[P4F, P4C].BackColor == Color.Gray)
+                        {
+                            conc = conc + 1;
+                        }
 
-                            if (bot[P3F, P3C].BackColor == Color.Black || bot[P3F, P3C].BackColor == Color.White || bot[P3F, P3C].BackColor == Color.Red || bot[P3F, P3C].BackColor == Color.Yellow || bot[P3F, P3C].BackColor == Color.Blue || bot[P3F, P3C].BackColor == Color.Orange || bot[P3F, P3C].BackColor == Color.Green || bot[P3F, P3C].BackColor == Color.MediumPurple || bot[P3F, P3C].BackColor == Color.SkyBlue || bot[P3F, P3C].BackColor == Color.Gray)
-                            {
-                                conc = conc + 1;
-                            }
+                        if (conc == 4)
+                        {
 
-                            if (bot[P4F, P4C].BackColor == Color.Black || bot[P4F, P4C].BackColor == Color.White || bot[P4F, P4C].BackColor == Color.Red || bot[P4F, P4C].BackColor == Color.Yellow || bot[P4F, P4C].BackColor == Color.Blue || bot[P4F, P4C].BackColor == Color.Orange || bot[P4F, P4C].BackColor == Color.Green || bot[P4F, P4C].BackColor == Color.MediumPurple || bot[P4F, P4C].BackColor == Color.SkyBlue || bot[P4F, P4C].BackColor == Color.Gray)
-                            {
-                                conc = conc + 1;
-                            }
-
-                            if (conc == 4)
-                            {
-                                aperturaC = 1;
-                            }
-                            else
-                            {
-                                aperturaC = 0;
-                            }
-
-
-                            if (aperturaC == 0)
-                            {
-                                //Encontrar posicion en el tablero
-                                String Pos = temp.ID;
-                                int Fila = (int)Char.GetNumericValue(Pos[1]) - 1;
-                                int Columna = (int)(Pos[0]) - 65;
-                                Color pin = Color.Lavender;
-                                String tempco = J1[PCN];
-                                PCN = PCN + 1;
+                            AP = 0;
+                            
+                        }
+                        
+                        if (AP == 1)
+                        {
                                 
-
-                                switch (tempco)
-                                {
-                                    case "Rojo":
-                                        pin = Color.Red;
-                                        break;
-
-                                    case "Amarillo":
-                                        pin = Color.Yellow;
-                                        break;
-
-                                    case "Azul":
-                                        pin = Color.Blue;
-                                        break;
-
-                                    case "Naranja":
-                                        pin = Color.Orange;
-                                        break;
-
-                                    case "Verde":
-                                        pin = Color.Green;
-                                        break;
-
-                                    case "Violeta":
-                                        pin = Color.MediumPurple;
-                                        break;
-
-                                    case "Blanco":
-                                        pin = Color.White;
-                                        break;
-
-                                    case "Negro":
-                                        pin = Color.Black;
-                                        break;
-
-                                    case "Celeste":
-                                        pin = Color.SkyBlue;
-                                        break;
-
-                                    case "Gris":
-                                        pin = Color.Gray;
-                                        break;
-
-                                }
-
-
-                                if (Fila == P1F && Columna == P1C)
-                                {
-
-                                    temp.BackColor = pin;
-                                    x = 2;
-                                    Turno.Text = "Jugador 2";
-                                }
-                                else
-                                {
-
-                                    if (Fila == P2F && Columna == P2C)
+                                    //Encontrar posicion en el tablero
+                                    String Pos = temp.ID;
+                                    int Fila = (int)Char.GetNumericValue(Pos[1]) - 1;
+                                    int Columna = (int)(Pos[0]) - 65;
+                                    Color pin = Color.Lavender;
+                                    String tempco = J1[PCN];
+                                    PCN = PCN + 1;
+                                    if(PCN == J1.Count)
                                     {
+                                        PCN = 0;
+                                    }
+
+                                    switch (tempco)
+                                    {
+                                        case "Rojo":
+                                            pin = Color.Red;
+                                            break;
+
+                                        case "Amarillo":
+                                            pin = Color.Yellow;
+                                            break;
+
+                                        case "Azul":
+                                            pin = Color.Blue;
+                                            break;
+
+                                        case "Naranja":
+                                            pin = Color.Orange;
+                                            break;
+
+                                        case "Verde":
+                                            pin = Color.Green;
+                                            break;
+
+                                        case "Violeta":
+                                            pin = Color.MediumPurple;
+                                            break;
+
+                                        case "Blanco":
+                                            pin = Color.White;
+                                            break;
+
+                                        case "Negro":
+                                            pin = Color.Black;
+                                            break;
+
+                                        case "Celeste":
+                                            pin = Color.SkyBlue;
+                                            break;
+
+                                        case "Gris":
+                                            pin = Color.Gray;
+                                            break;
+
+                                    }
+
+
+                                    if (Fila == P1F && Columna == P1C)
+                                    {
+
                                         temp.BackColor = pin;
                                         x = 2;
                                         Turno.Text = "Jugador 2";
@@ -534,7 +514,7 @@ namespace Othell
                                     else
                                     {
 
-                                        if (Fila == P3F && Columna == P3C)
+                                        if (Fila == P2F && Columna == P2C)
                                         {
                                             temp.BackColor = pin;
                                             x = 2;
@@ -543,7 +523,7 @@ namespace Othell
                                         else
                                         {
 
-                                            if (Fila == P4F && Columna == P4C)
+                                            if (Fila == P3F && Columna == P3C)
                                             {
                                                 temp.BackColor = pin;
                                                 x = 2;
@@ -551,134 +531,29 @@ namespace Othell
                                             }
                                             else
                                             {
-                                                Page.ClientScript.RegisterStartupScript(
-                                                Page.GetType(),
-                                                "Mensaje",
-                                                "<script language='javascript'>alert('Movimiento no valido. Debe llenar el centro primero.');</script>");
+
+                                                if (Fila == P4F && Columna == P4C)
+                                                {
+                                                    temp.BackColor = pin;
+                                                    x = 2;
+                                                    Turno.Text = "Jugador 2";
+                                                }
+                                                else
+                                                {
+                                                    Page.ClientScript.RegisterStartupScript(
+                                                    Page.GetType(),
+                                                    "Mensaje",
+                                                    "<script language='javascript'>alert('Movimiento no valido. Debe llenar el centro primero.');</script>");
+                                                }
                                             }
                                         }
                                     }
-                                }
 
-                            }
-                            else
-                            {
-                                //Encontrar posicion en el tablero
-                                String Pos = temp.ID;
-                                int Fila = (int)Char.GetNumericValue(Pos[1]) - 1;
-                                int Columna = (int)(Pos[0]) - 65;
-                                Color pin = Color.Lavender;
-                                String tempco = J1[PCN];
-                                PCN = PCN + 1;
                                 
-
-                                switch (tempco)
-                                {
-                                    case "Rojo":
-                                        pin = Color.Red;
-                                        break;
-
-                                    case "Amarillo":
-                                        pin = Color.Yellow;
-                                        break;
-
-                                    case "Azul":
-                                        pin = Color.Blue;
-                                        break;
-
-                                    case "Naranja":
-                                        pin = Color.Orange;
-                                        break;
-
-                                    case "Verde":
-                                        pin = Color.Green;
-                                        break;
-
-                                    case "Violeta":
-                                        pin = Color.MediumPurple;
-                                        break;
-
-                                    case "Blanco":
-                                        pin = Color.White;
-                                        break;
-
-                                    case "Negro":
-                                        pin = Color.Black;
-                                        break;
-
-                                    case "Celeste":
-                                        pin = Color.SkyBlue;
-                                        break;
-
-                                    case "Gris":
-                                        pin = Color.Gray;
-                                        break;
-
-                                }
-
-                                int PCSF = P1F - 1; //Fila superior a cuadrado central
-                                int PCSCI = P1C - 1; //Inicio de columna
-                                int PCSCF = P3C + 1; //Inicio de columna
-
-                                int PCIF = P2F + 1; //Fila Inferior a cuadrado central
-                                int PCICI = P1C - 1; //Inicio de columna
-                                int PCICF = P3C + 1; //Inicio de columna
-
-                                int PCFII = P1F; //Fila inicial a cuadrado central
-                                int PCFFD = P2F; //Fila Final a cuadrado central
-                                int PCI = P1C-1; //columna izquierda
-
-                               
-                                int PCF = P4C + 1; //columna derecha
-
-                                if (Fila == PCIF && Columna >=PCICI && Columna <=PCICF) 
-                                {
-                                    temp.BackColor = pin;
-                                    x = 2;
-                                    Turno.Text = "Jugador 2";
-
-                                }
-                                else
-                                {
-                                    if (Fila == PCSF && Columna >= PCSCI && Columna <= PCSCF)
-                                    {
-                                        temp.BackColor = pin;
-                                        x = 2;
-                                        Turno.Text = "Jugador 2";
-
-                                    }
-                                    else
-                                    {
-                                        if (Columna == PCI && Fila >= PCFII && Fila <= PCFFD)
-                                        {
-                                            temp.BackColor = pin;
-                                            x = 2;
-                                            Turno.Text = "Jugador 2";
-
-                                        }
-                                        else
-                                        {
-                                            if (Columna == PCF && Fila >= PCFII && Fila <= PCFFD)
-                                            {
-                                                temp.BackColor = pin;
-                                                x = 2;
-                                                Turno.Text = "Jugador 2";
-
-                                            }
-                                            else
-                                            {
-                                                Page.ClientScript.RegisterStartupScript(
-                                               Page.GetType(),
-                                               "Mensaje",
-                                               "<script language='javascript'>alert('Movimiento no valido. Debe llenar las casillas que rodean al centro hasta que tenga una ficha de cada color en el tablero.');</script>");
-                                            }
-                                        }
-                                    }
-                                }
-
-
-                            }
+                                
+                            
                         }
+                        
                         else
                         {
                             mov = 0;
@@ -1481,125 +1356,118 @@ namespace Othell
                     }
                     else
                     {
-                        if (PCB == J2.Count)
+                        if(AP == 1)
                         {
-                            aperturab = 1;
-                            PCB = 0;
-                        }
-                        else
-                        {
-                            aperturab = 0;
-                        }
-                        if (aperturab == 0)
-                        {
-                            //Contar si ya esta coloreado centro
-                            int P1C = (CO / 2) - 1;
-                            int P1F = (FI / 2) - 1;
-                            int P2C = (CO / 2) - 1;
-                            int P2F = FI / 2;
-                            int P3C = CO / 2;
-                            int P3F = FI / 2;
-                            int P4C = CO / 2;
-                            int P4F = (FI / 2) - 1;
-                            int conc = 0; //Cuenta piezas de centro
-                            if (bot[P1F, P1C].BackColor == Color.Black || bot[P1F, P1C].BackColor == Color.White || bot[P1F, P1C].BackColor == Color.Red || bot[P1F, P1C].BackColor == Color.Yellow || bot[P1F, P1C].BackColor == Color.Blue || bot[P1F, P1C].BackColor == Color.Orange || bot[P1F, P1C].BackColor == Color.Green || bot[P1F, P1C].BackColor == Color.MediumPurple || bot[P1F, P1C].BackColor == Color.SkyBlue || bot[P1F, P1C].BackColor == Color.Gray)
+                            if (aperturab == 0)
                             {
-                                conc = conc + 1;
-                            }
-
-                            if (bot[P2F, P2C].BackColor == Color.Black || bot[P2F, P2C].BackColor == Color.White || bot[P2F, P2C].BackColor == Color.Red || bot[P2F, P2C].BackColor == Color.Yellow || bot[P2F, P2C].BackColor == Color.Blue || bot[P2F, P2C].BackColor == Color.Orange || bot[P2F, P2C].BackColor == Color.Green || bot[P2F, P2C].BackColor == Color.MediumPurple || bot[P2F, P2C].BackColor == Color.SkyBlue || bot[P2F, P2C].BackColor == Color.Gray)
-                            {
-                                conc = conc + 1;
-                            }
-
-                            if (bot[P3F, P3C].BackColor == Color.Black || bot[P3F, P3C].BackColor == Color.White || bot[P3F, P3C].BackColor == Color.Red || bot[P3F, P3C].BackColor == Color.Yellow || bot[P3F, P3C].BackColor == Color.Blue || bot[P3F, P3C].BackColor == Color.Orange || bot[P3F, P3C].BackColor == Color.Green || bot[P3F, P3C].BackColor == Color.MediumPurple || bot[P3F, P3C].BackColor == Color.SkyBlue || bot[P3F, P3C].BackColor == Color.Gray)
-                            {
-                                conc = conc + 1;
-                            }
-
-                            if (bot[P4F, P4C].BackColor == Color.Black || bot[P4F, P4C].BackColor == Color.White || bot[P4F, P4C].BackColor == Color.Red || bot[P4F, P4C].BackColor == Color.Yellow || bot[P4F, P4C].BackColor == Color.Blue || bot[P4F, P4C].BackColor == Color.Orange || bot[P4F, P4C].BackColor == Color.Green || bot[P4F, P4C].BackColor == Color.MediumPurple || bot[P4F, P4C].BackColor == Color.SkyBlue || bot[P4F, P4C].BackColor == Color.Gray)
-                            {
-                                conc = conc + 1;
-                            }
-
-                            if (conc == 4)
-                            {
-                                aperturaC = 1;
-                            }
-                            else
-                            {
-                                aperturaC = 0;
-                            }
-
-
-                            if (aperturaC == 0)
-                            {
-                                //Encontrar posicion en el tablero
-                                String Pos = temp.ID;
-                                int Fila = (int)Char.GetNumericValue(Pos[1]) - 1;
-                                int Columna = (int)(Pos[0]) - 65;
-                                Color pin = Color.Lavender;
-                                String tempco = J2[PCB];
-                                PCB = PCB + 1;
-                                
-
-                                switch (tempco)
+                                //Contar si ya esta coloreado centro
+                                int P1C = (CO / 2) - 1;
+                                int P1F = (FI / 2) - 1;
+                                int P2C = (CO / 2) - 1;
+                                int P2F = FI / 2;
+                                int P3C = CO / 2;
+                                int P3F = FI / 2;
+                                int P4C = CO / 2;
+                                int P4F = (FI / 2) - 1;
+                                int conc = 0; //Cuenta piezas de centro
+                                if (bot[P1F, P1C].BackColor == Color.Black || bot[P1F, P1C].BackColor == Color.White || bot[P1F, P1C].BackColor == Color.Red || bot[P1F, P1C].BackColor == Color.Yellow || bot[P1F, P1C].BackColor == Color.Blue || bot[P1F, P1C].BackColor == Color.Orange || bot[P1F, P1C].BackColor == Color.Green || bot[P1F, P1C].BackColor == Color.MediumPurple || bot[P1F, P1C].BackColor == Color.SkyBlue || bot[P1F, P1C].BackColor == Color.Gray)
                                 {
-                                    case "Rojo":
-                                        pin = Color.Red;
-                                        break;
-
-                                    case "Amarillo":
-                                        pin = Color.Yellow;
-                                        break;
-
-                                    case "Azul":
-                                        pin = Color.Blue;
-                                        break;
-
-                                    case "Naranja":
-                                        pin = Color.Orange;
-                                        break;
-
-                                    case "Verde":
-                                        pin = Color.Green;
-                                        break;
-
-                                    case "Violeta":
-                                        pin = Color.MediumPurple;
-                                        break;
-
-                                    case "Blanco":
-                                        pin = Color.White;
-                                        break;
-
-                                    case "Negro":
-                                        pin = Color.Black;
-                                        break;
-
-                                    case "Celeste":
-                                        pin = Color.SkyBlue;
-                                        break;
-
-                                    case "Gris":
-                                        pin = Color.Gray;
-                                        break;
-
+                                    conc = conc + 1;
                                 }
 
-
-                                if (Fila == P1F && Columna == P1C)
+                                if (bot[P2F, P2C].BackColor == Color.Black || bot[P2F, P2C].BackColor == Color.White || bot[P2F, P2C].BackColor == Color.Red || bot[P2F, P2C].BackColor == Color.Yellow || bot[P2F, P2C].BackColor == Color.Blue || bot[P2F, P2C].BackColor == Color.Orange || bot[P2F, P2C].BackColor == Color.Green || bot[P2F, P2C].BackColor == Color.MediumPurple || bot[P2F, P2C].BackColor == Color.SkyBlue || bot[P2F, P2C].BackColor == Color.Gray)
                                 {
+                                    conc = conc + 1;
+                                }
 
-                                    temp.BackColor = pin;
-                                    x = 1;
-                                    Turno.Text = "Jugador 1";
+                                if (bot[P3F, P3C].BackColor == Color.Black || bot[P3F, P3C].BackColor == Color.White || bot[P3F, P3C].BackColor == Color.Red || bot[P3F, P3C].BackColor == Color.Yellow || bot[P3F, P3C].BackColor == Color.Blue || bot[P3F, P3C].BackColor == Color.Orange || bot[P3F, P3C].BackColor == Color.Green || bot[P3F, P3C].BackColor == Color.MediumPurple || bot[P3F, P3C].BackColor == Color.SkyBlue || bot[P3F, P3C].BackColor == Color.Gray)
+                                {
+                                    conc = conc + 1;
+                                }
+
+                                if (bot[P4F, P4C].BackColor == Color.Black || bot[P4F, P4C].BackColor == Color.White || bot[P4F, P4C].BackColor == Color.Red || bot[P4F, P4C].BackColor == Color.Yellow || bot[P4F, P4C].BackColor == Color.Blue || bot[P4F, P4C].BackColor == Color.Orange || bot[P4F, P4C].BackColor == Color.Green || bot[P4F, P4C].BackColor == Color.MediumPurple || bot[P4F, P4C].BackColor == Color.SkyBlue || bot[P4F, P4C].BackColor == Color.Gray)
+                                {
+                                    conc = conc + 1;
+                                }
+
+                                if (conc == 4)
+                                {
+                                   
+                                    AP = 0;
+                                    aperturaC = 1;
                                 }
                                 else
                                 {
+                                    aperturaC = 0;
+                                    
+                                    AP = 0;
 
-                                    if (Fila == P2F && Columna == P2C)
+                                }
+
+
+                                if (aperturaC == 0)
+                                {
+                                    //Encontrar posicion en el tablero
+                                    String Pos = temp.ID;
+                                    int Fila = (int)Char.GetNumericValue(Pos[1]) - 1;
+                                    int Columna = (int)(Pos[0]) - 65;
+                                    Color pin = Color.Lavender;
+                                    String tempco = J2[PCB];
+                                    PCB = PCB + 1;
+                                    if (PCB == J2.Count)
                                     {
+                                        PCB = 0;
+                                    }
+
+
+                                    switch (tempco)
+                                    {
+                                        case "Rojo":
+                                            pin = Color.Red;
+                                            break;
+
+                                        case "Amarillo":
+                                            pin = Color.Yellow;
+                                            break;
+
+                                        case "Azul":
+                                            pin = Color.Blue;
+                                            break;
+
+                                        case "Naranja":
+                                            pin = Color.Orange;
+                                            break;
+
+                                        case "Verde":
+                                            pin = Color.Green;
+                                            break;
+
+                                        case "Violeta":
+                                            pin = Color.MediumPurple;
+                                            break;
+
+                                        case "Blanco":
+                                            pin = Color.White;
+                                            break;
+
+                                        case "Negro":
+                                            pin = Color.Black;
+                                            break;
+
+                                        case "Celeste":
+                                            pin = Color.SkyBlue;
+                                            break;
+
+                                        case "Gris":
+                                            pin = Color.Gray;
+                                            break;
+
+                                    }
+
+
+                                    if (Fila == P1F && Columna == P1C)
+                                    {
+
                                         temp.BackColor = pin;
                                         x = 1;
                                         Turno.Text = "Jugador 1";
@@ -1607,7 +1475,7 @@ namespace Othell
                                     else
                                     {
 
-                                        if (Fila == P3F && Columna == P3C)
+                                        if (Fila == P2F && Columna == P2C)
                                         {
                                             temp.BackColor = pin;
                                             x = 1;
@@ -1616,7 +1484,7 @@ namespace Othell
                                         else
                                         {
 
-                                            if (Fila == P4F && Columna == P4C)
+                                            if (Fila == P3F && Columna == P3C)
                                             {
                                                 temp.BackColor = pin;
                                                 x = 1;
@@ -1624,96 +1492,96 @@ namespace Othell
                                             }
                                             else
                                             {
-                                                Page.ClientScript.RegisterStartupScript(
-                                                Page.GetType(),
-                                                "Mensaje",
-                                                "<script language='javascript'>alert('Movimiento no valido. Debe llenar el centro primero.');</script>");
+
+                                                if (Fila == P4F && Columna == P4C)
+                                                {
+                                                    temp.BackColor = pin;
+                                                    x = 1;
+                                                    Turno.Text = "Jugador 1";
+                                                }
+                                                else
+                                                {
+                                                    Page.ClientScript.RegisterStartupScript(
+                                                    Page.GetType(),
+                                                    "Mensaje",
+                                                    "<script language='javascript'>alert('Movimiento no valido. Debe llenar el centro primero.');</script>");
+                                                }
                                             }
                                         }
                                     }
-                                }
-
-                            }
-                            else
-                            {
-                                //Encontrar posicion en el tablero
-                                String Pos = temp.ID;
-                                int Fila = (int)Char.GetNumericValue(Pos[1]) - 1;
-                                int Columna = (int)(Pos[0]) - 65;
-                                Color pin = Color.Lavender;
-                                String tempco = J2[PCB];
-                                PCB = PCB + 1;
-                                
-
-                                switch (tempco)
-                                {
-                                    case "Rojo":
-                                        pin = Color.Red;
-                                        break;
-
-                                    case "Amarillo":
-                                        pin = Color.Yellow;
-                                        break;
-
-                                    case "Azul":
-                                        pin = Color.Blue;
-                                        break;
-
-                                    case "Naranja":
-                                        pin = Color.Orange;
-                                        break;
-
-                                    case "Verde":
-                                        pin = Color.Green;
-                                        break;
-
-                                    case "Violeta":
-                                        pin = Color.MediumPurple;
-                                        break;
-
-                                    case "Blanco":
-                                        pin = Color.White;
-                                        break;
-
-                                    case "Negro":
-                                        pin = Color.Black;
-                                        break;
-
-                                    case "Celeste":
-                                        pin = Color.SkyBlue;
-                                        break;
-
-                                    case "Gris":
-                                        pin = Color.Gray;
-                                        break;
-
-                                }
-
-                                int PCSF = P1F - 1; //Fila superior a cuadrado central
-                                int PCSCI = P1C - 1; //Inicio de columna
-                                int PCSCF = P3C + 1; //Inicio de columna
-
-                                int PCIF = P2F + 1; //Fila Inferior a cuadrado central
-                                int PCICI = P1C - 1; //Inicio de columna
-                                int PCICF = P3C + 1; //Inicio de columna
-
-                                int PCFII = P1F; //Fila inicial a cuadrado central
-                                int PCFFD = P2F; //Fila Final a cuadrado central
-                                int PCI = P1C - 1; //columna izquierda
-
-
-                                int PCF = P4C + 1; //columna derecha
-
-                                if (Fila == PCIF && Columna >= PCICI && Columna <= PCICF)
-                                {
-                                    temp.BackColor = pin;
-                                    x = 1;
-                                    Turno.Text = "Jugador 1";
 
                                 }
                                 else
                                 {
-                                    if (Fila == PCSF && Columna >= PCSCI && Columna <= PCSCF)
+                                    //Encontrar posicion en el tablero
+                                    String Pos = temp.ID;
+                                    int Fila = (int)Char.GetNumericValue(Pos[1]) - 1;
+                                    int Columna = (int)(Pos[0]) - 65;
+                                    Color pin = Color.Lavender;
+                                    String tempco = J2[PCB];
+                                    PCB = PCB + 1;
+
+
+                                    switch (tempco)
+                                    {
+                                        case "Rojo":
+                                            pin = Color.Red;
+                                            break;
+
+                                        case "Amarillo":
+                                            pin = Color.Yellow;
+                                            break;
+
+                                        case "Azul":
+                                            pin = Color.Blue;
+                                            break;
+
+                                        case "Naranja":
+                                            pin = Color.Orange;
+                                            break;
+
+                                        case "Verde":
+                                            pin = Color.Green;
+                                            break;
+
+                                        case "Violeta":
+                                            pin = Color.MediumPurple;
+                                            break;
+
+                                        case "Blanco":
+                                            pin = Color.White;
+                                            break;
+
+                                        case "Negro":
+                                            pin = Color.Black;
+                                            break;
+
+                                        case "Celeste":
+                                            pin = Color.SkyBlue;
+                                            break;
+
+                                        case "Gris":
+                                            pin = Color.Gray;
+                                            break;
+
+                                    }
+
+                                    int PCSF = P1F - 1; //Fila superior a cuadrado central
+                                    int PCSCI = P1C - 1; //Inicio de columna
+                                    int PCSCF = P3C + 1; //Inicio de columna
+
+                                    int PCIF = P2F + 1; //Fila Inferior a cuadrado central
+                                    int PCICI = P1C - 1; //Inicio de columna
+                                    int PCICF = P3C + 1; //Inicio de columna
+
+                                    int PCFII = P1F; //Fila inicial a cuadrado central
+                                    int PCFFD = P2F; //Fila Final a cuadrado central
+                                    int PCI = P1C - 1; //columna izquierda
+
+
+                                    int PCF = P4C + 1; //columna derecha
+
+                                    if (Fila == PCIF && Columna >= PCICI && Columna <= PCICF)
                                     {
                                         temp.BackColor = pin;
                                         x = 1;
@@ -1722,7 +1590,7 @@ namespace Othell
                                     }
                                     else
                                     {
-                                        if (Columna == PCI && Fila >= PCFII && Fila <= PCFFD)
+                                        if (Fila == PCSF && Columna >= PCSCI && Columna <= PCSCF)
                                         {
                                             temp.BackColor = pin;
                                             x = 1;
@@ -1731,7 +1599,7 @@ namespace Othell
                                         }
                                         else
                                         {
-                                            if (Columna == PCF && Fila >= PCFII && Fila <= PCFFD)
+                                            if (Columna == PCI && Fila >= PCFII && Fila <= PCFFD)
                                             {
                                                 temp.BackColor = pin;
                                                 x = 1;
@@ -1740,16 +1608,27 @@ namespace Othell
                                             }
                                             else
                                             {
-                                                Page.ClientScript.RegisterStartupScript(
-                                               Page.GetType(),
-                                               "Mensaje",
-                                               "<script language='javascript'>alert('Movimiento no valido. Debe llenar las casillas que rodean al centro hasta que tenga una ficha de cada color en el tablero.');</script>");
+                                                if (Columna == PCF && Fila >= PCFII && Fila <= PCFFD)
+                                                {
+                                                    temp.BackColor = pin;
+                                                    x = 1;
+                                                    Turno.Text = "Jugador 1";
+
+                                                }
+                                                else
+                                                {
+                                                    Page.ClientScript.RegisterStartupScript(
+                                                   Page.GetType(),
+                                                   "Mensaje",
+                                                   "<script language='javascript'>alert('Movimiento no valido. Debe llenar las casillas que rodean al centro hasta que tenga una ficha de cada color en el tablero.');</script>");
+                                                }
                                             }
                                         }
                                     }
                                 }
                             }
                         }
+                        
                         else
                         {
                             mov = 0;

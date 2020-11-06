@@ -13,7 +13,7 @@
         vertical-align:central;
         width: 405px;
         border: 5px solid Black;
-       height: 625px;
+       height: 700px;
         }
 
         .auto-style87 {
@@ -41,7 +41,7 @@
             height: 26px;
             position: absolute;
             left: 580px;
-            top: 600px;
+            top: 680px;
         }
          .auto-style92 {
             width: 150px;
@@ -205,6 +205,31 @@
             left: 750px;
             top: 530px;
         }
+        .auto-style112 {
+            width: 405px;
+            height: 37px;
+            position: absolute;
+            text-align: center;
+            text-decoration: underline;
+            left: 484px;
+            top: 567px;
+        }
+        .auto-style113 {
+            width: 150px;
+            height: 26px;
+            position: absolute;
+            left: 485px;
+            top: 619px;
+            text-align: center;
+            font-family: 'Arial Narrow';
+        }
+        .auto-style114 {
+            width: 112px;
+            height: 29px;
+            position: absolute;
+            left: 708px;
+            top: 640px;
+        }
     </style>
     <title></title>
 </head>
@@ -359,6 +384,9 @@
                 <asp:ListItem>Celeste</asp:ListItem>
                 <asp:ListItem>Gris</asp:ListItem>
             </asp:DropDownList>
+            <h2 class="auto-style112">Apertura Personalizada</h2>
+            <h3 class="auto-style113">Activado:</h3>
+            <asp:CheckBox ID="Check0" runat="server" CssClass="auto-style114" OnCheckedChanged="CheckBox1_CheckedChanged" />
         </asp:Panel>
     </form>
 </body>

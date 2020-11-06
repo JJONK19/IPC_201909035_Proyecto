@@ -59,6 +59,15 @@ namespace Othell
                         {
                             Session["RI"] = 0;
                         }
+
+                        if (Check0.Checked)
+                        {
+                            Session["AP"] = 1;
+                        }
+                        else
+                        {
+                            Session["AP"] = 0;
+                        }
                         //Agregar Colores J1
                         List<string> J1 = new List<string>();  //Lista de Colores 1
                         if(J11.SelectedItem.Text == "Vacio")
