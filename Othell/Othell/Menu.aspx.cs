@@ -29,5 +29,20 @@ namespace Othell
         {
             Response.Redirect("~/Intermedio - X.aspx");
         }
+
+        protected void Button4_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Intermedio - XM.aspx");
+        }
+
+        protected void Button5_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Intermedio - X.aspx");
+        }
+
+        protected void Button6_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Intermedio - X.aspx");
+        }
     }
 }

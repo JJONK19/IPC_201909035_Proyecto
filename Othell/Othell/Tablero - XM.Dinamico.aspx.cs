@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Diagnostics;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Drawing;
-using System.IO;
 using System.Xml;
-using System.Data.SqlClient;
-using System.Diagnostics;
 
 namespace Othell
 {
     //Mensajes Adaptado de: https://stackoverflow.com/questions/9720143/asp-net-web-application-message-box
-    public static class Mensajes
+    public static class Mensajs
     {
         public static void Mostrar(this Page Page, String Mensaje)
         {
@@ -24,11 +24,8 @@ namespace Othell
             );
         }
     }
-
-    public partial class Tablero___X : System.Web.UI.Page
+    public partial class Tablero___XM_Dinamico : System.Web.UI.Page
     {
-
-      
         int ver = 0; //Verifica si se inicia el codigo
         public static int x = 1;  //1 para jugador 1, 2 para jugador 2 en donde x es el turno
                                   //Blancas J2, Negras J1
@@ -40,7 +37,7 @@ namespace Othell
         int turn = 1;
         String Jug; //Indica el color del usuario
         public static int ID = 0;
-        
+
         public static Stopwatch neg; //Cronometro
         public static Stopwatch bla; //Cronometro
         public static int FI; //No de filas
@@ -54,19 +51,15 @@ namespace Othell
         public static List<string> Colores;
         public static int apertura = 0; //Determina si ya se pusieron 
         public static int aperturab = 0; //Determina si ya se pusieron 
-        public static int aperturaC= 0; //Determina si los espacios centrados estan coloreados
+        public static int aperturaC = 0; //Determina si los espacios centrados estan coloreados
         public static int aperturaA = 0;
         public static int PCN = 0; //Posicion de color
         public static int PCB = 0; //Posicion de color
         public static int BAP = 0; //Posicion de color
-        public static int xml = 0; //Posicion de color
-        public static List<string> pos = new List<String>();
-        public static List<string> col = new List<String>();
-        
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+
             Jug = "N";
             ID = (int)Session["ID"];
             FI = (int)Session["M"];
@@ -75,15 +68,6 @@ namespace Othell
             J1 = (List<string>)Session["J1"];
             J2 = (List<string>)Session["J2"];
             AP = (int)Session["AP"];
-            pos = (List<string>) Session["pos"];
-            col = (List<string>)Session["col"];
-            xml = (int)Session["xml"];
-            
-
-            if (xml == 1)
-            {
-                AP = 2;
-            }
 
             int P1C = (CO / 2) - 1;
             int P1F = (FI / 2) - 1;
@@ -96,7 +80,7 @@ namespace Othell
             //Colorear Centro
             Color pin = Color.Lavender;
             String tempco = J1[0];
-           
+
             if (PCN == J1.Count)
             {
                 PCN = 0;
@@ -146,11 +130,11 @@ namespace Othell
 
             }
 
-            
+
 
             Color pin2 = Color.Lavender;
             String tempco2 = J2[0];
-           
+
 
 
             switch (tempco2)
@@ -203,17 +187,7 @@ namespace Othell
             {
                 Text1.Text = "00:00";
                 Text2.Text = "00:00";
-                if(AP == 2)
-                {
-                    x = (int)Session["X"];
-                    PCB = (int)Session["PBC"] ;
-                    PCN = (int)Session["PNC"];
-                }
-                else
-                {
-                    x = 1;
-                }
-                
+                x = 1;
                 neg = new Stopwatch();
                 neg.Start();
                 bla = new Stopwatch();
@@ -279,92 +253,6 @@ namespace Othell
                     }
                 }
 
-
-                if (AP == 2)
-                {
-                    bot = new Button[FI, CO];
-                    for (int i = 0; i < FI; i++)
-                    {
-                        for (int j = 0; j < CO; j++)
-                        {
-                            Button b = new Button();
-                            char a = (char)(65 + j);
-                            int b1 = i + 1;
-                            string tem = a.ToString() + b1.ToString();
-                            b.ID = tem;
-                            b.Text = "";
-                            b.Click += new EventHandler(this.Evento);
-                            b.Attributes.Add("class", "but");
-
-                            for (int h = 0; h <= pos.Count - 1; h++)
-                            {
-                                String posi = pos[h];
-                                String colo = col[h];
-                                int Fila = (int)Char.GetNumericValue(posi[1]) - 1;
-                                int Columna = (int)(posi[0]) - 65;
-
-                                if (Fila > (FI - 1) || Columna > (CO - 1) || Fila < 0 || Columna < 0)
-                                {
-
-                                }
-                                else
-                                {
-                                    if (j == Columna && i == Fila)
-                                    {
-                                        switch (colo)
-                                        {
-                                            case "rojo":
-                                                b.BackColor = Color.Red;
-                                                break;
-
-                                            case "amarillo":
-                                                b.BackColor = Color.Yellow;
-                                                break;
-
-                                            case "azul":
-                                                b.BackColor = Color.Blue;
-                                                break;
-
-                                            case "naranja":
-                                                b.BackColor = Color.Orange;
-                                                break;
-
-                                            case "verde":
-                                                b.BackColor = Color.Green;
-                                                break;
-
-                                            case "violeta":
-                                                b.BackColor = Color.MediumPurple;
-                                                break;
-
-                                            case "blanco":
-                                                b.BackColor = Color.White;
-                                                break;
-
-                                            case "negro":
-                                                b.BackColor = Color.Black;
-                                                break;
-
-                                            case "celeste":
-                                                b.BackColor = Color.SkyBlue;
-                                                break;
-
-                                            case "gris":
-                                                b.BackColor = Color.Gray;
-                                                break;
-
-                                        }
-                                    }
-
-                                }
-
-                            }
-
-
-                            bot[i, j] = b;
-                        }
-                    }
-                }
 
                 J1c = new List<Color>();  //Lista de Colores 1
                 J2c = new List<Color>();
@@ -489,21 +377,11 @@ namespace Othell
                     }
 
                 }
-
-
                 ver = 1;
                 Session["Tablero"] = bot;
                 TableRow f;
                 TableCell c;
-                if (x == 1)
-                {
-                    Turno.Text = "Jugador 1";
-                }
-                else
-                {
-                    Turno.Text = "Jugador 2";
-                }
-                
+                Turno.Text = "Jugador 1";
                 Blancas.Text = "0";
                 Negras.Text = "0";
                 int a1 = FI + 1;
@@ -605,7 +483,7 @@ namespace Othell
             }
 
             int tot = conn + conb;
-            if (tot == (FI*CO))
+            if (tot == (FI * CO))
             {
                 TN = 0;
                 TB = 0;
@@ -613,24 +491,24 @@ namespace Othell
                 if (conn == conb)
                 {
 
-                    
-                    
-                        const string FMT = "yyyy-MM-dd";
-                        DateTime hoy = DateTime.Now;
-                        string nom = hoy.ToString(FMT);
-                        SqlConnection con = new SqlConnection();
-                        con.ConnectionString = "Data Source =.; Database=Othello; Integrated Security = True";
-                        con.Open();
-                        SqlCommand c = new SqlCommand("Insert Into Partida (IDPartida, IDJugador,IDTorneo, Modo,Estado,Movimientos,Fecha, Ronda) values (" + ID.ToString() + "," + "'Xtream', 'Ganador', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
+
+
+                    const string FMT = "yyyy-MM-dd";
+                    DateTime hoy = DateTime.Now;
+                    string nom = hoy.ToString(FMT);
+                    SqlConnection con = new SqlConnection();
+                    con.ConnectionString = "Data Source =.; Database=Othello; Integrated Security = True";
+                    con.Open();
+                    SqlCommand c = new SqlCommand("Insert Into Partida (IDPartida, IDJugador,IDTorneo, Modo,Estado,Movimientos,Fecha, Ronda) values (" + ID.ToString() + "," + "'Xtream', 'Ganador', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
                     c.ExecuteNonQuery();
                     con.Close();
-                       
-                    
+
+
 
                     int f = 1;
                     if (f == 1)
                     {
-                        
+
                         MessageBox.Show(this.Page, "Final del Juego. Empatados. ");
                     }
 
@@ -800,7 +678,7 @@ namespace Othell
                     int f = 1;
                     if (f == 1)
                     {
-                       
+
                         MessageBox.Show(this.Page, "Final del Juego. Gana " + gan);
                     }
 
@@ -853,72 +731,90 @@ namespace Othell
                         {
 
                             AP = 0;
-                            
+
                         }
-                        
+
                         if (AP == 1)
                         {
-                                
-                                    //Encontrar posicion en el tablero
-                                    String Pos = temp.ID;
-                                    int Fila = (int)Char.GetNumericValue(Pos[1]) - 1;
-                                    int Columna = (int)(Pos[0]) - 65;
-                                    Color pin = Color.Lavender;
-                                    String tempco = J1[PCN];
-                                    PCN = PCN + 1;
-                                    if(PCN == J1.Count)
+
+                            //Encontrar posicion en el tablero
+                            String Pos = temp.ID;
+                            int Fila = (int)Char.GetNumericValue(Pos[1]) - 1;
+                            int Columna = (int)(Pos[0]) - 65;
+                            Color pin = Color.Lavender;
+                            String tempco = J1[PCN];
+                            PCN = PCN + 1;
+                            if (PCN == J1.Count)
+                            {
+                                PCN = 0;
+                            }
+
+                            switch (tempco)
+                            {
+                                case "Rojo":
+                                    pin = Color.Red;
+                                    break;
+
+                                case "Amarillo":
+                                    pin = Color.Yellow;
+                                    break;
+
+                                case "Azul":
+                                    pin = Color.Blue;
+                                    break;
+
+                                case "Naranja":
+                                    pin = Color.Orange;
+                                    break;
+
+                                case "Verde":
+                                    pin = Color.Green;
+                                    break;
+
+                                case "Violeta":
+                                    pin = Color.MediumPurple;
+                                    break;
+
+                                case "Blanco":
+                                    pin = Color.White;
+                                    break;
+
+                                case "Negro":
+                                    pin = Color.Black;
+                                    break;
+
+                                case "Celeste":
+                                    pin = Color.SkyBlue;
+                                    break;
+
+                                case "Gris":
+                                    pin = Color.Gray;
+                                    break;
+
+                            }
+
+
+                            if (Fila == P1F && Columna == P1C)
+                            {
+
+                                temp.BackColor = pin;
+                                x = 2;
+                                Turno.Text = "Jugador 2";
+                            }
+                            else
+                            {
+
+                                if (Fila == P2F && Columna == P2C)
+                                {
+                                    temp.BackColor = pin;
+                                    x = 2;
+                                    Turno.Text = "Jugador 2";
+                                }
+                                else
+                                {
+
+                                    if (Fila == P3F && Columna == P3C)
                                     {
-                                        PCN = 0;
-                                    }
-
-                                    switch (tempco)
-                                    {
-                                        case "Rojo":
-                                            pin = Color.Red;
-                                            break;
-
-                                        case "Amarillo":
-                                            pin = Color.Yellow;
-                                            break;
-
-                                        case "Azul":
-                                            pin = Color.Blue;
-                                            break;
-
-                                        case "Naranja":
-                                            pin = Color.Orange;
-                                            break;
-
-                                        case "Verde":
-                                            pin = Color.Green;
-                                            break;
-
-                                        case "Violeta":
-                                            pin = Color.MediumPurple;
-                                            break;
-
-                                        case "Blanco":
-                                            pin = Color.White;
-                                            break;
-
-                                        case "Negro":
-                                            pin = Color.Black;
-                                            break;
-
-                                        case "Celeste":
-                                            pin = Color.SkyBlue;
-                                            break;
-
-                                        case "Gris":
-                                            pin = Color.Gray;
-                                            break;
-
-                                    }
-
-
-                                    if (Fila == P1F && Columna == P1C)
-                                    {
-
                                         temp.BackColor = pin;
                                         x = 2;
                                         Turno.Text = "Jugador 2";
@@ -926,7 +822,7 @@ namespace Othell
                                     else
                                     {
 
-                                        if (Fila == P2F && Columna == P2C)
+                                        if (Fila == P4F && Columna == P4C)
                                         {
                                             temp.BackColor = pin;
                                             x = 2;
@@ -934,41 +830,23 @@ namespace Othell
                                         }
                                         else
                                         {
-
-                                            if (Fila == P3F && Columna == P3C)
-                                            {
-                                                temp.BackColor = pin;
-                                                x = 2;
-                                                Turno.Text = "Jugador 2";
-                                            }
-                                            else
-                                            {
-
-                                                if (Fila == P4F && Columna == P4C)
-                                                {
-                                                    temp.BackColor = pin;
-                                                    x = 2;
-                                                    Turno.Text = "Jugador 2";
-                                                }
-                                                else
-                                                {
-                                                    Page.ClientScript.RegisterStartupScript(
-                                                    Page.GetType(),
-                                                    "Mensaje",
-                                                    "<script language='javascript'>alert('Movimiento no valido. Debe llenar el centro primero.');</script>");
-                                                }
-                                            }
+                                            Page.ClientScript.RegisterStartupScript(
+                                            Page.GetType(),
+                                            "Mensaje",
+                                            "<script language='javascript'>alert('Movimiento no valido. Debe llenar el centro primero.');</script>");
                                         }
                                     }
+                                }
+                            }
 
-                                
-                                
-                            
+
+
+
                         }
-                        
+
                         else
                         {
-                            
+
                             mov = 0;
                             int FM = FI - 1;
                             int CM = CO - 1;
@@ -980,16 +858,16 @@ namespace Othell
                                     Button tem = bot[i, j];
                                     Color bus = Color.Red; //Opuesto
                                     Color ori = Color.Red; //Original
-                                    for(int k =0; k < J2c.Count; k++)
+                                    for (int k = 0; k < J2c.Count; k++)
                                     {
-                                        if (tem.BackColor ==  J2c[k])
+                                        if (tem.BackColor == J2c[k])
                                         {
                                             ori = Color.White;
                                             bus = Color.Black;
 
                                         }
                                     }
-                                    
+
 
                                     if (bus == Color.Red)
                                     {
@@ -1006,7 +884,7 @@ namespace Othell
                                         else
                                         {
                                             int be = 0; //Bandera que indica si esta coloreada con alguno de los colores
-                                            for(int h = 0; h < J1c.Count; h++)
+                                            for (int h = 0; h < J1c.Count; h++)
                                             {
                                                 if (bot[(i - 1), j].BackColor == J1c[h] || bot[(i - 1), j].BackColor == J1c[h])
                                                 {
@@ -1022,7 +900,7 @@ namespace Othell
                                                 }
                                             }
 
-                                            if(be == 1)
+                                            if (be == 1)
                                             {
 
                                             }
@@ -1042,7 +920,7 @@ namespace Othell
                                                     else
                                                     {
                                                         int bc = 0; //Bandera que indica si la ficha tiene el color deseado
-                                                        for(int h = 0; h < J1c.Count; h++)
+                                                        for (int h = 0; h < J1c.Count; h++)
                                                         {
                                                             if (bot[fit, cot].BackColor == J1c[h])
                                                             {
@@ -1201,7 +1079,7 @@ namespace Othell
                                             {
 
                                             }
-                                           
+
                                             else
                                             {
                                                 int ba = 0;
@@ -1272,7 +1150,7 @@ namespace Othell
                                         }
                                         else
                                         {
-                                           
+
                                             int be = 0; //Bandera que indica si esta coloreada con alguno de los colores
                                             for (int h = 0; h < J1c.Count; h++)
                                             {
@@ -1361,7 +1239,7 @@ namespace Othell
                                         }
                                         else
                                         {
-                                           
+
                                             int be = 0; //Bandera que indica si esta coloreada con alguno de los colores
                                             for (int h = 0; h < J1c.Count; h++)
                                             {
@@ -1633,7 +1511,7 @@ namespace Othell
                                         }
                                         else
                                         {
-                                            
+
                                             int be = 0; //Bandera que indica si esta coloreada con alguno de los colores
                                             for (int h = 0; h < J1c.Count; h++)
                                             {
@@ -1962,7 +1840,11 @@ namespace Othell
                                     Turno.Text = "Jugador 2";
 
                                     //Colorear
-                                    
+                                    PCN = PCN + 1;
+                                    if (PCN == J1.Count)
+                                    {
+                                        PCN = 0;
+                                    }
                                     for (int i = 0; i < d; i++)
                                     {
                                         int temfi = posif[posicion[i]];
@@ -1970,7 +1852,7 @@ namespace Othell
                                         int temff = posff[posicion[i]];
                                         int temcf = posfc[posicion[i]];
                                         string dirt = dir[posicion[i]];
-                                        
+
                                         switch (dirt)
                                         {
                                             case "UV":
@@ -1979,7 +1861,7 @@ namespace Othell
                                                     bot[o, temci].BackColor = J1c[PCN]; //Cambiar dependiendo del color
                                                     x = 2;
                                                 }
-                                               
+
                                                 break;
 
                                             case "DV":
@@ -1988,7 +1870,7 @@ namespace Othell
                                                     bot[o, temci].BackColor = J1c[PCN]; //Cambiar dependiendo del color
                                                     x = 2;
                                                 }
-                                               
+
                                                 break;
 
                                             case "HI":
@@ -1997,7 +1879,7 @@ namespace Othell
                                                     bot[temfi, o].BackColor = J1c[PCN]; //Cambiar dependiendo del color
                                                     x = 2;
                                                 }
-                                                
+
                                                 break;
 
                                             case "HD":
@@ -2006,7 +1888,7 @@ namespace Othell
                                                     bot[temfi, o].BackColor = J1c[PCN]; //Cambiar dependiendo del color
                                                     x = 2;
                                                 }
-                                               
+
                                                 break;
 
                                             case "DIS":
@@ -2019,7 +1901,7 @@ namespace Othell
                                                     x = 2;
 
                                                 }
-                                                
+
                                                 break;
 
                                             case "DII":
@@ -2031,7 +1913,7 @@ namespace Othell
                                                     x = 2;
 
                                                 }
-                                               
+
                                                 break;
 
                                             case "DDS":
@@ -2043,7 +1925,7 @@ namespace Othell
                                                     x = 2;
 
                                                 }
-                                               
+
                                                 break;
 
                                             case "DDI":
@@ -2056,14 +1938,9 @@ namespace Othell
                                                     x = 2;
 
                                                 }
-                                               
+
                                                 break;
                                         }
-                                    }
-                                    PCN = PCN + 1;
-                                    if (PCN == J1.Count)
-                                    {
-                                        PCN = 0;
                                     }
 
 
@@ -2073,7 +1950,7 @@ namespace Othell
 
                             }
                         }
-                        
+
                     }
                     else
                     {
@@ -2111,74 +1988,92 @@ namespace Othell
                         {
 
                             AP = 0;
-                            
+
                         }
-                       
+
                         if (AP == 1)
                         {
-                  
 
-                                    //Encontrar posicion en el tablero
-                                    String Pos = temp.ID;
-                                    int Fila = (int)Char.GetNumericValue(Pos[1]) - 1;
-                                    int Columna = (int)(Pos[0]) - 65;
-                                    Color pin = Color.Lavender;
-                                    String tempco = J2[PCB];
-                                    PCB = PCB + 1;
-                                    if (PCB == J2.Count)
+
+                            //Encontrar posicion en el tablero
+                            String Pos = temp.ID;
+                            int Fila = (int)Char.GetNumericValue(Pos[1]) - 1;
+                            int Columna = (int)(Pos[0]) - 65;
+                            Color pin = Color.Lavender;
+                            String tempco = J2[PCB];
+                            PCB = PCB + 1;
+                            if (PCB == J2.Count)
+                            {
+                                PCB = 0;
+                            }
+
+
+                            switch (tempco)
+                            {
+                                case "Rojo":
+                                    pin = Color.Red;
+                                    break;
+
+                                case "Amarillo":
+                                    pin = Color.Yellow;
+                                    break;
+
+                                case "Azul":
+                                    pin = Color.Blue;
+                                    break;
+
+                                case "Naranja":
+                                    pin = Color.Orange;
+                                    break;
+
+                                case "Verde":
+                                    pin = Color.Green;
+                                    break;
+
+                                case "Violeta":
+                                    pin = Color.MediumPurple;
+                                    break;
+
+                                case "Blanco":
+                                    pin = Color.White;
+                                    break;
+
+                                case "Negro":
+                                    pin = Color.Black;
+                                    break;
+
+                                case "Celeste":
+                                    pin = Color.SkyBlue;
+                                    break;
+
+                                case "Gris":
+                                    pin = Color.Gray;
+                                    break;
+
+                            }
+
+
+                            if (Fila == P1F && Columna == P1C)
+                            {
+
+                                temp.BackColor = pin;
+                                x = 1;
+                                Turno.Text = "Jugador 1";
+                            }
+                            else
+                            {
+
+                                if (Fila == P2F && Columna == P2C)
+                                {
+                                    temp.BackColor = pin;
+                                    x = 1;
+                                    Turno.Text = "Jugador 1";
+                                }
+                                else
+                                {
+
+                                    if (Fila == P3F && Columna == P3C)
                                     {
-                                        PCB = 0;
-                                    }
-
-
-                                    switch (tempco)
-                                    {
-                                        case "Rojo":
-                                            pin = Color.Red;
-                                            break;
-
-                                        case "Amarillo":
-                                            pin = Color.Yellow;
-                                            break;
-
-                                        case "Azul":
-                                            pin = Color.Blue;
-                                            break;
-
-                                        case "Naranja":
-                                            pin = Color.Orange;
-                                            break;
-
-                                        case "Verde":
-                                            pin = Color.Green;
-                                            break;
-
-                                        case "Violeta":
-                                            pin = Color.MediumPurple;
-                                            break;
-
-                                        case "Blanco":
-                                            pin = Color.White;
-                                            break;
-
-                                        case "Negro":
-                                            pin = Color.Black;
-                                            break;
-
-                                        case "Celeste":
-                                            pin = Color.SkyBlue;
-                                            break;
-
-                                        case "Gris":
-                                            pin = Color.Gray;
-                                            break;
-
-                                    }
-
-
-                                    if (Fila == P1F && Columna == P1C)
-                                    {
-
                                         temp.BackColor = pin;
                                         x = 1;
                                         Turno.Text = "Jugador 1";
@@ -2186,7 +2081,7 @@ namespace Othell
                                     else
                                     {
 
-                                        if (Fila == P2F && Columna == P2C)
+                                        if (Fila == P4F && Columna == P4C)
                                         {
                                             temp.BackColor = pin;
                                             x = 1;
@@ -2194,38 +2089,20 @@ namespace Othell
                                         }
                                         else
                                         {
-
-                                            if (Fila == P3F && Columna == P3C)
-                                            {
-                                                temp.BackColor = pin;
-                                                x = 1;
-                                                Turno.Text = "Jugador 1";
-                                            }
-                                            else
-                                            {
-
-                                                if (Fila == P4F && Columna == P4C)
-                                                {
-                                                    temp.BackColor = pin;
-                                                    x = 1;
-                                                    Turno.Text = "Jugador 1";
-                                                }
-                                                else
-                                                {
-                                                    Page.ClientScript.RegisterStartupScript(
-                                                    Page.GetType(),
-                                                    "Mensaje",
-                                                    "<script language='javascript'>alert('Movimiento no valido. Debe llenar el centro primero.');</script>");
-                                                }
-                                            }
+                                            Page.ClientScript.RegisterStartupScript(
+                                            Page.GetType(),
+                                            "Mensaje",
+                                            "<script language='javascript'>alert('Movimiento no valido. Debe llenar el centro primero.');</script>");
                                         }
                                     }
+                                }
+                            }
 
-                                
-                                
-                            
+
+
+
                         }
-                        
+
                         else
                         {
                             mov = 0;
@@ -3197,8 +3074,13 @@ namespace Othell
                                 int c = posif.Count;
                                 //Encontrar posicion en el tablero
                                 String Pos = temp.ID;
-                                int Fila = (int)Char.GetNumericValue(Pos[1]) - 1;
-                                int Columna = (int)(Pos[0]) - 65;
+                                int Fila;
+                                int Columna;
+                                //Maquina
+                                Random r = new Random();
+                                int p1 = r.Next(0, posif.Count);
+                                Fila = posif[p1];
+                                Columna = posic[p1];
                                 List<int> posicion = new List<int>();
                                 for (int i = 0; i < c; i++)
                                 {
@@ -3220,7 +3102,11 @@ namespace Othell
                                     Turno.Text = "Jugador 1";
 
                                     //Colorear
-                                    
+                                    PCB = PCB + 1;
+                                    if (PCB == J2.Count)
+                                    {
+                                        PCB = 0;
+                                    }
                                     for (int i = 0; i < d; i++)
                                     {
                                         int temfi = posif[posicion[i]];
@@ -3228,7 +3114,7 @@ namespace Othell
                                         int temff = posff[posicion[i]];
                                         int temcf = posfc[posicion[i]];
                                         string dirt = dir[posicion[i]];
-                                        
+
                                         switch (dirt)
                                         {
                                             case "UV":
@@ -3237,7 +3123,7 @@ namespace Othell
                                                     bot[o, temci].BackColor = J2c[PCB]; //Cambiar dependiendo del color
                                                     x = 1;
                                                 }
-                                                
+
                                                 break;
 
                                             case "DV":
@@ -3247,7 +3133,7 @@ namespace Othell
                                                     x = 1;
                                                 }
                                                 
-                                                
+
                                                 break;
 
                                             case "HI":
@@ -3256,7 +3142,7 @@ namespace Othell
                                                     bot[temfi, o].BackColor = J2c[PCB]; //Cambiar dependiendo del color
                                                     x = 1;
                                                 }
-                                                
+
                                                 break;
 
                                             case "HD":
@@ -3265,7 +3151,7 @@ namespace Othell
                                                     bot[temfi, o].BackColor = J2c[PCB]; //Cambiar dependiendo del color
                                                     x = 1;
                                                 }
-                                               
+
                                                 break;
 
                                             case "DIS":
@@ -3278,7 +3164,7 @@ namespace Othell
                                                     x = 1;
 
                                                 }
-                                               
+
                                                 break;
 
                                             case "DII":
@@ -3290,7 +3176,7 @@ namespace Othell
                                                     x = 1;
 
                                                 }
-                                              
+
                                                 break;
 
                                             case "DDS":
@@ -3302,7 +3188,7 @@ namespace Othell
                                                     x = 1;
 
                                                 }
-                                               
+
                                                 break;
 
                                             case "DDI":
@@ -3315,14 +3201,9 @@ namespace Othell
                                                     x = 1;
 
                                                 }
-                                                
+
                                                 break;
                                         }
-                                    }
-                                    PCB = PCB + 1;
-                                    if (PCB == J2.Count)
-                                    {
-                                        PCB = 0;
                                     }
 
 
@@ -3333,7 +3214,7 @@ namespace Othell
 
                             }
                         }
-                        
+
                     }
                 }
             }
@@ -3343,7 +3224,7 @@ namespace Othell
             {
                 for (int j = 0; j < CO; j++)
                 {
-                    for(int h = 0; h < J1c.Count; h++)
+                    for (int h = 0; h < J1c.Count; h++)
                     {
                         if (bot[i, j].BackColor == J1c[h])
                         {
@@ -3424,11 +3305,226 @@ namespace Othell
             }
         }
 
-        
+        //Cargar https://www.kyocode.com/2018/12/cargar-archivo-con-fileupload-asp-net-c/
+        protected void Button1_Click1(object sender, EventArgs e)
+        {
+            Byte[] Archivo = null;
+
+            if (Subir.HasFile == true)
+            {
+                using (BinaryReader reader = new BinaryReader(Subir.PostedFile.InputStream))
+                {
+                    Archivo = reader.ReadBytes(Subir.PostedFile.ContentLength);
+                }
+
+                MemoryStream m = new MemoryStream(Archivo);
+                XmlDataDocument xml = new XmlDataDocument();
+                XmlNodeList node; //Sirve para separar fichas
+                XmlNodeList node1; //Sirve para separar tiros
+                XmlNodeList nodo2; //Sirve para separar filas
+                XmlNodeList nodo3; //Sirve para separar columnas
+                XmlNodeList nodo4; //Sirve para separar Modo
+                XmlNodeList nodo5; //Sirve para lista de colores de J1
+                XmlNodeList nodo6; //Sirve para lista de colores de J2
+                xml.Load(m);
+                node = xml.GetElementsByTagName("ficha");
+                node1 = xml.GetElementsByTagName("siguienteTiro");
+                nodo2 = xml.GetElementsByTagName("filas");
+                nodo3 = xml.GetElementsByTagName("columnas");
+                nodo4 = xml.GetElementsByTagName("Modalidad");
+                nodo5 = xml.GetElementsByTagName("Jugador1");
+                nodo6 = xml.GetElementsByTagName("Jugador2");
+                //Almacenar Tiro
+                String Tiro = null;
+                node1[0].ChildNodes.Item(0).InnerText.Trim();
+                Tiro = node1[0].ChildNodes.Item(0).InnerText.Trim();
+
+                //Almacenar Filas
+                String filas = null;
+                filas = nodo2[0].ChildNodes.Item(0).InnerText.Trim();
+
+                //Almacenar Columnas
+                String columnas = null;
+                columnas = nodo3[0].ChildNodes.Item(0).InnerText.Trim();
+
+                //Almacenar Modo
+                String modo = null;
+                modo = nodo4[0].ChildNodes.Item(0).InnerText.Trim();
+
+                //Almacenar colores J1
+                
+                var J1x = new List<String>();
+                for (int i = 0; i <= (nodo5[0].ChildNodes.Count-1); i++)
+                {
+                    J1x.Add(nodo5[0].ChildNodes.Item(i).InnerText.Trim());
+                }
 
 
-    
-        
+                //Almacenar colores J2
+
+                var J2x = new List<String>();
+                for (int i = 0; i <= (nodo6[0].ChildNodes.Count - 1); i++)
+                {
+                    J2x.Add(nodo6[0].ChildNodes.Item(i).InnerText.Trim());
+                }
+
+
+                //Almacenar Posiciones y colores
+
+                var pos = new List<String>();
+                var col = new List<String>(); ;
+                for (int i = 0; i <= node.Count - 1; i++)
+                {
+                    node[i].ChildNodes.Item(0).InnerText.Trim();
+                    pos.Add(node[i].ChildNodes.Item(1).InnerText.Trim() + node[i].ChildNodes.Item(2).InnerText.Trim());
+                    col.Add(node[i].ChildNodes.Item(0).InnerText.Trim());
+                }
+
+                //Settear todos al color original
+                Color co = ColorTranslator.FromHtml("#006B3C");
+                for (int p = 0; p < FI; p++)
+                {
+                    for (int q = 0; q < CO; q++)
+                    {
+                        bot[p, q].BackColor = co;
+                    }
+                }
+
+                //Cargar Datos
+                Session["M"] = Int32.Parse(filas);
+                FI = Int32.Parse(filas);
+
+                Session["N"] = Int32.Parse(columnas);
+                CO = Int32.Parse(filas);
+
+                if (modo.Equals("Normal"))
+                {
+                   Session["RI"] = 0;
+                    RI = 0;
+                }
+                else
+                {
+                    Session["RI"] = 1;
+                    RI = 1;
+                }
+
+                Session["J1"] = J1x;
+                J1 = J1x;
+
+                Session["J2"] = J2x;
+                J2 = J2x;
+
+                if (Tiro == "negro")
+                {
+                    x = 1;
+                    Turno.Text = "Negras";
+                    Session["Color"] = "B";
+                    Jug = (string)Session["Color"];
+                }
+                else
+                {
+                    x = 2;
+                    Turno.Text = "Blancas";
+                    Session["Color"] = "B";
+                    Jug = (string)Session["Color"];
+                }
+                conn = 0;
+                conb = 0;
+
+                for (int i = 0; i <= pos.Count - 1; i++)
+                {
+                    String posi = pos[i];
+                    String colo = col[i];
+                    int Fila = (int)Char.GetNumericValue(posi[1]) - 1;
+                    int Columna = (int)(posi[0]) - 65;
+
+                    if (Fila > (FI - 1) || Columna > (CO - 1) || Fila < 0 || Columna < 0)
+                    {
+
+                    }
+                    else
+                    {
+                        switch (colo)
+                        {
+                            case "rojo":
+                                bot[Fila, Columna].BackColor = Color.Red;
+                                break;
+
+                            case "amarillo":
+                                bot[Fila, Columna].BackColor = Color.Yellow;
+                                break;
+
+                            case "azul":
+                                bot[Fila, Columna].BackColor = Color.Blue;
+                                break;
+
+                            case "naranja":
+                                bot[Fila, Columna].BackColor = Color.Orange;
+                                break;
+
+                            case "verde":
+                                bot[Fila, Columna].BackColor = Color.Green;
+                                break;
+
+                            case "violeta":
+                                bot[Fila, Columna].BackColor = Color.MediumPurple;
+                                break;
+
+                            case "blanco":
+                                bot[Fila, Columna].BackColor = Color.White;
+                                break;
+
+                            case "negro":
+                                bot[Fila, Columna].BackColor = Color.Black;
+                                break;
+
+                            case "celeste":
+                                bot[Fila, Columna].BackColor = Color.SkyBlue;
+                                break;
+
+                            case "gris":
+                                bot[Fila, Columna].BackColor = Color.Gray;
+                                break;
+
+                        }
+                    }
+
+                }
+                conn = 0;
+                conb = 0;
+                for (int i = 0; i < FI; i++)
+                {
+                    for (int j = 0; j < CO; j++)
+                    {
+                        for (int h = 0; h < J1c.Count; h++)
+                        {
+                            if (bot[i, j].BackColor == J1c[h])
+                            {
+                                conn += 1;
+                            }
+                        }
+
+                        for (int h = 0; h < J2c.Count; h++)
+                        {
+                            if (bot[i, j].BackColor == J2c[h])
+                            {
+                                conb += 1;
+                            }
+                        }
+
+                    }
+                }
+                Blancas.Text = conb.ToString();
+                Negras.Text = conn.ToString(); MessageBox.Show(this.Page, "Partida Cargada.");
+            }
+            else
+            {
+                MessageBox.Show(this.Page, "Seleccione un archivo primero.");
+            }
+
+
+
+        }
 
 
         //Salir

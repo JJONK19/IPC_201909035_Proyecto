@@ -32,6 +32,30 @@
             background-color: #99FF33;
             right: 406px;
         }
+        .auto-style5 {
+            height: 26px;
+            position: absolute;
+            left: 392px;
+            top: 335px;
+            background-color: #99FF33;
+            right: 407px;
+        }
+        .auto-style6 {
+            height: 26px;
+            position: absolute;
+            left: 393px;
+            top: 393px;
+            background-color: #99FF33;
+            right: 406px;
+        }
+        .auto-style7 {
+            height: 26px;
+            position: absolute;
+            left: 395px;
+            top: 450px;
+            background-color: #99FF33;
+            right: 404px;
+        }
     </style>
 </head>
 <body>
@@ -41,7 +65,12 @@
         <asp:Button ID="Button1" runat="server" CssClass="auto-style3" OnClick="Button1_Click" Text="Partida  vs.  Maquina" Width="279px" />
         <p>
         <asp:Button ID="Button2" runat="server" CssClass="auto-style2" OnClick="Button2_Click" Text="Partida  vs.  Jugador" Width="279px" />
-        <asp:Button ID="Button3" runat="server" CssClass="auto-style4" OnClick="Button3_Click" Text="Modo Xtreme" Width="279px" />
+        <asp:Button ID="Button3" runat="server" CssClass="auto-style6" OnClick="Button5_Click" Text="Campeonato" Width="279px" />
+        </p>
+        <p>
+        <asp:Button ID="Button4" runat="server" CssClass="auto-style4" OnClick="Button3_Click" Text="Modo Xtreme" Width="279px" />
+        <asp:Button ID="Button5" runat="server" CssClass="auto-style5" OnClick="Button4_Click" Text="Modo Xtreme - Maquina" Width="279px" />
+        <asp:Button ID="Button6" runat="server" CssClass="auto-style7" OnClick="Button6_Click" Text="Perfil" Width="279px" />
         </p>
     </form>
 </body>
