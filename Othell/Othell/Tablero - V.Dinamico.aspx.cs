@@ -207,6 +207,7 @@ namespace Othell
                         con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
                         con.Open();
                         SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Empate', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
+                        c.ExecuteNonQuery();
                         con.Close();
                         Ban = 1;
                     }
@@ -237,6 +238,7 @@ namespace Othell
                                 con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
                                 con.Open();
                                 SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Ganador', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                c.ExecuteNonQuery();
                                 con.Close();
                                 Ban = 1;
                             }
@@ -253,6 +255,7 @@ namespace Othell
                                 con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
                                 con.Open();
                                 SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Perdedor', " + conb.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                c.ExecuteNonQuery();
                                 con.Close();
                                 Ban = 1;
                             }
@@ -277,6 +280,7 @@ namespace Othell
                                 con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
                                 con.Open();
                                 SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Ganador', " + conb.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                c.ExecuteNonQuery();
                                 con.Close();
                                 Ban = 1;
                             }
@@ -292,6 +296,7 @@ namespace Othell
                                 con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
                                 con.Open();
                                 SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Perdedor', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                c.ExecuteNonQuery();
                                 con.Close();
                                 Ban = 1;
                             }
@@ -789,6 +794,7 @@ namespace Othell
                                         con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
                                         con.Open();
                                         SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Empate', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                        c.ExecuteNonQuery();
                                         con.Close();
                                         Ban = 1;
                                     }
@@ -820,6 +826,7 @@ namespace Othell
                                                 con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
                                                 con.Open();
                                                 SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Ganador', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                c.ExecuteNonQuery();
                                                 con.Close();
                                                 Ban = 1;
                                             }
@@ -836,6 +843,7 @@ namespace Othell
                                                 con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
                                                 con.Open();
                                                 SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Perdedor', " + conb.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                c.ExecuteNonQuery();
                                                 con.Close();
                                                 Ban = 1;
                                             }
@@ -860,6 +868,7 @@ namespace Othell
                                                 con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
                                                 con.Open();
                                                 SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Ganador', " + conb.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                c.ExecuteNonQuery();
                                                 con.Close();
                                                 Ban = 1;
                                             }
@@ -875,6 +884,7 @@ namespace Othell
                                                 con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
                                                 con.Open();
                                                 SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Perdedor', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                c.ExecuteNonQuery();
                                                 con.Close();
                                                 Ban = 1;
                                             }
@@ -1496,6 +1506,7 @@ namespace Othell
                                         con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
                                         con.Open();
                                         SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Empate', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                        c.ExecuteNonQuery();
                                         con.Close();
                                         Ban = 1;
                                     }
@@ -1526,6 +1537,7 @@ namespace Othell
                                                 con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
                                                 con.Open();
                                                 SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Ganador', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                c.ExecuteNonQuery();
                                                 con.Close();
                                                 Ban = 1;
                                             }
@@ -1541,6 +1553,7 @@ namespace Othell
                                                 con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
                                                 con.Open();
                                                 SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Perdedor', " + conb.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                c.ExecuteNonQuery();
                                                 con.Close();
                                                 Ban = 1;
                                             }
@@ -1565,6 +1578,7 @@ namespace Othell
                                                 con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
                                                 con.Open();
                                                 SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Ganador', " + conb.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                c.ExecuteNonQuery();
                                                 con.Close();
                                                 Ban = 1;
                                             }
@@ -1580,6 +1594,7 @@ namespace Othell
                                                 con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
                                                 con.Open();
                                                 SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Perdedor', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                c.ExecuteNonQuery();
                                                 con.Close();
                                                 Ban = 1;
                                             }

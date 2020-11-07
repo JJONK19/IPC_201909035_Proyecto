@@ -500,10 +500,11 @@ namespace Othell
                         DateTime hoy = DateTime.Now;
                         string nom = hoy.ToString(FMT);
                         SqlConnection con = new SqlConnection();
-                        con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                        con.ConnectionString = "Data Source =.; Database=Othello; Integrated Security = True";
                         con.Open();
-                        SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Empate', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
-                        con.Close();
+                        SqlCommand c = new SqlCommand("Insert Into Partida (IDPartida, IDJugador,IDTorneo, Modo,Estado,Movimientos,Fecha, Ronda) values (" + ID.ToString() + "," + "'Xtream', 'Ganador', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
+                    c.ExecuteNonQuery();
+                    con.Close();
                        
                     
 
@@ -533,9 +534,10 @@ namespace Othell
                                 DateTime hoy = DateTime.Now;
                                 string nom = hoy.ToString(FMT);
                                 SqlConnection con = new SqlConnection();
-                                con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                con.ConnectionString = "Data Source =.; Database=Othello; Integrated Security = True";
                                 con.Open();
-                                SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Ganador', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Xtream', 'Ganador', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                c.ExecuteNonQuery();
                                 con.Close();
 
 
@@ -548,9 +550,10 @@ namespace Othell
                                 DateTime hoy = DateTime.Now;
                                 string nom = hoy.ToString(FMT);
                                 SqlConnection con = new SqlConnection();
-                                con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                con.ConnectionString = "Data Source =.; Database=Othello; Integrated Security = True";
                                 con.Open();
-                                SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Perdedor', " + conb.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Xtream', 'Perdedor', " + conb.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                c.ExecuteNonQuery();
                                 con.Close();
 
 
@@ -568,9 +571,10 @@ namespace Othell
                                 DateTime hoy = DateTime.Now;
                                 string nom = hoy.ToString(FMT);
                                 SqlConnection con = new SqlConnection();
-                                con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                con.ConnectionString = "Data Source =.; Database=Othello; Integrated Security = True";
                                 con.Open();
-                                SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Ganador', " + conb.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Xtream', 'Ganador', " + conb.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                c.ExecuteNonQuery();
                                 con.Close();
 
 
@@ -583,9 +587,10 @@ namespace Othell
                                 DateTime hoy = DateTime.Now;
                                 string nom = hoy.ToString(FMT);
                                 SqlConnection con = new SqlConnection();
-                                con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                con.ConnectionString = "Data Source =.; Database=Othello; Integrated Security = True";
                                 con.Open();
-                                SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Perdedor', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Xtream', 'Perdedor', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                c.ExecuteNonQuery();
                                 con.Close();
 
 
@@ -608,9 +613,10 @@ namespace Othell
                                 DateTime hoy = DateTime.Now;
                                 string nom = hoy.ToString(FMT);
                                 SqlConnection con = new SqlConnection();
-                                con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                con.ConnectionString = "Data Source =.; Database=Othello; Integrated Security = True";
                                 con.Open();
-                                SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Ganador', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Xtream', 'Ganador', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                c.ExecuteNonQuery();
                                 con.Close();
 
 
@@ -623,9 +629,10 @@ namespace Othell
                                 DateTime hoy = DateTime.Now;
                                 string nom = hoy.ToString(FMT);
                                 SqlConnection con = new SqlConnection();
-                                con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                con.ConnectionString = "Data Source =.; Database=Othello; Integrated Security = True";
                                 con.Open();
-                                SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Perdedor', " + conb.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Xtream', 'Perdedor', " + conb.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                c.ExecuteNonQuery();
                                 con.Close();
 
 
@@ -643,9 +650,10 @@ namespace Othell
                                 DateTime hoy = DateTime.Now;
                                 string nom = hoy.ToString(FMT);
                                 SqlConnection con = new SqlConnection();
-                                con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                con.ConnectionString = "Data Source =.; Database=Othello; Integrated Security = True";
                                 con.Open();
-                                SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Ganador', " + conb.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Xtream', 'Ganador', " + conb.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                c.ExecuteNonQuery();
                                 con.Close();
 
 
@@ -658,9 +666,10 @@ namespace Othell
                                 DateTime hoy = DateTime.Now;
                                 string nom = hoy.ToString(FMT);
                                 SqlConnection con = new SqlConnection();
-                                con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                con.ConnectionString = "Data Source =.; Database=Othello; Integrated Security = True";
                                 con.Open();
-                                SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Perdedor', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Xtream', 'Perdedor', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                c.ExecuteNonQuery();
                                 con.Close();
 
 
@@ -1604,9 +1613,10 @@ namespace Othell
                                         DateTime hoy = DateTime.Now;
                                         string nom = hoy.ToString(FMT);
                                         SqlConnection con = new SqlConnection();
-                                        con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                        con.ConnectionString = "Data Source =.; Database=Othello; Integrated Security = True";
                                         con.Open();
-                                        SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Empate', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                        SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Xtream', 'Empate', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                        c.ExecuteNonQuery();
                                         con.Close();
 
 
@@ -1637,9 +1647,10 @@ namespace Othell
                                                     DateTime hoy = DateTime.Now;
                                                     string nom = hoy.ToString(FMT);
                                                     SqlConnection con = new SqlConnection();
-                                                    con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                                    con.ConnectionString = "Data Source =.; Database=Othello; Integrated Security = True";
                                                     con.Open();
-                                                    SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Ganador', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                    SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Xtream', 'Ganador', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                    c.ExecuteNonQuery();
                                                     con.Close();
 
 
@@ -1652,9 +1663,10 @@ namespace Othell
                                                     DateTime hoy = DateTime.Now;
                                                     string nom = hoy.ToString(FMT);
                                                     SqlConnection con = new SqlConnection();
-                                                    con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                                    con.ConnectionString = "Data Source =.; Database=Othello; Integrated Security = True";
                                                     con.Open();
-                                                    SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Perdedor', " + conb.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                    SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Xtream', 'Perdedor', " + conb.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                    c.ExecuteNonQuery();
                                                     con.Close();
 
 
@@ -1672,9 +1684,10 @@ namespace Othell
                                                     DateTime hoy = DateTime.Now;
                                                     string nom = hoy.ToString(FMT);
                                                     SqlConnection con = new SqlConnection();
-                                                    con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                                    con.ConnectionString = "Data Source =.; Database=Othello; Integrated Security = True";
                                                     con.Open();
-                                                    SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Ganador', " + conb.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                    SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Xtream', 'Ganador', " + conb.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                    c.ExecuteNonQuery();
                                                     con.Close();
 
 
@@ -1687,9 +1700,10 @@ namespace Othell
                                                     DateTime hoy = DateTime.Now;
                                                     string nom = hoy.ToString(FMT);
                                                     SqlConnection con = new SqlConnection();
-                                                    con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                                    con.ConnectionString = "Data Source =.; Database=Othello; Integrated Security = True";
                                                     con.Open();
-                                                    SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Perdedor', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                    SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Xtream', 'Perdedor', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                    c.ExecuteNonQuery();
                                                     con.Close();
 
 
@@ -1716,9 +1730,10 @@ namespace Othell
                                                     DateTime hoy = DateTime.Now;
                                                     string nom = hoy.ToString(FMT);
                                                     SqlConnection con = new SqlConnection();
-                                                    con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                                    con.ConnectionString = "Data Source =.; Database=Othello; Integrated Security = True";
                                                     con.Open();
-                                                    SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Ganador', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                    SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Xtream', 'Ganador', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                    c.ExecuteNonQuery();
                                                     con.Close();
 
 
@@ -1731,9 +1746,10 @@ namespace Othell
                                                     DateTime hoy = DateTime.Now;
                                                     string nom = hoy.ToString(FMT);
                                                     SqlConnection con = new SqlConnection();
-                                                    con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                                    con.ConnectionString = "Data Source =.; Database=Othello; Integrated Security = True";
                                                     con.Open();
-                                                    SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Perdedor', " + conb.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                    SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Xtream', 'Perdedor', " + conb.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                    c.ExecuteNonQuery();
                                                     con.Close();
 
 
@@ -1751,9 +1767,10 @@ namespace Othell
                                                     DateTime hoy = DateTime.Now;
                                                     string nom = hoy.ToString(FMT);
                                                     SqlConnection con = new SqlConnection();
-                                                    con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                                    con.ConnectionString = "Data Source =.; Database = Othello; Integrated Security = True";
                                                     con.Open();
-                                                    SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Ganador', " + conb.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                    SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Xtream', 'Ganador', " + conb.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                    c.ExecuteNonQuery();
                                                     con.Close();
 
 
@@ -1766,9 +1783,10 @@ namespace Othell
                                                     DateTime hoy = DateTime.Now;
                                                     string nom = hoy.ToString(FMT);
                                                     SqlConnection con = new SqlConnection();
-                                                    con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                                    con.ConnectionString = "Data Source =.; Database=Othello; Integrated Security = True";
                                                     con.Open();
-                                                    SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Perdedor', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                    SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Xtream', 'Perdedor', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                    c.ExecuteNonQuery();
                                                     con.Close();
 
 
@@ -2880,9 +2898,10 @@ namespace Othell
                                         DateTime hoy = DateTime.Now;
                                         string nom = hoy.ToString(FMT);
                                         SqlConnection con = new SqlConnection();
-                                        con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                        con.ConnectionString = "Data Source =.; Database=Othello; Integrated Security = True";
                                         con.Open();
-                                        SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Empate', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                        SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Xtream', 'Empate', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                        c.ExecuteNonQuery();
                                         con.Close();
 
 
@@ -2914,10 +2933,12 @@ namespace Othell
                                                     DateTime hoy = DateTime.Now;
                                                     string nom = hoy.ToString(FMT);
                                                     SqlConnection con = new SqlConnection();
-                                                    con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                                    con.ConnectionString = "Data Source =.; Database=Othello; Integrated Security = True";
                                                     con.Open();
-                                                    SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Ganador', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                    SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Xtream', 'Ganador', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                    c.ExecuteNonQuery();
                                                     con.Close();
+
 
 
                                                 }
@@ -2929,9 +2950,10 @@ namespace Othell
                                                     DateTime hoy = DateTime.Now;
                                                     string nom = hoy.ToString(FMT);
                                                     SqlConnection con = new SqlConnection();
-                                                    con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                                    con.ConnectionString = "Data Source =.; Database=Othello; Integrated Security = True";
                                                     con.Open();
-                                                    SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Perdedor', " + conb.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                    SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Xtream', 'Perdedor', " + conb.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                    c.ExecuteNonQuery();
                                                     con.Close();
 
 
@@ -2949,9 +2971,10 @@ namespace Othell
                                                     DateTime hoy = DateTime.Now;
                                                     string nom = hoy.ToString(FMT);
                                                     SqlConnection con = new SqlConnection();
-                                                    con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                                    con.ConnectionString = "Data Source =.; Database=Othello; Integrated Security = True";
                                                     con.Open();
-                                                    SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Ganador', " + conb.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                    SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Xtream', 'Ganador', " + conb.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                    c.ExecuteNonQuery();
                                                     con.Close();
 
 
@@ -2964,9 +2987,10 @@ namespace Othell
                                                     DateTime hoy = DateTime.Now;
                                                     string nom = hoy.ToString(FMT);
                                                     SqlConnection con = new SqlConnection();
-                                                    con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                                    con.ConnectionString = "Data Source =.; Database=Othello; Integrated Security = True";
                                                     con.Open();
-                                                    SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Perdedor', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                    SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Xtream', 'Perdedor', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                    c.ExecuteNonQuery();
                                                     con.Close();
 
 
@@ -2989,9 +3013,10 @@ namespace Othell
                                                     DateTime hoy = DateTime.Now;
                                                     string nom = hoy.ToString(FMT);
                                                     SqlConnection con = new SqlConnection();
-                                                    con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                                    con.ConnectionString = "Data Source =.; Database=Othello; Integrated Security = True";
                                                     con.Open();
-                                                    SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Ganador', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                    SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Xtream', 'Ganador', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                    c.ExecuteNonQuery();
                                                     con.Close();
 
 
@@ -3004,9 +3029,10 @@ namespace Othell
                                                     DateTime hoy = DateTime.Now;
                                                     string nom = hoy.ToString(FMT);
                                                     SqlConnection con = new SqlConnection();
-                                                    con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                                    con.ConnectionString = "Data Source =.; Database=Othello; Integrated Security = True";
                                                     con.Open();
-                                                    SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Perdedor', " + conb.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                    SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Xtream', 'Perdedor', " + conb.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                    c.ExecuteNonQuery();
                                                     con.Close();
 
 
@@ -3024,9 +3050,10 @@ namespace Othell
                                                     DateTime hoy = DateTime.Now;
                                                     string nom = hoy.ToString(FMT);
                                                     SqlConnection con = new SqlConnection();
-                                                    con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                                    con.ConnectionString = "Data Source =.; Database=Othello; Integrated Security = True";
                                                     con.Open();
-                                                    SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Ganador', " + conb.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                    SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Xtream', 'Ganador', " + conb.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                    c.ExecuteNonQuery();
                                                     con.Close();
 
 
@@ -3039,9 +3066,10 @@ namespace Othell
                                                     DateTime hoy = DateTime.Now;
                                                     string nom = hoy.ToString(FMT);
                                                     SqlConnection con = new SqlConnection();
-                                                    con.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
+                                                    con.ConnectionString = "Data Source =.; Database=Othello; Integrated Security = True";
                                                     con.Open();
-                                                    SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Maquina', 'Perdedor', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                    SqlCommand c = new SqlCommand("Insert Into Partida (IDJugador,Modo,Estado,Movimientos,Fecha) values (" + ID.ToString() + "," + "'Xtream', 'Perdedor', " + conn.ToString() + ", " + "'" + nom + "'" + ")", con);
+                                                    c.ExecuteNonQuery();
                                                     con.Close();
 
 
