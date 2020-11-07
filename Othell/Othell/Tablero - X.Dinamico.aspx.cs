@@ -467,14 +467,20 @@ namespace Othell
             {
                 for (int j = 0; j < CO; j++)
                 {
-                    if (bot[i, j].BackColor == Color.Black)
+                    for (int h = 0; h < J1c.Count; h++)
                     {
-                        conn += 1;
+                        if (bot[i, j].BackColor == J1c[h])
+                        {
+                            conn += 1;
+                        }
                     }
 
-                    if (bot[i, j].BackColor == Color.White)
+                    for (int h = 0; h < J2c.Count; h++)
                     {
-                        conb += 1;
+                        if (bot[i, j].BackColor == J2c[h])
+                        {
+                            conb += 1;
+                        }
                     }
                 }
             }
@@ -1783,7 +1789,7 @@ namespace Othell
                                 else
                                 {
                                     TN = 0;
-                                    MessageBox.Show(this.Page, "Las fichas negras no tienen movimientos disponibles.");
+                                    MessageBox.Show(this.Page, "Jugador 1 no tienen movimientos disponibles.");
                                     x = 2;
                                 }
 
@@ -2898,7 +2904,7 @@ namespace Othell
                                             //Reto Inverso
                                             if (RI == 0)
                                             {
-                                                gan = "Jugador 1 (Negras).";
+                                                gan = "Jugador 1.";
                                                 //Agregar a Base
                                                 if (Jug == "N")
                                                 {
@@ -2933,7 +2939,7 @@ namespace Othell
                                             }
                                             else
                                             {
-                                                gan = "Jugador 2 (Blancas).";
+                                                gan = "Jugador 2.";
                                                 //Agregar a Base
                                                 if (Jug == "B")
                                                 {
@@ -2973,7 +2979,7 @@ namespace Othell
                                             //Reto Inverso
                                             if (RI == 1)
                                             {
-                                                gan = "Jugador 1 (Negras).";
+                                                gan = "Jugador 1.";
                                                 //Agregar a Base
                                                 if (Jug == "N")
                                                 {
@@ -3008,7 +3014,7 @@ namespace Othell
                                             }
                                             else
                                             {
-                                                gan = "Jugador 2 (Blancas).";
+                                                gan = "Jugador 2.";
                                                 //Agregar a Base
                                                 if (Jug == "B")
                                                 {
@@ -3057,7 +3063,7 @@ namespace Othell
                                 else
                                 {
 
-                                    MessageBox.Show(this.Page, "Las fichas blancas no tienen movimientos disponibles.");
+                                    MessageBox.Show(this.Page, "Jugador 2 no tienen movimientos disponibles.");
                                     x = 1;
                                 }
 
@@ -3106,32 +3112,52 @@ namespace Othell
                                             case "UV":
                                                 for (int o = temfi; o < temff; o++)
                                                 {
-                                                    bot[o, temci].BackColor = Color.White; //Cambiar dependiendo del color
+                                                    bot[o, temci].BackColor = J2c[PCB]; //Cambiar dependiendo del color
                                                     x = 1;
+                                                }
+                                                PCB = PCB + 1;
+                                                if (PCB == J2.Count)
+                                                {
+                                                    PCB = 0;
                                                 }
                                                 break;
 
                                             case "DV":
                                                 for (int o = temff; o < (temfi + 1); o++)
                                                 {
-                                                    bot[o, temci].BackColor = Color.White; //Cambiar dependiendo del color
+                                                    bot[o, temci].BackColor = J2c[PCB]; //Cambiar dependiendo del color
                                                     x = 1;
+                                                }
+                                                PCB = PCB + 1;
+                                                if (PCB == J2.Count)
+                                                {
+                                                    PCB = 0;
                                                 }
                                                 break;
 
                                             case "HI":
                                                 for (int o = temci; o < temcf; o++)
                                                 {
-                                                    bot[temfi, o].BackColor = Color.White; //Cambiar dependiendo del color
+                                                    bot[temfi, o].BackColor = J2c[PCB]; //Cambiar dependiendo del color
                                                     x = 1;
+                                                }
+                                                PCB = PCB + 1;
+                                                if (PCB == J2.Count)
+                                                {
+                                                    PCB = 0;
                                                 }
                                                 break;
 
                                             case "HD":
                                                 for (int o = temcf; o < (temci + 1); o++)
                                                 {
-                                                    bot[temfi, o].BackColor = Color.White; //Cambiar dependiendo del color
+                                                    bot[temfi, o].BackColor = J2c[PCB]; //Cambiar dependiendo del color
                                                     x = 1;
+                                                }
+                                                PCB = PCB + 1;
+                                                if (PCB == J2.Count)
+                                                {
+                                                    PCB = 0;
                                                 }
                                                 break;
 
@@ -3141,9 +3167,14 @@ namespace Othell
                                                 for (int g = 0; g < a; g++)
                                                 {
 
-                                                    bot[temfi + g, temci + g].BackColor = Color.White; //Cambiar dependiendo del color
+                                                    bot[temfi + g, temci + g].BackColor = J2c[PCB]; ; //Cambiar dependiendo del color
                                                     x = 1;
 
+                                                }
+                                                PCB = PCB + 1;
+                                                if (PCB == J2.Count)
+                                                {
+                                                    PCB = 0;
                                                 }
                                                 break;
 
@@ -3152,9 +3183,14 @@ namespace Othell
                                                 for (int g = 0; g < (a1); g++)
                                                 {
 
-                                                    bot[temfi - g, temci + g].BackColor = Color.White; //Cambiar dependiendo del color
+                                                    bot[temfi - g, temci + g].BackColor = J2c[PCB]; ; //Cambiar dependiendo del color
                                                     x = 1;
 
+                                                }
+                                                PCB = PCB + 1;
+                                                if (PCB == J2.Count)
+                                                {
+                                                    PCB = 0;
                                                 }
                                                 break;
 
@@ -3163,9 +3199,14 @@ namespace Othell
                                                 for (int g = 0; g < a2; g++)
                                                 {
 
-                                                    bot[temfi + g, temci - g].BackColor = Color.White; //Cambiar dependiendo del color
+                                                    bot[temfi + g, temci - g].BackColor = J2c[PCB]; ; //Cambiar dependiendo del color
                                                     x = 1;
 
+                                                }
+                                                PCB = PCB + 1;
+                                                if (PCB == J2.Count)
+                                                {
+                                                    PCB = 0;
                                                 }
                                                 break;
 
@@ -3175,9 +3216,14 @@ namespace Othell
                                                 for (int g = 0; g < a3; g++)
                                                 {
 
-                                                    bot[temfi - g, temci - g].BackColor = Color.White; //Cambiar dependiendo del color
+                                                    bot[temfi - g, temci - g].BackColor = J2c[PCB]; ; //Cambiar dependiendo del color
                                                     x = 1;
 
+                                                }
+                                                PCB = PCB + 1;
+                                                if (PCB == J2.Count)
+                                                {
+                                                    PCB = 0;
                                                 }
                                                 break;
                                         }
@@ -3201,15 +3247,22 @@ namespace Othell
             {
                 for (int j = 0; j < CO; j++)
                 {
-                    if (bot[i, j].BackColor == Color.Black)
+                    for(int h = 0; h < J1c.Count; h++)
                     {
-                        conn += 1;
+                        if (bot[i, j].BackColor == J1c[h])
+                        {
+                            conn += 1;
+                        }
                     }
 
-                    if (bot[i, j].BackColor == Color.White)
+                    for (int h = 0; h < J2c.Count; h++)
                     {
-                        conb += 1;
+                        if (bot[i, j].BackColor == J2c[h])
+                        {
+                            conb += 1;
+                        }
                     }
+
                 }
             }
             Blancas.Text = conb.ToString();
