@@ -58,19 +58,131 @@ namespace Othell
         public static int aperturaA = 0;
         public static int PCN = 0; //Posicion de color
         public static int PCB = 0; //Posicion de color
+        public static int BAP = 0; //Posicion de color
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            
             Jug = "N";
             ID = (int)Session["ID"];
             FI = (int)Session["M"];
             CO = (int)Session["N"];
             RI = (int)Session["RI"];
-            AP = (int)Session["AP"];
             J1 = (List<string>)Session["J1"];
             J2 = (List<string>)Session["J2"];
+            AP = (int)Session["AP"];
+
+            int P1C = (CO / 2) - 1;
+            int P1F = (FI / 2) - 1;
+            int P2C = (CO / 2) - 1;
+            int P2F = FI / 2;
+            int P3C = CO / 2;
+            int P3F = FI / 2;
+            int P4C = CO / 2;
+            int P4F = (FI / 2) - 1;
+            //Colorear Centro
+            Color pin = Color.Lavender;
+            String tempco = J1[0];
+           
+            if (PCN == J1.Count)
+            {
+                PCN = 0;
+            }
+
+            switch (tempco)
+            {
+                case "Rojo":
+                    pin = Color.Red;
+                    break;
+
+                case "Amarillo":
+                    pin = Color.Yellow;
+                    break;
+
+                case "Azul":
+                    pin = Color.Blue;
+                    break;
+
+                case "Naranja":
+                    pin = Color.Orange;
+                    break;
+
+                case "Verde":
+                    pin = Color.Green;
+                    break;
+
+                case "Violeta":
+                    pin = Color.MediumPurple;
+                    break;
+
+                case "Blanco":
+                    pin = Color.White;
+                    break;
+
+                case "Negro":
+                    pin = Color.Black;
+                    break;
+
+                case "Celeste":
+                    pin = Color.SkyBlue;
+                    break;
+
+                case "Gris":
+                    pin = Color.Gray;
+                    break;
+
+            }
+
             
+
+            Color pin2 = Color.Lavender;
+            String tempco2 = J2[0];
+           
+
+
+            switch (tempco2)
+            {
+                case "Rojo":
+                    pin2 = Color.Red;
+                    break;
+
+                case "Amarillo":
+                    pin2 = Color.Yellow;
+                    break;
+
+                case "Azul":
+                    pin2 = Color.Blue;
+                    break;
+
+                case "Naranja":
+                    pin2 = Color.Orange;
+                    break;
+
+                case "Verde":
+                    pin2 = Color.Green;
+                    break;
+
+                case "Violeta":
+                    pin2 = Color.MediumPurple;
+                    break;
+
+                case "Blanco":
+                    pin2 = Color.White;
+                    break;
+
+                case "Negro":
+                    pin2 = Color.Black;
+                    break;
+
+                case "Celeste":
+                    pin2 = Color.SkyBlue;
+                    break;
+
+                case "Gris":
+                    pin2 = Color.Gray;
+                    break;
+
+            }
 
 
 
@@ -86,246 +198,67 @@ namespace Othell
             }
             if (ver == 0)
             {
-
-                bot = new Button[FI, CO];
-                for (int i = 0; i < FI; i++)
+                if(AP == 1)
                 {
-                    for (int j = 0; j < CO; j++)
+                    bot = new Button[FI, CO];
+                    for (int i = 0; i < FI; i++)
                     {
-                        Button b = new Button();
-                        char a = (char)(65 + j);
-                        int b1 = i + 1;
-                        string tem = a.ToString() + b1.ToString();
-                        b.ID = tem;
-                        b.Text = "";
-                        b.Click += new EventHandler(this.Evento);
-                        b.Attributes.Add("class", "but");
-                        
-                        bot[i, j] = b;
+                        for (int j = 0; j < CO; j++)
+                        {
+                            Button b = new Button();
+                            char a = (char)(65 + j);
+                            int b1 = i + 1;
+                            string tem = a.ToString() + b1.ToString();
+                            b.ID = tem;
+                            b.Text = "";
+                            b.Click += new EventHandler(this.Evento);
+                            b.Attributes.Add("class", "but");
+                            
+                            bot[i, j] = b;
+                        }
                     }
                 }
-                int P1C = (CO / 2) - 1;
-                int P1F = (FI / 2) - 1;
-                int P2C = (CO / 2) - 1;
-                int P2F = FI / 2;
-                int P3C = CO / 2;
-                int P3F = FI / 2;
-                int P4C = CO / 2;
-                int P4F = (FI / 2) - 1;
-                //Colorear Centro
-                Color pin = Color.Lavender;
-                String tempco = J1[PCN];
-                PCN = PCN + 1;
-                if (PCN == J1.Count)
-                {
-                    PCN = 0;
-                }
-
-                switch (tempco)
-                {
-                    case "Rojo":
-                        pin = Color.Red;
-                        break;
-
-                    case "Amarillo":
-                        pin = Color.Yellow;
-                        break;
-
-                    case "Azul":
-                        pin = Color.Blue;
-                        break;
-
-                    case "Naranja":
-                        pin = Color.Orange;
-                        break;
-
-                    case "Verde":
-                        pin = Color.Green;
-                        break;
-
-                    case "Violeta":
-                        pin = Color.MediumPurple;
-                        break;
-
-                    case "Blanco":
-                        pin = Color.White;
-                        break;
-
-                    case "Negro":
-                        pin = Color.Black;
-                        break;
-
-                    case "Celeste":
-                        pin = Color.SkyBlue;
-                        break;
-
-                    case "Gris":
-                        pin = Color.Gray;
-                        break;
-
-                }
-
-                Color pin1 = Color.Lavender;
-                String tempco1 = J1[PCN];
                 
-                switch (tempco1)
+                if(AP == 0)
                 {
-                    case "Rojo":
-                        pin1 = Color.Red;
-                        break;
+                    bot = new Button[FI, CO];
+                    for (int i = 0; i < FI; i++)
+                    {
+                        for (int j = 0; j < CO; j++)
+                        {
+                            Button b = new Button();
+                            char a = (char)(65 + j);
+                            int b1 = i + 1;
+                            string tem = a.ToString() + b1.ToString();
+                            b.ID = tem;
+                            b.Text = "";
+                            b.Click += new EventHandler(this.Evento);
+                            b.Attributes.Add("class", "but");
+                            if (j == P1C && i == P1F)
+                            {
+                                b.BackColor = pin;
+                            }
+                            if (j == P2C && i == P2F)
+                            {
+                                b.BackColor = pin2;
+                            }
 
-                    case "Amarillo":
-                        pin1 = Color.Yellow;
-                        break;
-
-                    case "Azul":
-                        pin1 = Color.Blue;
-                        break;
-
-                    case "Naranja":
-                        pin1 = Color.Orange;
-                        break;
-
-                    case "Verde":
-                        pin1 = Color.Green;
-                        break;
-
-                    case "Violeta":
-                        pin1 = Color.MediumPurple;
-                        break;
-
-                    case "Blanco":
-                        pin1 = Color.White;
-                        break;
-
-                    case "Negro":
-                        pin1 = Color.Black;
-                        break;
-
-                    case "Celeste":
-                        pin1 = Color.SkyBlue;
-                        break;
-
-                    case "Gris":
-                        pin1 = Color.Gray;
-                        break;
-
-                }
-
-                Color pin2 = Color.Lavender;
-                String tempco2 = J2[PCB];
-                PCB = PCB + 1;
-                if (PCB == J2.Count)
-                {
-                    PCB = 0;
+                            if (j == P3C && i == P3F)
+                            {
+                                b.BackColor = pin;
+                            }
+                            if (j == P4C && i == P4F)
+                            {
+                                b.BackColor = pin2;
+                            }
+                            bot[i, j] = b;
+                        }
+                    }
                 }
 
 
-                switch (tempco2)
-                {
-                    case "Rojo":
-                        pin2 = Color.Red;
-                        break;
-
-                    case "Amarillo":
-                        pin2 = Color.Yellow;
-                        break;
-
-                    case "Azul":
-                        pin2 = Color.Blue;
-                        break;
-
-                    case "Naranja":
-                        pin2 = Color.Orange;
-                        break;
-
-                    case "Verde":
-                        pin2 = Color.Green;
-                        break;
-
-                    case "Violeta":
-                        pin2 = Color.MediumPurple;
-                        break;
-
-                    case "Blanco":
-                        pin2 = Color.White;
-                        break;
-
-                    case "Negro":
-                        pin2 = Color.Black;
-                        break;
-
-                    case "Celeste":
-                        pin2 = Color.SkyBlue;
-                        break;
-
-                    case "Gris":
-                        pin2 = Color.Gray;
-                        break;
-
-                }
-
-                Color pin3 = Color.Lavender;
-                String tempco3 = J2[PCB];
-                PCB = PCB + 1;
-                if (PCB == J2.Count)
-                {
-                    PCB = 0;
-                }
-
-
-                switch (tempco3)
-                {
-                    case "Rojo":
-                        pin3 = Color.Red;
-                        break;
-
-                    case "Amarillo":
-                        pin3 = Color.Yellow;
-                        break;
-
-                    case "Azul":
-                        pin3 = Color.Blue;
-                        break;
-
-                    case "Naranja":
-                        pin3 = Color.Orange;
-                        break;
-
-                    case "Verde":
-                        pin3 = Color.Green;
-                        break;
-
-                    case "Violeta":
-                        pin3 = Color.MediumPurple;
-                        break;
-
-                    case "Blanco":
-                        pin3 = Color.White;
-                        break;
-
-                    case "Negro":
-                        pin3 = Color.Black;
-                        break;
-
-                    case "Celeste":
-                        pin3 = Color.SkyBlue;
-                        break;
-
-                    case "Gris":
-                        pin3 = Color.Gray;
-                        break;
-
-                }
-
-                if (AP == 0)
-                {
-                    bot[P1F, P1C].BackColor = pin;
-                    bot[P2F, P2C].BackColor = pin2;
-                    bot[P3F, P3C].BackColor = pin1;
-                    bot[P4F, P4C].BackColor = pin3;
-                }
-
+                J1c = new List<Color>();  //Lista de Colores 1
+                J2c = new List<Color>();
                 //Crear Lista de Colores de J1
                 for(int i = 0; i < J1.Count; i++)
                 {
@@ -1030,7 +963,7 @@ namespace Othell
                                             int be = 0; //Bandera que indica si esta coloreada con alguno de los colores
                                             for (int h = 0; h < J1c.Count; h++)
                                             {
-                                                if (bot[(i - 1), j].BackColor == J1c[h] || bot[(i - 1), j].BackColor == J1c[h])
+                                                if (bot[(i + 1), j].BackColor == J1c[h] || bot[(i + 1), j].BackColor == J1c[h])
                                                 {
                                                     be = 1;
                                                 }
@@ -1038,7 +971,7 @@ namespace Othell
 
                                             for (int h = 0; h < J2c.Count; h++)
                                             {
-                                                if (bot[(i - 1), j].BackColor == J2c[h] || bot[(i - 1), j].BackColor == J2c[h])
+                                                if (bot[(i + 1), j].BackColor == J2c[h] || bot[(i + 1), j].BackColor == J2c[h])
                                                 {
                                                     be = 1;
                                                 }
@@ -1072,11 +1005,11 @@ namespace Othell
                                                         }
                                                         if (bc == 1)
                                                         {
-                                                            posif.Add(i - 1);
+                                                            posif.Add((i + 1));
                                                             posic.Add(j);
                                                             posff.Add(fit);
                                                             posfc.Add(cot);
-                                                            dir.Add("UV");
+                                                            dir.Add("DV");
                                                             ba = 1;
                                                             mov = 1;
                                                         }
@@ -1124,7 +1057,7 @@ namespace Othell
 
                                             for (int h = 0; h < J2c.Count; h++)
                                             {
-                                                if (bot[(i - 1), j].BackColor == J2c[h] || bot[(i - 1), j].BackColor == J2c[h])
+                                                if (bot[i, (j - 1)].BackColor == J2c[h] || bot[i, (j - 1)].BackColor == J2c[h])
                                                 {
                                                     be = 1;
                                                 }
@@ -1205,10 +1138,29 @@ namespace Othell
                                         }
                                         else
                                         {
-                                            if (bot[i, (j + 1)].BackColor == Color.Black || bot[i, (j + 1)].BackColor == Color.White)
+                                           
+                                            int be = 0; //Bandera que indica si esta coloreada con alguno de los colores
+                                            for (int h = 0; h < J1c.Count; h++)
+                                            {
+                                                if (bot[i, (j + 1)].BackColor == J1c[h] || bot[i, (j + 1)].BackColor == J1c[h])
+                                                {
+                                                    be = 1;
+                                                }
+                                            }
+
+                                            for (int h = 0; h < J2c.Count; h++)
+                                            {
+                                                if (bot[i, (j + 1)].BackColor == J2c[h] || bot[i, (j + 1)].BackColor == J2c[h])
+                                                {
+                                                    be = 1;
+                                                }
+                                            }
+
+                                            if (be == 1)
                                             {
 
                                             }
+
                                             else
                                             {
                                                 int ba = 0;
@@ -1224,8 +1176,17 @@ namespace Othell
                                                     }
                                                     else
                                                     {
-                                                        if (bot[fit, cot].BackColor == bus)
+                                                        int bc = 0; //Bandera que indica si la ficha tiene el color deseado
+                                                        for (int h = 0; h < J1c.Count; h++)
                                                         {
+                                                            if (bot[fit, cot].BackColor == J1c[h])
+                                                            {
+                                                                bc = 1;
+                                                            }
+                                                        }
+                                                        if (bc == 1)
+                                                        {
+
                                                             posif.Add((i));
                                                             posic.Add(j + 1);
                                                             posff.Add(fit);
@@ -1236,7 +1197,15 @@ namespace Othell
                                                         }
                                                         else
                                                         {
-                                                            if (bot[fit, cot].BackColor == ori)
+                                                            int bd = 0; //Bandera que indica si la ficha tiene el color inicial
+                                                            for (int h = 0; h < J2c.Count; h++)
+                                                            {
+                                                                if (bot[fit, cot].BackColor == J2c[h])
+                                                                {
+                                                                    bd = 1;
+                                                                }
+                                                            }
+                                                            if (bd == 1)
                                                             {
 
                                                             }
@@ -1258,10 +1227,30 @@ namespace Othell
                                         }
                                         else
                                         {
-                                            if (bot[(i - 1), (j - 1)].BackColor == Color.Black || bot[(i - 1), (j - 1)].BackColor == Color.White)
+                                           
+                                            int be = 0; //Bandera que indica si esta coloreada con alguno de los colores
+                                            for (int h = 0; h < J1c.Count; h++)
+                                            {
+                                                if (bot[(i - 1), (j - 1)].BackColor == J1c[h] || bot[(i - 1), (j - 1)].BackColor == J1c[h])
+                                                {
+                                                    be = 1;
+                                                }
+                                            }
+
+                                            for (int h = 0; h < J2c.Count; h++)
+                                            {
+                                                if (bot[(i - 1), (j - 1)].BackColor == J2c[h] || bot[(i - 1), (j - 1)].BackColor == J2c[h])
+                                                {
+                                                    be = 1;
+                                                }
+                                            }
+
+                                            if (be == 1)
                                             {
 
                                             }
+
+
                                             else
                                             {
                                                 int ba = 0;
@@ -1278,7 +1267,15 @@ namespace Othell
                                                     }
                                                     else
                                                     {
-                                                        if (bot[fit, cot].BackColor == bus)
+                                                        int bc = 0; //Bandera que indica si la ficha tiene el color deseado
+                                                        for (int h = 0; h < J1c.Count; h++)
+                                                        {
+                                                            if (bot[fit, cot].BackColor == J1c[h])
+                                                            {
+                                                                bc = 1;
+                                                            }
+                                                        }
+                                                        if (bc == 1)
                                                         {
                                                             posif.Add(i - 1);
                                                             posic.Add(j - 1);
@@ -1290,10 +1287,19 @@ namespace Othell
                                                         }
                                                         else
                                                         {
-                                                            if (bot[fit, cot].BackColor == ori)
+                                                            int bd = 0; //Bandera que indica si la ficha tiene el color inicial
+                                                            for (int h = 0; h < J2c.Count; h++)
+                                                            {
+                                                                if (bot[fit, cot].BackColor == J2c[h])
+                                                                {
+                                                                    bd = 1;
+                                                                }
+                                                            }
+                                                            if (bd == 1)
                                                             {
 
                                                             }
+
                                                             else
                                                             {
                                                                 ba = 1;
@@ -1313,7 +1319,24 @@ namespace Othell
                                         }
                                         else
                                         {
-                                            if (bot[(i + 1), (j - 1)].BackColor == Color.Black || bot[(i + 1), (j - 1)].BackColor == Color.White)
+                                            int be = 0; //Bandera que indica si esta coloreada con alguno de los colores
+                                            for (int h = 0; h < J1c.Count; h++)
+                                            {
+                                                if (bot[(i + 1), (j - 1)].BackColor == J1c[h] || bot[(i + 1), (j - 1)].BackColor == J1c[h])
+                                                {
+                                                    be = 1;
+                                                }
+                                            }
+
+                                            for (int h = 0; h < J2c.Count; h++)
+                                            {
+                                                if (bot[(i + 1), (j - 1)].BackColor == J2c[h] || bot[(i + 1), (j - 1)].BackColor == J2c[h])
+                                                {
+                                                    be = 1;
+                                                }
+                                            }
+
+                                            if (be == 1)
                                             {
 
                                             }
@@ -1333,7 +1356,15 @@ namespace Othell
                                                     }
                                                     else
                                                     {
-                                                        if (bot[fit, cot].BackColor == bus)
+                                                        int bc = 0; //Bandera que indica si la ficha tiene el color deseado
+                                                        for (int h = 0; h < J1c.Count; h++)
+                                                        {
+                                                            if (bot[fit, cot].BackColor == J1c[h])
+                                                            {
+                                                                bc = 1;
+                                                            }
+                                                        }
+                                                        if (bc == 1)
                                                         {
                                                             posif.Add((i + 1));
                                                             posic.Add(j - 1);
@@ -1345,10 +1376,19 @@ namespace Othell
                                                         }
                                                         else
                                                         {
-                                                            if (bot[fit, cot].BackColor == ori)
+                                                            int bd = 0; //Bandera que indica si la ficha tiene el color inicial
+                                                            for (int h = 0; h < J2c.Count; h++)
+                                                            {
+                                                                if (bot[fit, cot].BackColor == J2c[h])
+                                                                {
+                                                                    bd = 1;
+                                                                }
+                                                            }
+                                                            if (bd == 1)
                                                             {
 
                                                             }
+
                                                             else
                                                             {
                                                                 ba = 1;
@@ -1368,10 +1408,29 @@ namespace Othell
                                         }
                                         else
                                         {
-                                            if (bot[(i - 1), (j + 1)].BackColor == Color.Black || bot[(i - 1), (j + 1)].BackColor == Color.White)
+                                            int be = 0; //Bandera que indica si esta coloreada con alguno de los colores
+                                            for (int h = 0; h < J1c.Count; h++)
+                                            {
+                                                if (bot[(i - 1), (j + 1)].BackColor == J1c[h] || bot[(i - 1), (j + 1)].BackColor == J1c[h])
+                                                {
+                                                    be = 1;
+                                                }
+                                            }
+
+                                            for (int h = 0; h < J2c.Count; h++)
+                                            {
+                                                if (bot[(i - 1), (j + 1)].BackColor == J2c[h] || bot[(i - 1), (j + 1)].BackColor == J2c[h])
+                                                {
+                                                    be = 1;
+                                                }
+                                            }
+
+                                            if (be == 1)
                                             {
 
                                             }
+
+
                                             else
                                             {
                                                 int ba = 0;
@@ -1388,7 +1447,15 @@ namespace Othell
                                                     }
                                                     else
                                                     {
-                                                        if (bot[fit, cot].BackColor == bus)
+                                                        int bc = 0; //Bandera que indica si la ficha tiene el color deseado
+                                                        for (int h = 0; h < J1c.Count; h++)
+                                                        {
+                                                            if (bot[fit, cot].BackColor == J1c[h])
+                                                            {
+                                                                bc = 1;
+                                                            }
+                                                        }
+                                                        if (bc == 1)
                                                         {
                                                             posif.Add((i - 1));
                                                             posic.Add(j + 1);
@@ -1400,10 +1467,19 @@ namespace Othell
                                                         }
                                                         else
                                                         {
-                                                            if (bot[fit, cot].BackColor == ori)
+                                                            int bd = 0; //Bandera que indica si la ficha tiene el color inicial
+                                                            for (int h = 0; h < J2c.Count; h++)
+                                                            {
+                                                                if (bot[fit, cot].BackColor == J2c[h])
+                                                                {
+                                                                    bd = 1;
+                                                                }
+                                                            }
+                                                            if (bd == 1)
                                                             {
 
                                                             }
+
                                                             else
                                                             {
                                                                 ba = 1;
@@ -1423,7 +1499,25 @@ namespace Othell
                                         }
                                         else
                                         {
-                                            if (bot[(i + 1), (j + 1)].BackColor == Color.Black || bot[(i + 1), (j + 1)].BackColor == Color.White)
+                                            
+                                            int be = 0; //Bandera que indica si esta coloreada con alguno de los colores
+                                            for (int h = 0; h < J1c.Count; h++)
+                                            {
+                                                if (bot[(i + 1), (j + 1)].BackColor == J1c[h] || bot[(i + 1), (j + 1)].BackColor == J1c[h])
+                                                {
+                                                    be = 1;
+                                                }
+                                            }
+
+                                            for (int h = 0; h < J2c.Count; h++)
+                                            {
+                                                if (bot[(i + 1), (j + 1)].BackColor == J2c[h] || bot[(i + 1), (j + 1)].BackColor == J2c[h])
+                                                {
+                                                    be = 1;
+                                                }
+                                            }
+
+                                            if (be == 1)
                                             {
 
                                             }
@@ -1442,7 +1536,15 @@ namespace Othell
                                                     }
                                                     else
                                                     {
-                                                        if (bot[fit, cot].BackColor == bus)
+                                                        int bc = 0; //Bandera que indica si la ficha tiene el color deseado
+                                                        for (int h = 0; h < J1c.Count; h++)
+                                                        {
+                                                            if (bot[fit, cot].BackColor == J1c[h])
+                                                            {
+                                                                bc = 1;
+                                                            }
+                                                        }
+                                                        if (bc == 1)
                                                         {
                                                             posif.Add((i + 1));
                                                             posic.Add(j + 1);
@@ -1454,10 +1556,19 @@ namespace Othell
                                                         }
                                                         else
                                                         {
-                                                            if (bot[fit, cot].BackColor == ori)
+                                                            int bd = 0; //Bandera que indica si la ficha tiene el color inicial
+                                                            for (int h = 0; h < J2c.Count; h++)
+                                                            {
+                                                                if (bot[fit, cot].BackColor == J2c[h])
+                                                                {
+                                                                    bd = 1;
+                                                                }
+                                                            }
+                                                            if (bd == 1)
                                                             {
 
                                                             }
+
                                                             else
                                                             {
                                                                 ba = 1;
@@ -1510,7 +1621,7 @@ namespace Othell
                                             //Reto Inverso
                                             if (RI == 0)
                                             {
-                                                gan = "Jugador 1 (Negras).";
+                                                gan = "Jugador 1.";
                                                 //Agregar a Base
                                                 if (Jug == "N")
                                                 {
@@ -1545,7 +1656,7 @@ namespace Othell
                                             }
                                             else
                                             {
-                                                gan = "Jugador 2 (Blancas).";
+                                                gan = "Jugador 2.";
                                                 //Agregar a Base
                                                 if (Jug == "B")
                                                 {
@@ -1589,7 +1700,7 @@ namespace Othell
                                             //Reto Inverso
                                             if (RI == 1)
                                             {
-                                                gan = "Jugador 1 (Negras).";
+                                                gan = "Jugador 1.";
                                                 //Agregar a Base
                                                 if (Jug == "N")
                                                 {
@@ -1624,7 +1735,7 @@ namespace Othell
                                             }
                                             else
                                             {
-                                                gan = "Jugador 2 (Blancas).";
+                                                gan = "Jugador 2.";
                                                 //Agregar a Base
                                                 if (Jug == "B")
                                                 {
@@ -1721,32 +1832,52 @@ namespace Othell
                                             case "UV":
                                                 for (int o = temfi; o < temff; o++)
                                                 {
-                                                    bot[o, temci].BackColor = Color.Black; //Cambiar dependiendo del color
+                                                    bot[o, temci].BackColor = J1c[PCN]; //Cambiar dependiendo del color
                                                     x = 2;
+                                                }
+                                                PCN = PCN + 1;
+                                                if (PCN == J1.Count)
+                                                {
+                                                    PCN = 0;
                                                 }
                                                 break;
 
                                             case "DV":
                                                 for (int o = temff; o < (temfi + 1); o++)
                                                 {
-                                                    bot[o, temci].BackColor = Color.Black; //Cambiar dependiendo del color
+                                                    bot[o, temci].BackColor = J1c[PCN]; //Cambiar dependiendo del color
                                                     x = 2;
+                                                }
+                                                PCN = PCN + 1;
+                                                if (PCN == J1.Count)
+                                                {
+                                                    PCN = 0;
                                                 }
                                                 break;
 
                                             case "HI":
                                                 for (int o = temci; o < temcf; o++)
                                                 {
-                                                    bot[temfi, o].BackColor = Color.Black; //Cambiar dependiendo del color
+                                                    bot[temfi, o].BackColor = J1c[PCN]; //Cambiar dependiendo del color
                                                     x = 2;
+                                                }
+                                                PCN = PCN + 1;
+                                                if (PCN == J1.Count)
+                                                {
+                                                    PCN = 0;
                                                 }
                                                 break;
 
                                             case "HD":
                                                 for (int o = temcf; o < (temci + 1); o++)
                                                 {
-                                                    bot[temfi, o].BackColor = Color.Black; //Cambiar dependiendo del color
+                                                    bot[temfi, o].BackColor = J1c[PCN]; //Cambiar dependiendo del color
                                                     x = 2;
+                                                }
+                                                PCN = PCN + 1;
+                                                if (PCN == J1.Count)
+                                                {
+                                                    PCN = 0;
                                                 }
                                                 break;
 
@@ -1756,9 +1887,14 @@ namespace Othell
                                                 for (int g = 0; g < a; g++)
                                                 {
 
-                                                    bot[temfi + g, temci + g].BackColor = Color.Black; //Cambiar dependiendo del color
+                                                    bot[temfi + g, temci + g].BackColor = J1c[PCN]; ; //Cambiar dependiendo del color
                                                     x = 2;
 
+                                                }
+                                                PCN = PCN + 1;
+                                                if (PCN == J1.Count)
+                                                {
+                                                    PCN = 0;
                                                 }
                                                 break;
 
@@ -1767,9 +1903,14 @@ namespace Othell
                                                 for (int g = 0; g < (a1); g++)
                                                 {
 
-                                                    bot[temfi - g, temci + g].BackColor = Color.Black; //Cambiar dependiendo del color
+                                                    bot[temfi - g, temci + g].BackColor = J1c[PCN]; ; //Cambiar dependiendo del color
                                                     x = 2;
 
+                                                }
+                                                PCN = PCN + 1;
+                                                if (PCN == J1.Count)
+                                                {
+                                                    PCN = 0;
                                                 }
                                                 break;
 
@@ -1778,9 +1919,14 @@ namespace Othell
                                                 for (int g = 0; g < a2; g++)
                                                 {
 
-                                                    bot[temfi + g, temci - g].BackColor = Color.Black; //Cambiar dependiendo del color
+                                                    bot[temfi + g, temci - g].BackColor = J1c[PCN]; ; //Cambiar dependiendo del color
                                                     x = 2;
 
+                                                }
+                                                PCN = PCN + 1;
+                                                if (PCN == J1.Count)
+                                                {
+                                                    PCN = 0;
                                                 }
                                                 break;
 
@@ -1790,9 +1936,14 @@ namespace Othell
                                                 for (int g = 0; g < a3; g++)
                                                 {
 
-                                                    bot[temfi - g, temci - g].BackColor = Color.Black; //Cambiar dependiendo del color
+                                                    bot[temfi - g, temci - g].BackColor = J1c[PCN]; ; //Cambiar dependiendo del color
                                                     x = 2;
 
+                                                }
+                                                PCN = PCN + 1;
+                                                if (PCN == J1.Count)
+                                                {
+                                                    PCN = 0;
                                                 }
                                                 break;
                                         }
@@ -1961,7 +2112,6 @@ namespace Othell
                         else
                         {
                             mov = 0;
-                            TB = 0;
                             int FM = FI - 1;
                             int CM = CO - 1;
                             //Verificar posible movimientos
@@ -1972,13 +2122,16 @@ namespace Othell
                                     Button tem = bot[i, j];
                                     Color bus = Color.Red; //Opuesto
                                     Color ori = Color.Red; //Original
-
-                                    if (tem.BackColor == Color.Black)
+                                    for (int k = 0; k < J1c.Count; k++)
                                     {
-                                        bus = Color.White;
-                                        ori = Color.Black;
+                                        if (tem.BackColor == J1c[k])
+                                        {
+                                            ori = Color.White;
+                                            bus = Color.Black;
 
+                                        }
                                     }
+
 
                                     if (bus == Color.Red)
                                     {
@@ -1994,7 +2147,24 @@ namespace Othell
                                         }
                                         else
                                         {
-                                            if (bot[(i - 1), j].BackColor == Color.Black || bot[(i - 1), j].BackColor == Color.White)
+                                            int be = 0; //Bandera que indica si esta coloreada con alguno de los colores
+                                            for (int h = 0; h < J1c.Count; h++)
+                                            {
+                                                if (bot[(i - 1), j].BackColor == J1c[h] || bot[(i - 1), j].BackColor == J1c[h])
+                                                {
+                                                    be = 1;
+                                                }
+                                            }
+
+                                            for (int h = 0; h < J2c.Count; h++)
+                                            {
+                                                if (bot[(i - 1), j].BackColor == J2c[h] || bot[(i - 1), j].BackColor == J2c[h])
+                                                {
+                                                    be = 1;
+                                                }
+                                            }
+
+                                            if (be == 1)
                                             {
 
                                             }
@@ -2013,7 +2183,15 @@ namespace Othell
                                                     }
                                                     else
                                                     {
-                                                        if (bot[fit, cot].BackColor == bus)
+                                                        int bc = 0; //Bandera que indica si la ficha tiene el color deseado
+                                                        for (int h = 0; h < J2c.Count; h++)
+                                                        {
+                                                            if (bot[fit, cot].BackColor == J2c[h])
+                                                            {
+                                                                bc = 1;
+                                                            }
+                                                        }
+                                                        if (bc == 1)
                                                         {
                                                             posif.Add(i - 1);
                                                             posic.Add(j);
@@ -2025,7 +2203,15 @@ namespace Othell
                                                         }
                                                         else
                                                         {
-                                                            if (bot[fit, cot].BackColor == ori)
+                                                            int bd = 0; //Bandera que indica si la ficha tiene el color inicial
+                                                            for (int h = 0; h < J1c.Count; h++)
+                                                            {
+                                                                if (bot[fit, cot].BackColor == J1c[h])
+                                                                {
+                                                                    bd = 1;
+                                                                }
+                                                            }
+                                                            if (bd == 1)
                                                             {
 
                                                             }
@@ -2041,13 +2227,33 @@ namespace Othell
 
                                         //Revision de posiciones
                                         //Abajo Vertical (DV)
+
                                         if ((i + 1) > FM)
                                         {
 
                                         }
                                         else
                                         {
-                                            if (bot[(i + 1), j].BackColor == Color.Black || bot[(i + 1), j].BackColor == Color.White)
+
+
+                                            int be = 0; //Bandera que indica si esta coloreada con alguno de los colores
+                                            for (int h = 0; h < J1c.Count; h++)
+                                            {
+                                                if (bot[(i + 1), j].BackColor == J1c[h] || bot[(i + 1), j].BackColor == J1c[h])
+                                                {
+                                                    be = 1;
+                                                }
+                                            }
+
+                                            for (int h = 0; h < J2c.Count; h++)
+                                            {
+                                                if (bot[(i + 1), j].BackColor == J2c[h] || bot[(i + 1), j].BackColor == J2c[h])
+                                                {
+                                                    be = 1;
+                                                }
+                                            }
+
+                                            if (be == 1)
                                             {
 
                                             }
@@ -2065,7 +2271,15 @@ namespace Othell
                                                     }
                                                     else
                                                     {
-                                                        if (bot[fit, cot].BackColor == bus)
+                                                        int bc = 0; //Bandera que indica si la ficha tiene el color deseado
+                                                        for (int h = 0; h < J2c.Count; h++)
+                                                        {
+                                                            if (bot[fit, cot].BackColor == J2c[h])
+                                                            {
+                                                                bc = 1;
+                                                            }
+                                                        }
+                                                        if (bc == 1)
                                                         {
                                                             posif.Add((i + 1));
                                                             posic.Add(j);
@@ -2077,7 +2291,15 @@ namespace Othell
                                                         }
                                                         else
                                                         {
-                                                            if (bot[fit, cot].BackColor == ori)
+                                                            int bd = 0; //Bandera que indica si la ficha tiene el color inicial
+                                                            for (int h = 0; h < J1c.Count; h++)
+                                                            {
+                                                                if (bot[fit, cot].BackColor == J1c[h])
+                                                                {
+                                                                    bd = 1;
+                                                                }
+                                                            }
+                                                            if (bd == 1)
                                                             {
 
                                                             }
@@ -2100,10 +2322,28 @@ namespace Othell
                                         }
                                         else
                                         {
-                                            if (bot[i, (j - 1)].BackColor == Color.Black || bot[i, (j - 1)].BackColor == Color.White)
+                                            int be = 0; //Bandera que indica si esta coloreada con alguno de los colores
+                                            for (int h = 0; h < J1c.Count; h++)
+                                            {
+                                                if (bot[i, (j - 1)].BackColor == J1c[h] || bot[i, (j - 1)].BackColor == J1c[h])
+                                                {
+                                                    be = 1;
+                                                }
+                                            }
+
+                                            for (int h = 0; h < J2c.Count; h++)
+                                            {
+                                                if (bot[i, (j - 1)].BackColor == J2c[h] || bot[i, (j - 1)].BackColor == J2c[h])
+                                                {
+                                                    be = 1;
+                                                }
+                                            }
+
+                                            if (be == 1)
                                             {
 
                                             }
+
                                             else
                                             {
                                                 int ba = 0;
@@ -2113,14 +2353,25 @@ namespace Othell
                                                 {
 
                                                     cot += 1;
+
                                                     if (cot > CM)
                                                     {
                                                         ba = 1;
                                                     }
                                                     else
                                                     {
-                                                        if (bot[fit, cot].BackColor == bus)
+
+                                                        int bc = 0; //Bandera que indica si la ficha tiene el color deseado
+                                                        for (int h = 0; h < J2c.Count; h++)
                                                         {
+                                                            if (bot[fit, cot].BackColor == J2c[h])
+                                                            {
+                                                                bc = 1;
+                                                            }
+                                                        }
+                                                        if (bc == 1)
+                                                        {
+
                                                             posif.Add(i);
                                                             posic.Add(j - 1);
                                                             posff.Add(fit);
@@ -2131,10 +2382,19 @@ namespace Othell
                                                         }
                                                         else
                                                         {
-                                                            if (bot[fit, cot].BackColor == ori)
+                                                            int bd = 0; //Bandera que indica si la ficha tiene el color inicial
+                                                            for (int h = 0; h < J1c.Count; h++)
+                                                            {
+                                                                if (bot[fit, cot].BackColor == J1c[h])
+                                                                {
+                                                                    bd = 1;
+                                                                }
+                                                            }
+                                                            if (bd == 1)
                                                             {
 
                                                             }
+
                                                             else
                                                             {
                                                                 ba = 1;
@@ -2147,16 +2407,36 @@ namespace Othell
 
                                         //Revision de posiciones
                                         //Derecha Horizontal (HD)
+
                                         if ((j + 1) > CM)
                                         {
 
                                         }
                                         else
                                         {
-                                            if (bot[i, (j + 1)].BackColor == Color.Black || bot[i, (j + 1)].BackColor == Color.White)
+
+                                            int be = 0; //Bandera que indica si esta coloreada con alguno de los colores
+                                            for (int h = 0; h < J1c.Count; h++)
+                                            {
+                                                if (bot[i, (j + 1)].BackColor == J1c[h] || bot[i, (j + 1)].BackColor == J1c[h])
+                                                {
+                                                    be = 1;
+                                                }
+                                            }
+
+                                            for (int h = 0; h < J2c.Count; h++)
+                                            {
+                                                if (bot[i, (j + 1)].BackColor == J2c[h] || bot[i, (j + 1)].BackColor == J2c[h])
+                                                {
+                                                    be = 1;
+                                                }
+                                            }
+
+                                            if (be == 1)
                                             {
 
                                             }
+
                                             else
                                             {
                                                 int ba = 0;
@@ -2172,8 +2452,17 @@ namespace Othell
                                                     }
                                                     else
                                                     {
-                                                        if (bot[fit, cot].BackColor == bus)
+                                                        int bc = 0; //Bandera que indica si la ficha tiene el color deseado
+                                                        for (int h = 0; h < J2c.Count; h++)
                                                         {
+                                                            if (bot[fit, cot].BackColor == J2c[h])
+                                                            {
+                                                                bc = 1;
+                                                            }
+                                                        }
+                                                        if (bc == 1)
+                                                        {
+
                                                             posif.Add((i));
                                                             posic.Add(j + 1);
                                                             posff.Add(fit);
@@ -2184,7 +2473,15 @@ namespace Othell
                                                         }
                                                         else
                                                         {
-                                                            if (bot[fit, cot].BackColor == ori)
+                                                            int bd = 0; //Bandera que indica si la ficha tiene el color inicial
+                                                            for (int h = 0; h < J1c.Count; h++)
+                                                            {
+                                                                if (bot[fit, cot].BackColor == J1c[h])
+                                                                {
+                                                                    bd = 1;
+                                                                }
+                                                            }
+                                                            if (bd == 1)
                                                             {
 
                                                             }
@@ -2206,10 +2503,30 @@ namespace Othell
                                         }
                                         else
                                         {
-                                            if (bot[(i - 1), (j - 1)].BackColor == Color.Black || bot[(i - 1), (j - 1)].BackColor == Color.White)
+
+                                            int be = 0; //Bandera que indica si esta coloreada con alguno de los colores
+                                            for (int h = 0; h < J1c.Count; h++)
+                                            {
+                                                if (bot[(i - 1), (j - 1)].BackColor == J1c[h] || bot[(i - 1), (j - 1)].BackColor == J1c[h])
+                                                {
+                                                    be = 1;
+                                                }
+                                            }
+
+                                            for (int h = 0; h < J2c.Count; h++)
+                                            {
+                                                if (bot[(i - 1), (j - 1)].BackColor == J2c[h] || bot[(i - 1), (j - 1)].BackColor == J2c[h])
+                                                {
+                                                    be = 1;
+                                                }
+                                            }
+
+                                            if (be == 1)
                                             {
 
                                             }
+
+
                                             else
                                             {
                                                 int ba = 0;
@@ -2219,13 +2536,22 @@ namespace Othell
                                                 {
                                                     fit += 1;
                                                     cot += 1;
+
                                                     if (fit > FM || cot > CM)
                                                     {
                                                         ba = 1;
                                                     }
                                                     else
                                                     {
-                                                        if (bot[fit, cot].BackColor == bus)
+                                                        int bc = 0; //Bandera que indica si la ficha tiene el color deseado
+                                                        for (int h = 0; h < J2c.Count; h++)
+                                                        {
+                                                            if (bot[fit, cot].BackColor == J2c[h])
+                                                            {
+                                                                bc = 1;
+                                                            }
+                                                        }
+                                                        if (bc == 1)
                                                         {
                                                             posif.Add(i - 1);
                                                             posic.Add(j - 1);
@@ -2237,10 +2563,19 @@ namespace Othell
                                                         }
                                                         else
                                                         {
-                                                            if (bot[fit, cot].BackColor == ori)
+                                                            int bd = 0; //Bandera que indica si la ficha tiene el color inicial
+                                                            for (int h = 0; h < J1c.Count; h++)
+                                                            {
+                                                                if (bot[fit, cot].BackColor == J1c[h])
+                                                                {
+                                                                    bd = 1;
+                                                                }
+                                                            }
+                                                            if (bd == 1)
                                                             {
 
                                                             }
+
                                                             else
                                                             {
                                                                 ba = 1;
@@ -2253,13 +2588,31 @@ namespace Othell
 
                                         //Revision de posiciones
                                         //Diagonal Izquierda Inferior (DII) //pen
+
                                         if ((i + 1) > FM || (j - 1) < 0)
                                         {
 
                                         }
                                         else
                                         {
-                                            if (bot[(i + 1), (j - 1)].BackColor == Color.Black || bot[(i + 1), (j - 1)].BackColor == Color.White)
+                                            int be = 0; //Bandera que indica si esta coloreada con alguno de los colores
+                                            for (int h = 0; h < J1c.Count; h++)
+                                            {
+                                                if (bot[(i + 1), (j - 1)].BackColor == J1c[h] || bot[(i + 1), (j - 1)].BackColor == J1c[h])
+                                                {
+                                                    be = 1;
+                                                }
+                                            }
+
+                                            for (int h = 0; h < J2c.Count; h++)
+                                            {
+                                                if (bot[(i + 1), (j - 1)].BackColor == J2c[h] || bot[(i + 1), (j - 1)].BackColor == J2c[h])
+                                                {
+                                                    be = 1;
+                                                }
+                                            }
+
+                                            if (be == 1)
                                             {
 
                                             }
@@ -2272,13 +2625,22 @@ namespace Othell
                                                 {
                                                     fit -= 1;
                                                     cot += 1;
+
                                                     if (fit < 0 || cot > CM)
                                                     {
                                                         ba = 1;
                                                     }
                                                     else
                                                     {
-                                                        if (bot[fit, cot].BackColor == bus)
+                                                        int bc = 0; //Bandera que indica si la ficha tiene el color deseado
+                                                        for (int h = 0; h < J2c.Count; h++)
+                                                        {
+                                                            if (bot[fit, cot].BackColor == J2c[h])
+                                                            {
+                                                                bc = 1;
+                                                            }
+                                                        }
+                                                        if (bc == 1)
                                                         {
                                                             posif.Add((i + 1));
                                                             posic.Add(j - 1);
@@ -2290,10 +2652,19 @@ namespace Othell
                                                         }
                                                         else
                                                         {
-                                                            if (bot[fit, cot].BackColor == ori)
+                                                            int bd = 0; //Bandera que indica si la ficha tiene el color inicial
+                                                            for (int h = 0; h < J1c.Count; h++)
+                                                            {
+                                                                if (bot[fit, cot].BackColor == J1c[h])
+                                                                {
+                                                                    bd = 1;
+                                                                }
+                                                            }
+                                                            if (bd == 1)
                                                             {
 
                                                             }
+
                                                             else
                                                             {
                                                                 ba = 1;
@@ -2306,16 +2677,36 @@ namespace Othell
 
                                         //Revision de posiciones
                                         //Diagonal Derecha Superior (DDS)
+
                                         if ((i - 1) < 0 || (j + 1) > CM)
                                         {
 
                                         }
                                         else
                                         {
-                                            if (bot[(i - 1), (j + 1)].BackColor == Color.Black || bot[(i - 1), (j + 1)].BackColor == Color.White)
+                                            int be = 0; //Bandera que indica si esta coloreada con alguno de los colores
+                                            for (int h = 0; h < J1c.Count; h++)
+                                            {
+                                                if (bot[(i - 1), (j + 1)].BackColor == J1c[h] || bot[(i - 1), (j + 1)].BackColor == J1c[h])
+                                                {
+                                                    be = 1;
+                                                }
+                                            }
+
+                                            for (int h = 0; h < J2c.Count; h++)
+                                            {
+                                                if (bot[(i - 1), (j + 1)].BackColor == J2c[h] || bot[(i - 1), (j + 1)].BackColor == J2c[h])
+                                                {
+                                                    be = 1;
+                                                }
+                                            }
+
+                                            if (be == 1)
                                             {
 
                                             }
+
+
                                             else
                                             {
                                                 int ba = 0;
@@ -2325,13 +2716,22 @@ namespace Othell
                                                 {
                                                     fit += 1;
                                                     cot -= 1;
+
                                                     if (fit > FM || cot < 0)
                                                     {
                                                         ba = 1;
                                                     }
                                                     else
                                                     {
-                                                        if (bot[fit, cot].BackColor == bus)
+                                                        int bc = 0; //Bandera que indica si la ficha tiene el color deseado
+                                                        for (int h = 0; h < J2c.Count; h++)
+                                                        {
+                                                            if (bot[fit, cot].BackColor == J2c[h])
+                                                            {
+                                                                bc = 1;
+                                                            }
+                                                        }
+                                                        if (bc == 1)
                                                         {
                                                             posif.Add((i - 1));
                                                             posic.Add(j + 1);
@@ -2343,10 +2743,19 @@ namespace Othell
                                                         }
                                                         else
                                                         {
-                                                            if (bot[fit, cot].BackColor == ori)
+                                                            int bd = 0; //Bandera que indica si la ficha tiene el color inicial
+                                                            for (int h = 0; h < J1c.Count; h++)
+                                                            {
+                                                                if (bot[fit, cot].BackColor == J1c[h])
+                                                                {
+                                                                    bd = 1;
+                                                                }
+                                                            }
+                                                            if (bd == 1)
                                                             {
 
                                                             }
+
                                                             else
                                                             {
                                                                 ba = 1;
@@ -2359,13 +2768,32 @@ namespace Othell
 
                                         //Revision de posiciones
                                         //Diagonal Derecha Inferior (DDI) //pen
+
                                         if ((i + 1) > FM || (j + 1) > CM)
                                         {
 
                                         }
                                         else
                                         {
-                                            if (bot[(i + 1), (j + 1)].BackColor == Color.Black || bot[(i + 1), (j + 1)].BackColor == Color.White)
+
+                                            int be = 0; //Bandera que indica si esta coloreada con alguno de los colores
+                                            for (int h = 0; h < J1c.Count; h++)
+                                            {
+                                                if (bot[(i + 1), (j + 1)].BackColor == J1c[h] || bot[(i + 1), (j + 1)].BackColor == J1c[h])
+                                                {
+                                                    be = 1;
+                                                }
+                                            }
+
+                                            for (int h = 0; h < J2c.Count; h++)
+                                            {
+                                                if (bot[(i + 1), (j + 1)].BackColor == J2c[h] || bot[(i + 1), (j + 1)].BackColor == J2c[h])
+                                                {
+                                                    be = 1;
+                                                }
+                                            }
+
+                                            if (be == 1)
                                             {
 
                                             }
@@ -2384,7 +2812,15 @@ namespace Othell
                                                     }
                                                     else
                                                     {
-                                                        if (bot[fit, cot].BackColor == bus)
+                                                        int bc = 0; //Bandera que indica si la ficha tiene el color deseado
+                                                        for (int h = 0; h < J2c.Count; h++)
+                                                        {
+                                                            if (bot[fit, cot].BackColor == J2c[h])
+                                                            {
+                                                                bc = 1;
+                                                            }
+                                                        }
+                                                        if (bc == 1)
                                                         {
                                                             posif.Add((i + 1));
                                                             posic.Add(j + 1);
@@ -2396,10 +2832,19 @@ namespace Othell
                                                         }
                                                         else
                                                         {
-                                                            if (bot[fit, cot].BackColor == ori)
+                                                            int bd = 0; //Bandera que indica si la ficha tiene el color inicial
+                                                            for (int h = 0; h < J1c.Count; h++)
+                                                            {
+                                                                if (bot[fit, cot].BackColor == J1c[h])
+                                                                {
+                                                                    bd = 1;
+                                                                }
+                                                            }
+                                                            if (bd == 1)
                                                             {
 
                                                             }
+
                                                             else
                                                             {
                                                                 ba = 1;
