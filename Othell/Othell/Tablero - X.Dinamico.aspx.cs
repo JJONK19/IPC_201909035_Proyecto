@@ -49,6 +49,8 @@ namespace Othell
         public static int AP; //Apertura Personalizado
         public static List<string> J1;  //Lista de Colores 1
         public static List<string> J2;  //Lista de Colores 2
+        public static List<Color> J1c;  //Lista de Colores 1
+        public static List<Color> J2c;  //Lista de Colores 2
         public static List<string> Colores;
         public static int apertura = 0; //Determina si ya se pusieron 
         public static int aperturab = 0; //Determina si ya se pusieron 
@@ -101,6 +103,349 @@ namespace Othell
                         
                         bot[i, j] = b;
                     }
+                }
+                int P1C = (CO / 2) - 1;
+                int P1F = (FI / 2) - 1;
+                int P2C = (CO / 2) - 1;
+                int P2F = FI / 2;
+                int P3C = CO / 2;
+                int P3F = FI / 2;
+                int P4C = CO / 2;
+                int P4F = (FI / 2) - 1;
+                //Colorear Centro
+                Color pin = Color.Lavender;
+                String tempco = J1[PCN];
+                PCN = PCN + 1;
+                if (PCN == J1.Count)
+                {
+                    PCN = 0;
+                }
+
+                switch (tempco)
+                {
+                    case "Rojo":
+                        pin = Color.Red;
+                        break;
+
+                    case "Amarillo":
+                        pin = Color.Yellow;
+                        break;
+
+                    case "Azul":
+                        pin = Color.Blue;
+                        break;
+
+                    case "Naranja":
+                        pin = Color.Orange;
+                        break;
+
+                    case "Verde":
+                        pin = Color.Green;
+                        break;
+
+                    case "Violeta":
+                        pin = Color.MediumPurple;
+                        break;
+
+                    case "Blanco":
+                        pin = Color.White;
+                        break;
+
+                    case "Negro":
+                        pin = Color.Black;
+                        break;
+
+                    case "Celeste":
+                        pin = Color.SkyBlue;
+                        break;
+
+                    case "Gris":
+                        pin = Color.Gray;
+                        break;
+
+                }
+
+                Color pin1 = Color.Lavender;
+                String tempco1 = J1[PCN];
+                
+                switch (tempco1)
+                {
+                    case "Rojo":
+                        pin1 = Color.Red;
+                        break;
+
+                    case "Amarillo":
+                        pin1 = Color.Yellow;
+                        break;
+
+                    case "Azul":
+                        pin1 = Color.Blue;
+                        break;
+
+                    case "Naranja":
+                        pin1 = Color.Orange;
+                        break;
+
+                    case "Verde":
+                        pin1 = Color.Green;
+                        break;
+
+                    case "Violeta":
+                        pin1 = Color.MediumPurple;
+                        break;
+
+                    case "Blanco":
+                        pin1 = Color.White;
+                        break;
+
+                    case "Negro":
+                        pin1 = Color.Black;
+                        break;
+
+                    case "Celeste":
+                        pin1 = Color.SkyBlue;
+                        break;
+
+                    case "Gris":
+                        pin1 = Color.Gray;
+                        break;
+
+                }
+
+                Color pin2 = Color.Lavender;
+                String tempco2 = J2[PCB];
+                PCB = PCB + 1;
+                if (PCB == J2.Count)
+                {
+                    PCB = 0;
+                }
+
+
+                switch (tempco2)
+                {
+                    case "Rojo":
+                        pin2 = Color.Red;
+                        break;
+
+                    case "Amarillo":
+                        pin2 = Color.Yellow;
+                        break;
+
+                    case "Azul":
+                        pin2 = Color.Blue;
+                        break;
+
+                    case "Naranja":
+                        pin2 = Color.Orange;
+                        break;
+
+                    case "Verde":
+                        pin2 = Color.Green;
+                        break;
+
+                    case "Violeta":
+                        pin2 = Color.MediumPurple;
+                        break;
+
+                    case "Blanco":
+                        pin2 = Color.White;
+                        break;
+
+                    case "Negro":
+                        pin2 = Color.Black;
+                        break;
+
+                    case "Celeste":
+                        pin2 = Color.SkyBlue;
+                        break;
+
+                    case "Gris":
+                        pin2 = Color.Gray;
+                        break;
+
+                }
+
+                Color pin3 = Color.Lavender;
+                String tempco3 = J2[PCB];
+                PCB = PCB + 1;
+                if (PCB == J2.Count)
+                {
+                    PCB = 0;
+                }
+
+
+                switch (tempco3)
+                {
+                    case "Rojo":
+                        pin3 = Color.Red;
+                        break;
+
+                    case "Amarillo":
+                        pin3 = Color.Yellow;
+                        break;
+
+                    case "Azul":
+                        pin3 = Color.Blue;
+                        break;
+
+                    case "Naranja":
+                        pin3 = Color.Orange;
+                        break;
+
+                    case "Verde":
+                        pin3 = Color.Green;
+                        break;
+
+                    case "Violeta":
+                        pin3 = Color.MediumPurple;
+                        break;
+
+                    case "Blanco":
+                        pin3 = Color.White;
+                        break;
+
+                    case "Negro":
+                        pin3 = Color.Black;
+                        break;
+
+                    case "Celeste":
+                        pin3 = Color.SkyBlue;
+                        break;
+
+                    case "Gris":
+                        pin3 = Color.Gray;
+                        break;
+
+                }
+
+                if (AP == 0)
+                {
+                    bot[P1F, P1C].BackColor = pin;
+                    bot[P2F, P2C].BackColor = pin2;
+                    bot[P3F, P3C].BackColor = pin1;
+                    bot[P4F, P4C].BackColor = pin3;
+                }
+
+                //Crear Lista de Colores de J1
+                for(int i = 0; i < J1.Count; i++)
+                {
+                    Color pinc = Color.Lavender;
+                    String tempc = J1[i];
+                    switch (tempc)
+                    {
+                        case "Rojo":
+                            pinc = Color.Red;
+                            J1c.Add(pinc);
+                            break;
+
+                        case "Amarillo":
+                            pinc = Color.Yellow;
+                            J1c.Add(pinc);
+                            break;
+
+                        case "Azul":
+                            pinc = Color.Blue;
+                            J1c.Add(pinc);
+                            break;
+
+                        case "Naranja":
+                            pinc = Color.Orange;
+                            J1c.Add(pinc);
+                            break;
+
+                        case "Verde":
+                            pinc = Color.Green;
+                            J1c.Add(pinc);
+                            break;
+
+                        case "Violeta":
+                            pinc = Color.MediumPurple;
+                            J1c.Add(pinc);
+                            break;
+
+                        case "Blanco":
+                            pinc = Color.White;
+                            J1c.Add(pinc);
+                            break;
+
+                        case "Negro":
+                            pinc = Color.Black;
+                            J1c.Add(pinc);
+                            break;
+
+                        case "Celeste":
+                            pinc = Color.SkyBlue;
+                            J1c.Add(pinc);
+                            break;
+
+                        case "Gris":
+                            pinc = Color.Gray;
+                            J1c.Add(pinc);
+                            break;
+
+                    }
+
+                }
+
+                //Crear Lista de Colores de J2
+                for (int i = 0; i < J2.Count; i++)
+                {
+                    Color pinc = Color.Lavender;
+                    String tempc = J2[i];
+                    switch (tempc)
+                    {
+                        case "Rojo":
+                            pinc = Color.Red;
+                            J2c.Add(pinc);
+                            break;
+
+                        case "Amarillo":
+                            pinc = Color.Yellow;
+                            J2c.Add(pinc);
+                            break;
+
+                        case "Azul":
+                            pinc = Color.Blue;
+                            J2c.Add(pinc);
+                            break;
+
+                        case "Naranja":
+                            pinc = Color.Orange;
+                            J2c.Add(pinc);
+                            break;
+
+                        case "Verde":
+                            pinc = Color.Green;
+                            J2c.Add(pinc);
+                            break;
+
+                        case "Violeta":
+                            pinc = Color.MediumPurple;
+                            J2c.Add(pinc);
+                            break;
+
+                        case "Blanco":
+                            pinc = Color.White;
+                            J2c.Add(pinc);
+                            break;
+
+                        case "Negro":
+                            pinc = Color.Black;
+                            J2c.Add(pinc);
+                            break;
+
+                        case "Celeste":
+                            pinc = Color.SkyBlue;
+                            J2c.Add(pinc);
+                            break;
+
+                        case "Gris":
+                            pinc = Color.Gray;
+                            J2c.Add(pinc);
+                            break;
+
+                    }
+
                 }
                 ver = 1;
                 Session["Tablero"] = bot;
@@ -556,6 +901,7 @@ namespace Othell
                         
                         else
                         {
+                            
                             mov = 0;
                             int FM = FI - 1;
                             int CM = CO - 1;
@@ -567,13 +913,16 @@ namespace Othell
                                     Button tem = bot[i, j];
                                     Color bus = Color.Red; //Opuesto
                                     Color ori = Color.Red; //Original
-
-                                    if (tem.BackColor == Color.White)
+                                    for(int k =0; k < J2c.Count; k++)
                                     {
-                                        ori = Color.White;
-                                        bus = Color.Black;
+                                        if (tem.BackColor ==  J2c[k])
+                                        {
+                                            ori = Color.White;
+                                            bus = Color.Black;
 
+                                        }
                                     }
+                                    
 
                                     if (bus == Color.Red)
                                     {
@@ -589,7 +938,24 @@ namespace Othell
                                         }
                                         else
                                         {
-                                            if (bot[(i - 1), j].BackColor == Color.Black || bot[(i - 1), j].BackColor == Color.White)
+                                            int be = 0; //Bandera que indica si esta coloreada con alguno de los colores
+                                            for(int h = 0; h < J1c.Count; h++)
+                                            {
+                                                if (bot[(i - 1), j].BackColor == J1c[h] || bot[(i - 1), j].BackColor == J1c[h])
+                                                {
+                                                    be = 1;
+                                                }
+                                            }
+
+                                            for (int h = 0; h < J2c.Count; h++)
+                                            {
+                                                if (bot[(i - 1), j].BackColor == J2c[h] || bot[(i - 1), j].BackColor == J2c[h])
+                                                {
+                                                    be = 1;
+                                                }
+                                            }
+
+                                            if(be == 1)
                                             {
 
                                             }
@@ -608,7 +974,15 @@ namespace Othell
                                                     }
                                                     else
                                                     {
-                                                        if (bot[fit, cot].BackColor == bus)
+                                                        int bc = 0; //Bandera que indica si la ficha tiene el color deseado
+                                                        for(int h = 0; h < J1c.Count; h++)
+                                                        {
+                                                            if (bot[fit, cot].BackColor == J1c[h])
+                                                            {
+                                                                bc = 1;
+                                                            }
+                                                        }
+                                                        if (bc == 1)
                                                         {
                                                             posif.Add(i - 1);
                                                             posic.Add(j);
@@ -620,7 +994,15 @@ namespace Othell
                                                         }
                                                         else
                                                         {
-                                                            if (bot[fit, cot].BackColor == ori)
+                                                            int bd = 0; //Bandera que indica si la ficha tiene el color inicial
+                                                            for (int h = 0; h < J2c.Count; h++)
+                                                            {
+                                                                if (bot[fit, cot].BackColor == J2c[h])
+                                                                {
+                                                                    bd = 1;
+                                                                }
+                                                            }
+                                                            if (bd == 1)
                                                             {
 
                                                             }
@@ -644,7 +1026,25 @@ namespace Othell
                                         else
                                         {
 
-                                            if (bot[(i + 1), j].BackColor == Color.Black || bot[(i + 1), j].BackColor == Color.White)
+
+                                            int be = 0; //Bandera que indica si esta coloreada con alguno de los colores
+                                            for (int h = 0; h < J1c.Count; h++)
+                                            {
+                                                if (bot[(i - 1), j].BackColor == J1c[h] || bot[(i - 1), j].BackColor == J1c[h])
+                                                {
+                                                    be = 1;
+                                                }
+                                            }
+
+                                            for (int h = 0; h < J2c.Count; h++)
+                                            {
+                                                if (bot[(i - 1), j].BackColor == J2c[h] || bot[(i - 1), j].BackColor == J2c[h])
+                                                {
+                                                    be = 1;
+                                                }
+                                            }
+
+                                            if (be == 1)
                                             {
 
                                             }
@@ -662,19 +1062,35 @@ namespace Othell
                                                     }
                                                     else
                                                     {
-                                                        if (bot[fit, cot].BackColor == bus)
+                                                        int bc = 0; //Bandera que indica si la ficha tiene el color deseado
+                                                        for (int h = 0; h < J1c.Count; h++)
                                                         {
-                                                            posif.Add((i + 1));
+                                                            if (bot[fit, cot].BackColor == J1c[h])
+                                                            {
+                                                                bc = 1;
+                                                            }
+                                                        }
+                                                        if (bc == 1)
+                                                        {
+                                                            posif.Add(i - 1);
                                                             posic.Add(j);
                                                             posff.Add(fit);
                                                             posfc.Add(cot);
-                                                            dir.Add("DV");
+                                                            dir.Add("UV");
                                                             ba = 1;
                                                             mov = 1;
                                                         }
                                                         else
                                                         {
-                                                            if (bot[fit, cot].BackColor == ori)
+                                                            int bd = 0; //Bandera que indica si la ficha tiene el color inicial
+                                                            for (int h = 0; h < J2c.Count; h++)
+                                                            {
+                                                                if (bot[fit, cot].BackColor == J2c[h])
+                                                                {
+                                                                    bd = 1;
+                                                                }
+                                                            }
+                                                            if (bd == 1)
                                                             {
 
                                                             }
@@ -697,10 +1113,28 @@ namespace Othell
                                         }
                                         else
                                         {
-                                            if (bot[i, (j - 1)].BackColor == Color.Black || bot[i, (j - 1)].BackColor == Color.White)
+                                            int be = 0; //Bandera que indica si esta coloreada con alguno de los colores
+                                            for (int h = 0; h < J1c.Count; h++)
+                                            {
+                                                if (bot[i, (j - 1)].BackColor == J1c[h] || bot[i, (j - 1)].BackColor == J1c[h])
+                                                {
+                                                    be = 1;
+                                                }
+                                            }
+
+                                            for (int h = 0; h < J2c.Count; h++)
+                                            {
+                                                if (bot[(i - 1), j].BackColor == J2c[h] || bot[(i - 1), j].BackColor == J2c[h])
+                                                {
+                                                    be = 1;
+                                                }
+                                            }
+
+                                            if (be == 1)
                                             {
 
                                             }
+                                           
                                             else
                                             {
                                                 int ba = 0;
@@ -717,8 +1151,18 @@ namespace Othell
                                                     }
                                                     else
                                                     {
-                                                        if (bot[fit, cot].BackColor == bus)
+
+                                                        int bc = 0; //Bandera que indica si la ficha tiene el color deseado
+                                                        for (int h = 0; h < J1c.Count; h++)
                                                         {
+                                                            if (bot[fit, cot].BackColor == J1c[h])
+                                                            {
+                                                                bc = 1;
+                                                            }
+                                                        }
+                                                        if (bc == 1)
+                                                        {
+
                                                             posif.Add(i);
                                                             posic.Add(j - 1);
                                                             posff.Add(fit);
@@ -729,10 +1173,19 @@ namespace Othell
                                                         }
                                                         else
                                                         {
-                                                            if (bot[fit, cot].BackColor == ori)
+                                                            int bd = 0; //Bandera que indica si la ficha tiene el color inicial
+                                                            for (int h = 0; h < J2c.Count; h++)
+                                                            {
+                                                                if (bot[fit, cot].BackColor == J2c[h])
+                                                                {
+                                                                    bd = 1;
+                                                                }
+                                                            }
+                                                            if (bd == 1)
                                                             {
 
                                                             }
+
                                                             else
                                                             {
                                                                 ba = 1;
@@ -1356,57 +1809,47 @@ namespace Othell
                     }
                     else
                     {
-                        if(AP == 1)
+                        //Contar si ya esta coloreado centro
+                        int P1C = (CO / 2) - 1;
+                        int P1F = (FI / 2) - 1;
+                        int P2C = (CO / 2) - 1;
+                        int P2F = FI / 2;
+                        int P3C = CO / 2;
+                        int P3F = FI / 2;
+                        int P4C = CO / 2;
+                        int P4F = (FI / 2) - 1;
+                        int conc = 0; //Cuenta piezas de centro
+                        if (bot[P1F, P1C].BackColor == Color.Black || bot[P1F, P1C].BackColor == Color.White || bot[P1F, P1C].BackColor == Color.Red || bot[P1F, P1C].BackColor == Color.Yellow || bot[P1F, P1C].BackColor == Color.Blue || bot[P1F, P1C].BackColor == Color.Orange || bot[P1F, P1C].BackColor == Color.Green || bot[P1F, P1C].BackColor == Color.MediumPurple || bot[P1F, P1C].BackColor == Color.SkyBlue || bot[P1F, P1C].BackColor == Color.Gray)
                         {
-                            if (aperturab == 0)
-                            {
-                                //Contar si ya esta coloreado centro
-                                int P1C = (CO / 2) - 1;
-                                int P1F = (FI / 2) - 1;
-                                int P2C = (CO / 2) - 1;
-                                int P2F = FI / 2;
-                                int P3C = CO / 2;
-                                int P3F = FI / 2;
-                                int P4C = CO / 2;
-                                int P4F = (FI / 2) - 1;
-                                int conc = 0; //Cuenta piezas de centro
-                                if (bot[P1F, P1C].BackColor == Color.Black || bot[P1F, P1C].BackColor == Color.White || bot[P1F, P1C].BackColor == Color.Red || bot[P1F, P1C].BackColor == Color.Yellow || bot[P1F, P1C].BackColor == Color.Blue || bot[P1F, P1C].BackColor == Color.Orange || bot[P1F, P1C].BackColor == Color.Green || bot[P1F, P1C].BackColor == Color.MediumPurple || bot[P1F, P1C].BackColor == Color.SkyBlue || bot[P1F, P1C].BackColor == Color.Gray)
-                                {
-                                    conc = conc + 1;
-                                }
+                            conc = conc + 1;
+                        }
 
-                                if (bot[P2F, P2C].BackColor == Color.Black || bot[P2F, P2C].BackColor == Color.White || bot[P2F, P2C].BackColor == Color.Red || bot[P2F, P2C].BackColor == Color.Yellow || bot[P2F, P2C].BackColor == Color.Blue || bot[P2F, P2C].BackColor == Color.Orange || bot[P2F, P2C].BackColor == Color.Green || bot[P2F, P2C].BackColor == Color.MediumPurple || bot[P2F, P2C].BackColor == Color.SkyBlue || bot[P2F, P2C].BackColor == Color.Gray)
-                                {
-                                    conc = conc + 1;
-                                }
+                        if (bot[P2F, P2C].BackColor == Color.Black || bot[P2F, P2C].BackColor == Color.White || bot[P2F, P2C].BackColor == Color.Red || bot[P2F, P2C].BackColor == Color.Yellow || bot[P2F, P2C].BackColor == Color.Blue || bot[P2F, P2C].BackColor == Color.Orange || bot[P2F, P2C].BackColor == Color.Green || bot[P2F, P2C].BackColor == Color.MediumPurple || bot[P2F, P2C].BackColor == Color.SkyBlue || bot[P2F, P2C].BackColor == Color.Gray)
+                        {
+                            conc = conc + 1;
+                        }
 
-                                if (bot[P3F, P3C].BackColor == Color.Black || bot[P3F, P3C].BackColor == Color.White || bot[P3F, P3C].BackColor == Color.Red || bot[P3F, P3C].BackColor == Color.Yellow || bot[P3F, P3C].BackColor == Color.Blue || bot[P3F, P3C].BackColor == Color.Orange || bot[P3F, P3C].BackColor == Color.Green || bot[P3F, P3C].BackColor == Color.MediumPurple || bot[P3F, P3C].BackColor == Color.SkyBlue || bot[P3F, P3C].BackColor == Color.Gray)
-                                {
-                                    conc = conc + 1;
-                                }
+                        if (bot[P3F, P3C].BackColor == Color.Black || bot[P3F, P3C].BackColor == Color.White || bot[P3F, P3C].BackColor == Color.Red || bot[P3F, P3C].BackColor == Color.Yellow || bot[P3F, P3C].BackColor == Color.Blue || bot[P3F, P3C].BackColor == Color.Orange || bot[P3F, P3C].BackColor == Color.Green || bot[P3F, P3C].BackColor == Color.MediumPurple || bot[P3F, P3C].BackColor == Color.SkyBlue || bot[P3F, P3C].BackColor == Color.Gray)
+                        {
+                            conc = conc + 1;
+                        }
 
-                                if (bot[P4F, P4C].BackColor == Color.Black || bot[P4F, P4C].BackColor == Color.White || bot[P4F, P4C].BackColor == Color.Red || bot[P4F, P4C].BackColor == Color.Yellow || bot[P4F, P4C].BackColor == Color.Blue || bot[P4F, P4C].BackColor == Color.Orange || bot[P4F, P4C].BackColor == Color.Green || bot[P4F, P4C].BackColor == Color.MediumPurple || bot[P4F, P4C].BackColor == Color.SkyBlue || bot[P4F, P4C].BackColor == Color.Gray)
-                                {
-                                    conc = conc + 1;
-                                }
+                        if (bot[P4F, P4C].BackColor == Color.Black || bot[P4F, P4C].BackColor == Color.White || bot[P4F, P4C].BackColor == Color.Red || bot[P4F, P4C].BackColor == Color.Yellow || bot[P4F, P4C].BackColor == Color.Blue || bot[P4F, P4C].BackColor == Color.Orange || bot[P4F, P4C].BackColor == Color.Green || bot[P4F, P4C].BackColor == Color.MediumPurple || bot[P4F, P4C].BackColor == Color.SkyBlue || bot[P4F, P4C].BackColor == Color.Gray)
+                        {
+                            conc = conc + 1;
+                        }
 
-                                if (conc == 4)
-                                {
-                                   
-                                    AP = 0;
-                                    aperturaC = 1;
-                                }
-                                else
-                                {
-                                    aperturaC = 0;
-                                    
-                                    AP = 0;
+                        if (conc == 4)
+                        {
 
-                                }
+                            AP = 0;
+                            
+                        }
+                       
+                        if (AP == 1)
+                        {
+                  
 
-
-                                if (aperturaC == 0)
-                                {
                                     //Encontrar posicion en el tablero
                                     String Pos = temp.ID;
                                     int Fila = (int)Char.GetNumericValue(Pos[1]) - 1;
@@ -1510,123 +1953,9 @@ namespace Othell
                                         }
                                     }
 
-                                }
-                                else
-                                {
-                                    //Encontrar posicion en el tablero
-                                    String Pos = temp.ID;
-                                    int Fila = (int)Char.GetNumericValue(Pos[1]) - 1;
-                                    int Columna = (int)(Pos[0]) - 65;
-                                    Color pin = Color.Lavender;
-                                    String tempco = J2[PCB];
-                                    PCB = PCB + 1;
-
-
-                                    switch (tempco)
-                                    {
-                                        case "Rojo":
-                                            pin = Color.Red;
-                                            break;
-
-                                        case "Amarillo":
-                                            pin = Color.Yellow;
-                                            break;
-
-                                        case "Azul":
-                                            pin = Color.Blue;
-                                            break;
-
-                                        case "Naranja":
-                                            pin = Color.Orange;
-                                            break;
-
-                                        case "Verde":
-                                            pin = Color.Green;
-                                            break;
-
-                                        case "Violeta":
-                                            pin = Color.MediumPurple;
-                                            break;
-
-                                        case "Blanco":
-                                            pin = Color.White;
-                                            break;
-
-                                        case "Negro":
-                                            pin = Color.Black;
-                                            break;
-
-                                        case "Celeste":
-                                            pin = Color.SkyBlue;
-                                            break;
-
-                                        case "Gris":
-                                            pin = Color.Gray;
-                                            break;
-
-                                    }
-
-                                    int PCSF = P1F - 1; //Fila superior a cuadrado central
-                                    int PCSCI = P1C - 1; //Inicio de columna
-                                    int PCSCF = P3C + 1; //Inicio de columna
-
-                                    int PCIF = P2F + 1; //Fila Inferior a cuadrado central
-                                    int PCICI = P1C - 1; //Inicio de columna
-                                    int PCICF = P3C + 1; //Inicio de columna
-
-                                    int PCFII = P1F; //Fila inicial a cuadrado central
-                                    int PCFFD = P2F; //Fila Final a cuadrado central
-                                    int PCI = P1C - 1; //columna izquierda
-
-
-                                    int PCF = P4C + 1; //columna derecha
-
-                                    if (Fila == PCIF && Columna >= PCICI && Columna <= PCICF)
-                                    {
-                                        temp.BackColor = pin;
-                                        x = 1;
-                                        Turno.Text = "Jugador 1";
-
-                                    }
-                                    else
-                                    {
-                                        if (Fila == PCSF && Columna >= PCSCI && Columna <= PCSCF)
-                                        {
-                                            temp.BackColor = pin;
-                                            x = 1;
-                                            Turno.Text = "Jugador 1";
-
-                                        }
-                                        else
-                                        {
-                                            if (Columna == PCI && Fila >= PCFII && Fila <= PCFFD)
-                                            {
-                                                temp.BackColor = pin;
-                                                x = 1;
-                                                Turno.Text = "Jugador 1";
-
-                                            }
-                                            else
-                                            {
-                                                if (Columna == PCF && Fila >= PCFII && Fila <= PCFFD)
-                                                {
-                                                    temp.BackColor = pin;
-                                                    x = 1;
-                                                    Turno.Text = "Jugador 1";
-
-                                                }
-                                                else
-                                                {
-                                                    Page.ClientScript.RegisterStartupScript(
-                                                   Page.GetType(),
-                                                   "Mensaje",
-                                                   "<script language='javascript'>alert('Movimiento no valido. Debe llenar las casillas que rodean al centro hasta que tenga una ficha de cada color en el tablero.');</script>");
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
+                                
+                                
+                            
                         }
                         
                         else
