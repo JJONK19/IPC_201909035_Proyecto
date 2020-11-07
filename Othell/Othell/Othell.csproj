@@ -73,6 +73,7 @@
     <Content Include="Intermedio - XM.aspx" />
     <Content Include="Intermedio.aspx" />
     <Content Include="Menu.aspx" />
+    <Content Include="Perfil.aspx" />
     <Content Include="Registro.aspx" />
     <Content Include="Tablero - M.Dinamico.aspx" />
     <Content Include="Tablero - V.Dinamico.aspx" />
@@ -123,6 +124,13 @@
     </Compile>
     <Compile Include="Menu.aspx.designer.cs">
       <DependentUpon>Menu.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Perfil.aspx.cs">
+      <DependentUpon>Perfil.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Perfil.aspx.designer.cs">
+      <DependentUpon>Perfil.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Registro.aspx.cs">

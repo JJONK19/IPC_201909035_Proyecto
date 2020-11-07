@@ -40,23 +40,6 @@ td, tr{
         width: 405px;
         border: 5px solid Black;
     }
-.auto-style82 {
-        z-index: 1;
-        left: 65px;
-        top: 494px;
-        position: absolute;
-        height: 29px;
-        width: 280px;
- }
-    
-    .auto-style89 {
-        width: 280px;
-        height: 22px;
-        position: absolute;
-        left: 69px;
-        top: 451px;
-        right: 56px;
-    }
     .auto-style90 {
         width: 150px;
         height: 22px;
@@ -175,8 +158,6 @@ td, tr{
             <br />
             <br />
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <h1 class="auto-style96">RESUMEN DE PARTIDA</h1><br />
-                <asp:Button ID="Button1" runat="server" BackColor="Black" BorderColor="Black" Font-Italic="True" ForeColor="White" Text="Cargar Partida" OnClick="Button1_Click1" CssClass="auto-style82" />
-                <asp:FileUpload ID="Subir" runat="server" BackColor="Black" BorderColor="Black" CssClass="auto-style89" style="font-style: italic; font-family: 'Arial Narrow'; font-weight: 700; background-color: #006B3C" accept= ".xml" />
 
                 <br />
                 <br />
@@ -201,7 +182,6 @@ td, tr{
             <br />
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<h3 class="auto-style93">Jugador 1</h3>
             <h3 class="auto-style94">Jugador 2</h3>
-            <h3 class="auto-style92">Seleccionar Archivo</h3>
         </asp:Panel>
        
         <asp:Button ID="Button3" runat="server" CssClass="auto-style88" Text="Salir" BackColor="Black" BorderColor="Black" ForeColor="White" Font-Italic="True" OnClick="Button3_Click" style="width: 280px; height: 26px; position: absolute; left: 87px; top: 600px" />
