@@ -52,12 +52,12 @@ namespace Othell
                 var J1e = new List<String>();
                 var J2e = new List<String>();
                 var J3e = new List<String>();
-                for (int i = 0; i <= node.Count - 1; i++)
+                for (int i = 0; i <= node1.Count - 1; i++)
                 {
-                    equipos.Add(node[i].ChildNodes.Item(0).InnerText.Trim());
-                    J1e.Add(node[i].ChildNodes.Item(1).InnerText.Trim());
-                    J2e.Add(node[i].ChildNodes.Item(2).InnerText.Trim());
-                    J3e.Add(node[i].ChildNodes.Item(3).InnerText.Trim());
+                    equipos.Add(node1[i].ChildNodes.Item(0).InnerText.Trim());
+                    J1e.Add(node1[i].ChildNodes.Item(1).InnerText.Trim());
+                    J2e.Add(node1[i].ChildNodes.Item(2).InnerText.Trim());
+                    J3e.Add(node1[i].ChildNodes.Item(3).InnerText.Trim());
                 }
 
                 //Registrar Equipos
@@ -67,14 +67,14 @@ namespace Othell
                 for (int i = 0; i < equipos.Count; i++)
                 {
                     
-                    SqlCommand c = new SqlCommand("SELECT COUNT(*) from Equipos where Nombre like '" + equipos[0] + "'", con);
+                    SqlCommand c = new SqlCommand("SELECT COUNT(*) from Equipos where Nombre like '" + equipos[i] + "'", con);
                     int equipo = (int)c.ExecuteScalar();
                     if(equipo == 0)
                     {
                         const string FMT = "yyyy-MM-dd";
                         DateTime hoy = DateTime.Now;
                         string nom3 = hoy.ToString(FMT);
-                        SqlCommand b8 = new SqlCommand("Insert Into Equipos (Nombre, FechaCreacion) values ('" + equipos[0] + "' , '" + nom3 +"')", con);
+                        SqlCommand b8 = new SqlCommand("Insert Into Equipos (Nombre, FechaCreacion) values ('" + equipos[i] + "' , '" + nom3 +"')", con);
                         b8.ExecuteNonQuery();
                         
                     }
@@ -126,10 +126,10 @@ namespace Othell
                     SqlCommand b5 = new SqlCommand("Insert Into Jugador_Equipo (IDEquipo, IDJugador) values (" + IDE.ToString() + " , " + ID1.ToString() + ")", cono);
                     b5.ExecuteNonQuery();
 
-                    SqlCommand b1 = new SqlCommand("Insert Into Jugador_Equipo (IDEquipo, IDJugador) values (" + IDE.ToString() + " , " + ID1.ToString() + ")", cono);
+                    SqlCommand b1 = new SqlCommand("Insert Into Jugador_Equipo (IDEquipo, IDJugador) values (" + IDE.ToString() + " , " + ID2.ToString() + ")", cono);
                     b1.ExecuteNonQuery();
 
-                    SqlCommand b2 = new SqlCommand("Insert Into Jugador_Equipo (IDEquipo, IDJugador) values (" + IDE.ToString() + " , " + ID1.ToString() + ")", cono);
+                    SqlCommand b2 = new SqlCommand("Insert Into Jugador_Equipo (IDEquipo, IDJugador) values (" + IDE.ToString() + " , " + ID3.ToString() + ")", cono);
                     b2.ExecuteNonQuery();
                 }
                 cono.Close();
@@ -143,7 +143,7 @@ namespace Othell
                 DateTime hoy1 = DateTime.Now;
                 string nom = hoy1.ToString(FMT1);
                 int noj = equipos.Count * 3;
-                SqlCommand b = new SqlCommand("Insert Into Torneo (Nombre, NoJugadores, FechaCreacion) values ('" + nombre + "' ,"+noj.ToString() +",'" + nom + "')", con);
+                SqlCommand b = new SqlCommand("Insert Into Torneo (NombreTorneo, NoJugadores, FechaCreacion) values ('" + nombre + "' ,"+noj.ToString() +",'" + nom + "')", cono);
                 b.ExecuteNonQuery();
                 cono.Close();
 
@@ -152,7 +152,7 @@ namespace Othell
                 cono.ConnectionString = "Data Source =.; Initial Catalog = Othello; Integrated Security = True";
                 cono.Open();
                 int IDT = 0;
-                SqlCommand x = new SqlCommand("SELECT IDTorneo from Equipos where NombreTorneo like '" + nombre + "'", cono);
+                SqlCommand x = new SqlCommand("SELECT IDTorneo from Torneo where NombreTorneo like '" + nombre + "'", cono);
                 SqlDataReader z = x.ExecuteReader();
                 if (z.Read())
                 {
@@ -184,7 +184,7 @@ namespace Othell
                 Session["J3e"] = J3e;
                
                 
-                Response.Redirect("~/Tablero - X.Dinamico.aspx");
+               
             }
             else
             {

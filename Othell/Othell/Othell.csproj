@@ -81,6 +81,7 @@
     <Content Include="Tablero - X.Dinamico.aspx" />
     <Content Include="Tablero - XM.Dinamico.aspx" />
     <Content Include="Tablero.aspx" />
+    <Content Include="Torneo - Diagrama.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -177,6 +178,13 @@
     </Compile>
     <Compile Include="Tablero.aspx.designer.cs">
       <DependentUpon>Tablero.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Torneo - Diagrama.aspx.cs">
+      <DependentUpon>Torneo - Diagrama.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Torneo - Diagrama.aspx.designer.cs">
+      <DependentUpon>Torneo - Diagrama.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
