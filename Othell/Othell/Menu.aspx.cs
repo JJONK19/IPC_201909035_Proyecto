@@ -44,5 +44,15 @@ namespace Othell
         {
             Response.Redirect("~/Perfil.aspx");
         }
+
+        protected void Button7_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Inicio.aspx");
+        }
+
+        protected void Button8_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Intermedio - Torneo.aspx");
+        }
     }
 }

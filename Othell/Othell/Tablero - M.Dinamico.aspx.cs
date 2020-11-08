@@ -1874,7 +1874,7 @@ namespace Othell
                 var col = new List<String>(); ;
                 for (i = 0; i <= node.Count - 1; i++)
                 {
-                    node[i].ChildNodes.Item(0).InnerText.Trim();
+                   
                     pos.Add(node[i].ChildNodes.Item(1).InnerText.Trim() + node[i].ChildNodes.Item(2).InnerText.Trim());
                     col.Add(node[i].ChildNodes.Item(0).InnerText.Trim());
                 }

@@ -69,6 +69,7 @@
   <ItemGroup>
     <Content Include="Inicio.aspx" />
     <Content Include="Intermedio - M.aspx" />
+    <Content Include="Intermedio - Torneo.aspx" />
     <Content Include="Intermedio - X.aspx" />
     <Content Include="Intermedio - XM.aspx" />
     <Content Include="Intermedio.aspx" />
@@ -96,6 +97,13 @@
     </Compile>
     <Compile Include="Intermedio - M.aspx.designer.cs">
       <DependentUpon>Intermedio - M.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Intermedio - Torneo.aspx.cs">
+      <DependentUpon>Intermedio - Torneo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Intermedio - Torneo.aspx.designer.cs">
+      <DependentUpon>Intermedio - Torneo.aspx</DependentUpon>
     </Compile>
     <Compile Include="Intermedio - X.aspx.cs">
       <DependentUpon>Intermedio - X.aspx</DependentUpon>
