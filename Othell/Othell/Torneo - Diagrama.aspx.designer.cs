@@ -31,15 +31,6 @@ namespace Othell {
         protected global::System.Web.UI.WebControls.Panel Panel2;
         
         /// <summary>
-        /// Control TextBox1.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox1;
-        
-        /// <summary>
         /// Control TextBox2.
         /// </summary>
         /// <remarks>
@@ -47,6 +38,15 @@ namespace Othell {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TextBox2;
+        
+        /// <summary>
+        /// Control TextBox1.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBox1;
         
         /// <summary>
         /// Control TextBox3.
@@ -175,6 +175,15 @@ namespace Othell {
         protected global::System.Web.UI.WebControls.TextBox TextBox16;
         
         /// <summary>
+        /// Control TextBox20.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBox20;
+        
+        /// <summary>
         /// Control TextBox18.
         /// </summary>
         /// <remarks>
@@ -193,13 +202,13 @@ namespace Othell {
         protected global::System.Web.UI.WebControls.TextBox TextBox19;
         
         /// <summary>
-        /// Control TextBox20.
+        /// Control TextBox22.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox20;
+        protected global::System.Web.UI.WebControls.TextBox TextBox22;
         
         /// <summary>
         /// Control TextBox21.
@@ -211,13 +220,13 @@ namespace Othell {
         protected global::System.Web.UI.WebControls.TextBox TextBox21;
         
         /// <summary>
-        /// Control TextBox22.
+        /// Control TextBox24.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox22;
+        protected global::System.Web.UI.WebControls.TextBox TextBox24;
         
         /// <summary>
         /// Control TextBox23.
@@ -229,13 +238,13 @@ namespace Othell {
         protected global::System.Web.UI.WebControls.TextBox TextBox23;
         
         /// <summary>
-        /// Control TextBox24.
+        /// Control TextBox17.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox24;
+        protected global::System.Web.UI.WebControls.TextBox TextBox17;
         
         /// <summary>
         /// Control TextBox25.
@@ -247,15 +256,6 @@ namespace Othell {
         protected global::System.Web.UI.WebControls.TextBox TextBox25;
         
         /// <summary>
-        /// Control TextBox26.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox26;
-        
-        /// <summary>
         /// Control TextBox27.
         /// </summary>
         /// <remarks>
@@ -263,6 +263,15 @@ namespace Othell {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TextBox27;
+        
+        /// <summary>
+        /// Control TextBox26.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBox26;
         
         /// <summary>
         /// Control TextBox28.
@@ -292,6 +301,33 @@ namespace Othell {
         protected global::System.Web.UI.WebControls.TextBox TextBox30;
         
         /// <summary>
+        /// Control Titulo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox Titulo;
+        
+        /// <summary>
+        /// Control Panel3.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel Panel3;
+        
+        /// <summary>
+        /// Control Button1.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button1;
+        
+        /// <summary>
         /// Control TextBox31.
         /// </summary>
         /// <remarks>
@@ -310,12 +346,48 @@ namespace Othell {
         protected global::System.Web.UI.WebControls.TextBox TextBox32;
         
         /// <summary>
-        /// Control Titulo.
+        /// Control TextBox33.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox Titulo;
+        protected global::System.Web.UI.WebControls.TextBox TextBox33;
+        
+        /// <summary>
+        /// Control TextBox34.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBox34;
+        
+        /// <summary>
+        /// Control Button2.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button2;
+        
+        /// <summary>
+        /// Control TextBox35.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBox35;
+        
+        /// <summary>
+        /// Control TextBox36.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBox36;
     }
 }

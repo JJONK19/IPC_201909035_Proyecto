@@ -182,9 +182,9 @@ namespace Othell
                 Session["J1e"] = J1e;
                 Session["J2e"] = J2e;
                 Session["J3e"] = J3e;
-               
-                
-               
+
+                Response.Redirect("~/Torneo - Diagrama.aspx");
+
             }
             else
             {
